@@ -238,5 +238,4 @@ class Avatar extends Gravatar
 
 		return $sUrl . '?' . http_build_query($aParams, '', '&amp;');;
 	}
-
 }
