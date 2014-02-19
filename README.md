@@ -2,18 +2,34 @@
 
 Gravatar is a small library intended to provide easy integration of... Gravatar :)
 
-It will help you generate the URL Gravatar for Gravatar images and profiles.
+It will help you generate the URL for Gravatar images and profiles.
 
-## License
+* [Installation](#install)
+    * [Requirements](#requirements)
+    * [With Composer](#withComposer)
+* [Usage examples](#examples)
+    * [Single Gravatar image/profile](#singleGravatar)
+    * [Single Gravatar image/profile with optional parameters](#singleGravatarWithParameters)
+    * [Multiples Gravatar images/profiles](#multiplesGravatars)
+    * [Multiples Gravatar images/profiles with optional parameters](#multiplesGravatarsWithParameters)
+* [Optional parameters](#optionalParameters)
+    * [Gravatar image size](#paramImageSize)
+    * [Default Gravatar image](#paramDefaultImage)
+    * [Gravatar image max rating](#paramImageMaxRating)
+    * [Gravatar image file-type extension](#paramImageExtension)
+    * [Use secure URL for Gravatar image](#paramImageSecureUrl)
+    * [Gravatar profile format](#paramProfileFormat)
+* [License](#license)
 
-This library is licensed under the MIT license; you can find a full copy of the license itself in the file /LICENSE
-
+<a name="install"/>
 ## Installation
 
+<a name="install"/>
 ### Requirements
 
 * PHP 5.3.0 or newer
 
+<a name="withComposer"/>
 ### With Composer
 
 The easiest way to install Gravatar is via [composer](http://getcomposer.org/).
@@ -26,9 +42,11 @@ The easiest way to install Gravatar is via [composer](http://getcomposer.org/).
 }
 ```
 
+<a name="examples"/>
 ## Usage examples
 
-### Single image/profile
+<a name="singleGravatar"/>
+### Single Gravatar image/profile
 
 If you want to retrieve a single Gravatar image/profile URL you can use the main Gravatar class like this:
 
@@ -42,11 +60,12 @@ use forxer\Gravatar\Gravatar;
 echo Gravatar::avatar('email@example.com');
 // output: http://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
 
-// Get a single profile
+// Get a single Gravatar profile
 echo Gravatar::profile('email@example.com');
 // output: http://www.gravatar.com/5658ffccee7f0ebfda2b226238b1eb6e
 ```
 
+<a name="singleGravatarWithParameters"/>
 ### Single Gravatar image/profile with optional parameters
 
 You can add some optional parameters :
@@ -77,6 +96,7 @@ echo Gravatar::profile('email@example.com', 'json');
 // output: http://www.gravatar.com/5658ffccee7f0ebfda2b226238b1eb6e.json
 ```
 
+<a name="multiplesGravatars"/>
 ### Multiples Gravatar images/profiles
 
 In fact `Gravatar::avatar()` and `Gravatar::profile()` methods are just shorcuts for two other subclass thats manage Gravatar images and profiles.
@@ -92,20 +112,24 @@ use forxer\Gravatar\Profile;
 
 $emails = array('email1@example.com', 'email2@example.com','email3@example.com', /* ... */ );
 
-// Get multiples  Gravatar images
+// Get multiples Gravatar images
 $avatar = new Avatar();
 
 foreach ($emails as $email) {
 	echo $avatar->getUrl($email);
 }
 
-// Get multiples profiles
+// Get multiples Gravatar profiles
 $profile = new Profile();
 
 foreach ($emails as $email) {
 	echo $profile->getUrl($email);
 }
 ```
+
+<a name="multiplesGravatarsWithParameters"/>
+### Multiples Gravatar images/profiles with optional parameters
+
 The main advantage of this method is that you do not have to be redefined every time the optional parameters:
 
 ```php
@@ -127,7 +151,7 @@ foreach ($emails as $email) {
 	echo $avatar->getUrl($email);
 }
 
-// Get multiples profiles in JSON
+// Get multiples Gravatar profiles in JSON
 $profile = new Profile();
 $profile->setFormat('json');
 
@@ -136,8 +160,10 @@ foreach ($emails as $email) {
 }
 ```
 
+<a name="optionalParameters"/>
 ## Optional parameters
 
+<a name="paramImageSize"/>
 ### Gravatar image size
 
 By default, images are presented at 80px by 80px if no size parameter is supplied.
@@ -157,6 +183,7 @@ $avatar
 	->setSize(120);
 ```
 
+<a name="paramDefaultImage"/>
 ### Default Gravatar image
 
 What happens when an email address has no matching Gravatar image or when the gravatar specified exceeds your maximum allowed content rating?
@@ -194,6 +221,7 @@ $avatar
 	->setDefaultImage('mm');
 ```
 
+<a name="paramImageMaxRating"/>
 ### Gravatar image max rating
 
 Gravatar allows users to self-rate their images so that they can indicate if an image is appropriate for a certain audience.
@@ -216,6 +244,7 @@ $avatar
 	->setMaxRating('g');
 ```
 
+<a name="paramImageExtension"/>
 ### Gravatar image file-type extension
 
 If you require a file-type extension (some places do) then you may also specify it.
@@ -230,6 +259,7 @@ $avatar
 	->setExtension('jpg');
 ```
 
+<a name="paramImageSecureUrl"/>
 ### Use secure URL for Gravatar image
 
 If your site is served over HTTPS, you'll likely want to serve gravatars over HTTPS as well to avoid "mixed content warnings".
@@ -264,9 +294,10 @@ $avatar->disableSecure();
 $avatar->usingSecure(); // false
 ```
 
-### Profile format
+<a name="paramProfileFormat"/>
+### Gravatar profile format
 
-Profile data may be requested in different data formats for simpler programmatic access.
+Gravatar profile data may be requested in different data formats for simpler programmatic access.
 
 ```php
 // pass the Gravatar profile format as second parameter of `Gravatar::profile()`
@@ -285,3 +316,9 @@ The following formats are supported:
 * PHP ; use 'php' as parameter
 * VCF/vCard ; use 'vcf' as parameter
 * QR Code ; use 'qr' as parameter
+
+
+<a name="license"/>
+## License
+
+This library is licensed under the MIT license; you can find a full copy of the license itself in the file /LICENSE
