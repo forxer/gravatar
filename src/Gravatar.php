@@ -13,7 +13,7 @@ class Gravatar
 	const URL = 'http://www.gravatar.com/';
 
 	/**
-	 * Return the avatar URL based on the provided email address.
+	 * Return the Gravatar image URL based on the provided email address.
 	 *
 	 * @param string $sEmail The email to get the gravatar for.
 	 * @param string $iSize The avatar size to use, must be less than 2048 and greater than 0.
@@ -23,7 +23,7 @@ class Gravatar
 	 * @param boolean $bSecure Enable the use of the secure protocol for URLs.
 	 * @return string  The URL to the gravatar.
 	 */
-	public static function avatar($sEmail, $iSize = null, $sDefaultImage = null, $sRating = null, $sExtension = null, $bSecure = false)
+	public static function image($sEmail, $iSize = null, $sDefaultImage = null, $sRating = null, $sExtension = null, $bSecure = false)
 	{
 		$avatar = new Avatar();
 
@@ -41,7 +41,7 @@ class Gravatar
 	}
 
 	/**
-	 * Return the profile URL based on the provided email address.
+	 * Return the Gravatar profile URL based on the provided email address.
 	 *
 	 * @param string $sEmail The email to get the gravatar for
 	 * @param string $sFormat The profile format to use

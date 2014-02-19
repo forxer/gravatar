@@ -57,7 +57,7 @@ require 'vendor/autoload.php';
 use forxer\Gravatar\Gravatar;
 
 // Get a single Gravatar image
-echo Gravatar::avatar('email@example.com');
+echo Gravatar::image('email@example.com');
 // output: http://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
 
 // Get a single Gravatar profile
@@ -84,11 +84,11 @@ require 'vendor/autoload.php';
 use forxer\Gravatar\Gravatar;
 
 // Get a single Gravatar image with size and default image:
-Gravatar::avatar('email@example.com', 120, 'mm')
+Gravatar::image('email@example.com', 120, 'mm')
 // output: http://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e?s=120&d=mm
 
 // Get a single Gravatar image with all options:
-Gravatar::avatar('email@example.com', 120, 'mm', 'g', 'jpg', true)
+Gravatar::image('email@example.com', 120, 'mm', 'g', 'jpg', true)
 // output: https://secure.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e.jpg?s=120&d=mm&r=g
 
 // Get a single profile in JSON
@@ -99,7 +99,7 @@ echo Gravatar::profile('email@example.com', 'json');
 <a name="multiplesGravatars"/>
 ### Multiples Gravatar images/profiles
 
-In fact `Gravatar::avatar()` and `Gravatar::profile()` methods are just shorcuts for two other subclass thats manage Gravatar images and profiles.
+In fact `Gravatar::image()` and `Gravatar::profile()` methods are just shorcuts for two other subclass thats manage Gravatar images and profiles.
 
 So if you want to retrieve multiples Gravatar images/profiles URL you should instanciate this two classes:
 
@@ -174,8 +174,8 @@ so requesting larger sizes may result in pixelation/low-quality images.
 An avatar size should be an integer representing the size in pixels.
 
 ```php
-// pass the size as second parameter of `Gravatar::avatar()`
-Gravatar::avatar('email@example.com', 120);
+// pass the size as second parameter of `Gravatar::image()`
+Gravatar::image('email@example.com', 120);
 
 // or use the `setSize()` method of \forxer\Gravatar\Avatar
 $avatar = new Avatar();
@@ -212,8 +212,8 @@ To use these options, just pass one of the following keywords:
 ![Blank default Gravatar image](http://www.gravatar.com/avatar/00000000000000000000000000000000?d=blank&f=y)
 
 ```php
-// pass the default Gravatar image as third parameter of `Gravatar::avatar()`
-Gravatar::avatar('email@example.com', null, 'mm');
+// pass the default Gravatar image as third parameter of `Gravatar::image()`
+Gravatar::image('email@example.com', null, 'mm');
 
 // or use the `setDefaultImage()` method of \forxer\Gravatar\Avatar
 $avatar = new Avatar();
@@ -235,8 +235,8 @@ You may specify one of the following ratings to request images up to and includi
 * x: may contain hardcore sexual imagery or extremely disturbing violence.
 
 ```php
-// pass the Gravatar image max rating as fourth parameter of `Gravatar::avatar()`
-Gravatar::avatar('email@example.com', null, null, 'g');
+// pass the Gravatar image max rating as fourth parameter of `Gravatar::image()`
+Gravatar::image('email@example.com', null, null, 'g');
 
 // or use the `setMaxRating()` method of \forxer\Gravatar\Avatar
 $avatar = new Avatar();
@@ -250,8 +250,8 @@ $avatar
 If you require a file-type extension (some places do) then you may also specify it.
 
 ```php
-// pass the Gravatar image file-type extension as fifth parameter of `Gravatar::avatar()`
-Gravatar::avatar('email@example.com', null, null, null, 'jpg');
+// pass the Gravatar image file-type extension as fifth parameter of `Gravatar::image()`
+Gravatar::image('email@example.com', null, null, null, 'jpg');
 
 // or use the `setExtension()` method of \forxer\Gravatar\Avatar
 $avatar = new Avatar();
@@ -265,15 +265,15 @@ $avatar
 If your site is served over HTTPS, you'll likely want to serve gravatars over HTTPS as well to avoid "mixed content warnings".
 
 ```php
-// to use secure URL for Gravatar image set the sixth parameter of `Gravatar::avatar()` to `true`
-Gravatar::avatar('email@example.com', null, null, null, null, true);
+// to use secure URL for Gravatar image set the sixth parameter of `Gravatar::image()` to `true`
+Gravatar::image('email@example.com', null, null, null, null, true);
 
 // or use the `enableSecure()` method of \forxer\Gravatar\Avatar
 $avatar = new Avatar();
 $avatar
 	->enableSecure();
 ```
-To check to see if you are using "secure" mode, call the method `usingSecure()` of `Gravatar::avatar()`,
+To check to see if you are using "secure" mode, call the method `usingSecure()` of `\forxer\Gravatar\Avatar`,
 which will return a boolean value regarding whether or not secure mode is enabled.
 
 ```php
