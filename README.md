@@ -12,7 +12,7 @@ It will help you generate the URL for Gravatar images and profiles.
     * [Single Gravatar image/profile with optional parameters](#singleGravatarWithParameters)
     * [Multiples Gravatar images/profiles](#multiplesGravatars)
     * [Multiples Gravatar images/profiles with optional parameters](#multiplesGravatarsWithParameters)
-    * [the dynamic way](#dynamicWay)
+    * [The dynamic way](#dynamicWay)
 * [Optional parameters](#optionalParameters)
     * [Gravatar image size](#paramImageSize)
     * [Default Gravatar image](#paramDefaultImage)
@@ -175,27 +175,27 @@ In some case, for some reason, you would use the library in another way.
 <?php
 require 'vendor/autoload.php';
 
-use forxer\Gravatar\Avatar;
-use forxer\Gravatar\Profile;
+use forxer\Gravatar\Image as GravatarImage;
+use forxer\Gravatar\Profile as GravatarProfile;
 
 $emails = array('email1@example.com', 'email2@example.com','email3@example.com', /* ... */ );
 
 // Get multiples Gravatar images with size and default image:
-$avatar = new Avatar();
-$avatar
+$gravatarImage = new GravatarImage();
+$gravatarImage
     ->setSize(120)
     ->setDefaultImage('mm');
 
 foreach ($emails as $email) {
-    echo $avatar->getUrl($email);
+    echo $gravatarImage->getUrl($email);
 }
 
 // Get multiples Gravatar profiles in JSON
-$profile = new Profile();
-$profile->setFormat('json');
+$gravatarProfile = new GravatarProfile();
+$gravatarProfile->setFormat('json');
 
 foreach ($emails as $email) {
-    echo $profile->getUrl($email);
+    echo $gravatarProfile->getUrl($email);
 }
 ```
 
