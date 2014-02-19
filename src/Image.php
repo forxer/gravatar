@@ -10,7 +10,7 @@ namespace forxer\Gravatar;
 
 use \InvalidArgumentException;
 
-class Avatar extends Gravatar
+class Image extends Gravatar
 {
 	const SECURE_URL = 'https://secure.gravatar.com/';
 
