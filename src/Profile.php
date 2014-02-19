@@ -42,7 +42,9 @@ class Profile extends Gravatar
 	 */
 	public function getData($sEmail)
 	{
-		$sProfile = file_get_contents($this->getUrl($sEmail).'.php');
+		$this->sFormat = 'php';
+
+		$sProfile = file_get_contents($this->getUrl($sEmail));
 
 		$aProfile = unserialize($sProfile);
 

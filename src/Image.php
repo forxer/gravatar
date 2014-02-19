@@ -20,14 +20,15 @@ class Image extends Gravatar
 	protected $iSize;
 
 	/**
-	 * @var string The extension to append to the avatars URL.
+	 * @var string The default image to use ; either a string of
+	 *             the gravatar recognized default image "type" to use, or a URL
 	 */
-	protected $sExtension;
+	protected $sDefaultImage;
 
 	/**
-	 * @var array List of accepted extensions.
+	 * @var array List of accepted gravatar recognized default image "type".
 	 */
-	protected $aValidExtensions = array('jpg', 'jpeg', 'gif', 'png');
+	protected $aValidDefaultsImages = array('404', 'mm', 'identicon', 'monsterid', 'wavatar', 'retro', 'blank');
 
 	/**
 	 * @var string The maximum rating to allow for the avatars.
@@ -40,25 +41,24 @@ class Image extends Gravatar
 	protected $aValidRatings = array('g', 'pg', 'r', 'x');
 
 	/**
-	 * @var string The default image to use ; either a string of
-	 *             the gravatar recognized default image "type" to use, or a URL
+	 * @var string The extension to append to the avatars URL.
 	 */
-	protected $sDefaultImage;
+	protected $sExtension;
 
 	/**
-	 * @var string
+	 * @var array List of accepted extensions.
 	 */
-	protected $sParamsCache;
-
-	/**
-	 * @var array List of accepted gravatar recognized default image "type".
-	 */
-	protected $aValidDefaultsImages = array('404', 'mm', 'identicon', 'monsterid', 'wavatar', 'retro', 'blank');
+	protected $aValidExtensions = array('jpg', 'jpeg', 'gif', 'png');
 
 	/**
 	 * @var boolean    Should we use the secure (HTTPS) URL base?
 	 */
 	protected $bUseSecureUrl = false;
+
+	/**
+	 * @var string
+	 */
+	protected $sParamsCache;
 
 	/**
 	 * Build the avatar URL based on the provided email address.
