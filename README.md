@@ -7,6 +7,7 @@ It will help you generate the URL for Gravatar images and profiles.
 * [Installation](#install)
     * [Requirements](#requirements)
     * [With Composer](#withComposer)
+    * [Without Composer](#withoutComposer)
 * [Usage](#Usage)
     * [Single Gravatar image/profile](#singleGravatar)
     * [Single Gravatar image/profile with optional parameters](#singleGravatarWithParameters)
