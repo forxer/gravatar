@@ -103,7 +103,7 @@ echo Gravatar::profile('email@example.com', 'json');
 
 If you want to retrieve multiples Gravatar images/profiles URL you can also use the main Gravatar class with `Gravatar::images()` and `Gravatar::profiles()` methods.
 
-Note the presence of the "s" character at the end of method names.
+Note the presence of the "s" character at the end of methods names.
 
 ```php
 <?php
@@ -113,12 +113,12 @@ use forxer\Gravatar\Gravatar;
 
 $emails = array('email1@example.com', 'email2@example.com','email3@example.com', /* ... */ );
 
-// Get a multiples Gravatar images
+// Get multiples Gravatar images:
 foreach (Gravatar::images($emails) as $url) {
 	echo $url;
 }
 
-// Get a multiples Gravatar profiles
+// Get multiples Gravatar profiles:
 foreach (Gravatar::profiles($emails) as $url) {
 	echo $url;
 }
