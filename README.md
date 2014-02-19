@@ -33,7 +33,7 @@ It will help you generate the URL for Gravatar images and profiles.
 <a name="withComposer"/>
 ### With Composer
 
-The easiest way to install Gravatar is via [composer](http://getcomposer.org/).
+The easiest way to install Gravatar is via [Composer](http://getcomposer.org/).
 
 ```json
 {
@@ -42,6 +42,14 @@ The easiest way to install Gravatar is via [composer](http://getcomposer.org/).
 	}
 }
 ```
+
+<a name="withoutComposer"/>
+### Without Composer
+
+You should use composer, it's so convenient. However, if you really do not want, or can not, you can
+[download the latest version](https://github.com/forxer/gravatar/releases/latest) and unpack the archive.
+
+Then, you do what it takes to use it with your own autoloader. The examples below use the Composer autoloader.
 
 <a name="Usage"/>
 ## Usage
