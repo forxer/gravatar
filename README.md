@@ -12,6 +12,7 @@ It will help you generate the URL for Gravatar images and profiles.
     * [Single Gravatar image/profile with optional parameters](#singleGravatarWithParameters)
     * [Multiples Gravatar images/profiles](#multiplesGravatars)
     * [Multiples Gravatar images/profiles with optional parameters](#multiplesGravatarsWithParameters)
+    * [the dynamic way](#dynamicWay)
 * [Optional parameters](#optionalParameters)
     * [Gravatar image size](#paramImageSize)
     * [Default Gravatar image](#paramDefaultImage)
@@ -160,6 +161,41 @@ foreach (Gravatar::images($emails, 120, 'mm', 'g', 'jpg', true) as $url) {
 // Get multiples Gravatar profiles in JSON:
 foreach (Gravatar::profiles($emails, 'json') as $url) {
 	echo $url;
+}
+```
+<a name="dynamicWay"/>
+### The dynamic way
+
+In fact, `Gravatar::image()`, `Gravatar::images()`, `Gravatar::profile()` and `Gravatar::profiles()` static methods are just shortcuts for convenient use.
+Behind these static methods, there are two classes : \forxer\Gravatar\Image and \forxer\Gravatar\Profile
+
+In some case, for some reason, you would use the library in another way.
+
+```php
+<?php
+require 'vendor/autoload.php';
+
+use forxer\Gravatar\Avatar;
+use forxer\Gravatar\Profile;
+
+$emails = array('email1@example.com', 'email2@example.com','email3@example.com', /* ... */ );
+
+// Get multiples Gravatar images with size and default image:
+$avatar = new Avatar();
+$avatar
+    ->setSize(120)
+    ->setDefaultImage('mm');
+
+foreach ($emails as $email) {
+    echo $avatar->getUrl($email);
+}
+
+// Get multiples Gravatar profiles in JSON
+$profile = new Profile();
+$profile->setFormat('json');
+
+foreach ($emails as $email) {
+    echo $profile->getUrl($email);
 }
 ```
 
