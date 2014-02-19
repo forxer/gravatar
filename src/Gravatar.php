@@ -15,20 +15,21 @@ class Gravatar
 	/**
 	 * Return the avatar URL based on the provided email address.
 	 *
-	 * @param string $iSize
-	 * @param string $sImage
-	 * @param string $sRating
-	 * @param string $sExtension
-	 * @param boolean $bSecure
+	 * @param string $sEmail The email to get the gravatar for.
+	 * @param string $iSize The avatar size to use, must be less than 2048 and greater than 0.
+	 * @param string $sDefaultImage The default image to use. Use a valid image URL, or a recognized gravatar "default".
+	 * @param string $sRating The maximum rating to use for avatars
+	 * @param string $sExtension The avatar extension to use
+	 * @param boolean $bSecure Enable the use of the secure protocol for URLs.
 	 * @return string  The URL to the gravatar.
 	 */
-	public static function avatar($sEmail, $iSize = null, $sImage = null, $sRating = null, $sExtension = null, $bSecure = false)
+	public static function avatar($sEmail, $iSize = null, $sDefaultImage = null, $sRating = null, $sExtension = null, $bSecure = false)
 	{
 		$avatar = new Avatar();
 
 		$avatar
 			->setSize($iSize)
-			->setDefaultImage($sImage)
+			->setDefaultImage($sDefaultImage)
 			->setMaxRating($sRating)
 			->setExtension($sExtension);
 
@@ -39,6 +40,13 @@ class Gravatar
 		return $avatar->getUrl($sEmail);
 	}
 
+	/**
+	 * Return the profile URL based on the provided email address.
+	 *
+	 * @param string $sEmail The email to get the gravatar for
+	 * @param string $sFormat The profile format to use
+	 * @return string
+	 */
 	public static function profile($sEmail, $sFormat = null)
 	{
 		$profil = new Profile();
@@ -51,10 +59,10 @@ class Gravatar
 	/**
 	 * Get the email hash to use (after cleaning the string).
 	 *
-	 * @param string $sEmail The email to get the hash for.
-	 * @return string  The hashed form of the email.
+	 * @param string $sEmail The email to get the hash for
+	 * @return string  The hashed form of the email
 	 */
-	public function getHash($sEmail)
+	protected function getHash($sEmail)
 	{
 		return md5(strtolower(trim($sEmail)));
 	}

@@ -25,7 +25,7 @@ class Profile extends Gravatar
 	/**
 	 * Build the profile URL based on the provided email address.
 	 *
-	 * @param string $sEmail       The email to get the gravatar for.
+	 * @param string $sEmail The email to get the gravatar profile for
 	 * @return string
 	 */
 	public function getUrl($sEmail)
@@ -37,7 +37,7 @@ class Profile extends Gravatar
 	/**
 	 * Return profile data based on the provided email address.
 	 *
-	 * @param string $sEmail The email to get the gravatar profile for.
+	 * @param string $sEmail The email to get the gravatar profile for
 	 * @return array
 	 */
 	public function getData($sEmail)
@@ -64,7 +64,7 @@ class Profile extends Gravatar
 	/**
 	 * Set the profile format to use.
 	 *
-	 * @param string $sFormat      The profile format to use
+	 * @param string $sFormat The profile format to use
 	 * @throws \InvalidArgumentException
 	 * @return Profile The current Profile instance
 	 */

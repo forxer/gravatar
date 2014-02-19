@@ -128,8 +128,7 @@ class Avatar extends Gravatar
 	/**
 	 * Set the default image to use for avatars.
 	 *
-	 * @param string $sDefaultImage   The default image to use. Use a valid image URL,
-	 *                         or a recognized gravatar "default".
+	 * @param string $sDefaultImage   The default image to use. Use a valid image URL, or a recognized gravatar "default".
 	 * @throws \InvalidArgumentException
 	 * @return Avatar The current Avatar instance
 	 */
@@ -171,7 +170,7 @@ class Avatar extends Gravatar
 	/**
 	 * Set the maximum allowed rating for avatars.
 	 *
-	 * @param string $sRating      The maximum rating to use for avatars
+	 * @param string $sRating The maximum rating to use for avatars
 	 * @throws \InvalidArgumentException
 	 * @return Avatar The current Avatar instance
 	 */
@@ -207,7 +206,7 @@ class Avatar extends Gravatar
 	/**
 	 * Set the avatar extension to use.
 	 *
-	 * @param string $sExtension      The avatar extension to use
+	 * @param string $sExtension The avatar extension to use
 	 * @throws \InvalidArgumentException
 	 * @return Avatar The current Avatar instance
 	 */
