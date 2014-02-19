@@ -18,5 +18,10 @@
 		"psr-4" : {
 			"forxer\\Gravatar\\" : "src"
 		}
+	},
+	"minimum-stability" : "dev",
+	"support" : {
+		"issues" : "https://github.com/forxer/gravatar/issues",
+		"email" : "contact@okatea.org"
 	}
 }
