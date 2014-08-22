@@ -20,7 +20,7 @@ class Profile extends Gravatar
 	/**
 	 * @var array List of accepted format.
 	 */
-	protected $aValidFormats = array('json', 'xml', 'php', 'vcf', 'qr');
+	protected $aValidFormats = ['json', 'xml', 'php', 'vcf', 'qr'];
 
 	/**
 	 * Build the profile URL based on the provided email address.
@@ -30,8 +30,8 @@ class Profile extends Gravatar
 	 */
 	public function getUrl($sEmail)
 	{
-		return self::URL.$this->getHash($sEmail)
-			.(null !== $this->sFormat ? '.'.$this->sFormat : null);
+		return static::URL . static::getHash($sEmail)
+			. (null !== $this->sFormat ? '.' . $this->sFormat : null);
 	}
 
 	/**
@@ -76,8 +76,15 @@ class Profile extends Gravatar
 			return $this;
 		}
 
-		if (!in_array($sFormat, $this->aValidFormats)) {
-			throw new InvalidArgumentException(sprintf('The format "%s" is not a valid one, profile format for Gravatar can be: %s', $sFormat, implode(', ', $this->aValidFormats)));
+		if (!in_array($sFormat, $this->aValidFormats))
+		{
+			throw new InvalidArgumentException(
+				sprintf(
+					'The format "%s" is not a valid one, profile format for Gravatar can be: %s',
+					$sFormat,
+					implode(', ', $this->aValidFormats)
+				)
+			);
 		}
 
 		$this->sFormat = $sFormat;

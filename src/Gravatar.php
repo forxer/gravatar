@@ -28,9 +28,7 @@ class Gravatar
 	 */
 	public static function image($sEmail, $iSize = null, $sDefaultImage = null, $sRating = null, $sExtension = null, $bSecure = false)
 	{
-		$gravatarImage = new GravatarImage();
-
-		$gravatarImage
+		$gravatarImage = (new GravatarImage())
 			->setSize($iSize)
 			->setDefaultImage($sDefaultImage)
 			->setMaxRating($sRating)
@@ -56,19 +54,17 @@ class Gravatar
 	 */
 	public static function images(array $aEmail, $iSize = null, $sDefaultImage = null, $sRating = null, $sExtension = null, $bSecure = false)
 	{
-		$gravatarImage = new GravatarImage();
-
-		$gravatarImage
+		$gravatarImage = (new GravatarImage())
 			->setSize($iSize)
 			->setDefaultImage($sDefaultImage)
 			->setMaxRating($sRating)
 			->setExtension($sExtension);
 
 		if ($bSecure) {
-			$gravatarImages->enableSecure();
+			$gravatarImage->enableSecure();
 		}
 
-		$aUrls = array();
+		$aUrls = [];
 
 		foreach ($aEmail as $sEmail) {
 			$aUrls[$sEmail] = $gravatarImage->getUrl($sEmail);
@@ -86,11 +82,9 @@ class Gravatar
 	 */
 	public static function profile($sEmail, $sFormat = null)
 	{
-		$gravatarProfile = new GravatarProfile();
-
-		$gravatarProfile->setFormat($sFormat);
-
-		return $gravatarProfile->getUrl($sEmail);
+		return (new GravatarProfile())
+			->setFormat($sFormat)
+			->getUrl($sEmail);
 	}
 
 	/**
@@ -102,11 +96,10 @@ class Gravatar
 	 */
 	public static function profiles(array $aEmail, $sFormat = null)
 	{
-		$gravatarProfil = new GravatarProfile();
+		$gravatarProfil = (new GravatarProfile())
+			->setFormat($sFormat);
 
-		$gravatarProfil->setFormat($sFormat);
-
-		$aUrls = array();
+		$aUrls = [];
 
 		foreach ($aEmail as $sEmail) {
 			$aUrls[$sEmail] = $gravatarProfil->getUrl($sEmail);
@@ -121,7 +114,7 @@ class Gravatar
 	 * @param string $sEmail The email to get the hash for
 	 * @return string  The hashed form of the email
 	 */
-	protected function getHash($sEmail)
+	protected static function getHash($sEmail)
 	{
 		return md5(strtolower(trim($sEmail)));
 	}

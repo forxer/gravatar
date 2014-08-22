@@ -28,7 +28,7 @@ class Image extends Gravatar
 	/**
 	 * @var array List of accepted gravatar recognized default image "type".
 	 */
-	protected $aValidDefaultsImages = array('404', 'mm', 'identicon', 'monsterid', 'wavatar', 'retro', 'blank');
+	protected $aValidDefaultsImages = ['404', 'mm', 'identicon', 'monsterid', 'wavatar', 'retro', 'blank'];
 
 	/**
 	 * @var string The maximum rating to allow for the avatars.
@@ -38,7 +38,7 @@ class Image extends Gravatar
 	/**
 	 * @var array List of accepted ratings.
 	 */
-	protected $aValidRatings = array('g', 'pg', 'r', 'x');
+	protected $aValidRatings = ['g', 'pg', 'r', 'x'];
 
 	/**
 	 * @var string The extension to append to the avatars URL.
@@ -48,10 +48,10 @@ class Image extends Gravatar
 	/**
 	 * @var array List of accepted extensions.
 	 */
-	protected $aValidExtensions = array('jpg', 'jpeg', 'gif', 'png');
+	protected $aValidExtensions = ['jpg', 'jpeg', 'gif', 'png'];
 
 	/**
-	 * @var boolean    Should we use the secure (HTTPS) URL base?
+	 * @var boolean Should we use the secure (HTTPS) URL base?
 	 */
 	protected $bUseSecureUrl = false;
 
@@ -64,7 +64,7 @@ class Image extends Gravatar
 	 * Build the avatar URL based on the provided email address.
 	 *
 	 * @param string $sEmail The email to get the gravatar for.
-	 * @return string  The URL to the gravatar.
+	 * @return string The URL to the gravatar.
 	 */
 	public function getUrl($sEmail)
 	{
@@ -72,11 +72,10 @@ class Image extends Gravatar
 			$this->sParamsCache = $this->getParams();
 		}
 
-		return
-			($this->usingSecure() ? self::SECURE_URL : self::URL)
-			.'avatar/'
-			.$this->getHash($sEmail)
-			.$this->sParamsCache;
+		return ($this->usingSecure() ? static::SECURE_URL : static::URL)
+			. 'avatar/'
+			. static::getHash($sEmail)
+			. $this->sParamsCache;
 	}
 
 	/**
@@ -154,7 +153,13 @@ class Image extends Gravatar
 			return $this;
 		}
 
-		throw new InvalidArgumentException(sprintf('The default image "%s" is not a recognized gravatar "default" and is not a valid URL, default gravatar can be: %s', $sDefaultImage, implode(', ', $this->aValidDefaultsImages)));
+		throw new InvalidArgumentException(
+			sprintf(
+				'The default image "%s" is not a recognized gravatar "default" and is not a valid URL, default gravatar can be: %s',
+				$sDefaultImage,
+				implode(', ', $this->aValidDefaultsImages)
+			)
+		);
 	}
 
 	/**
@@ -184,8 +189,15 @@ class Image extends Gravatar
 
 		$sRating = strtolower($sRating);
 
-		if (!in_array($sRating, $this->aValidRatings)) {
-			throw new InvalidArgumentException(sprintf('Invalid rating "%s" specified, only allowed to be used are: %s', $sRating, implode(', ', $this->aValidRatings)));
+		if (!in_array($sRating, $this->aValidRatings))
+		{
+			throw new InvalidArgumentException(
+				sprintf(
+					'Invalid rating "%s" specified, only allowed to be used are: %s',
+					$sRating,
+					implode(', ', $this->aValidRatings)
+				)
+			);
 		}
 
 		$this->sMaxRating = $sRating;
@@ -218,8 +230,15 @@ class Image extends Gravatar
 
 		$this->sParamsCache = null;
 
-		if (!in_array($sExtension, $this->aValidExtensions)) {
-			throw new InvalidArgumentException(sprintf('The extension "%s" is not a valid one, extension image for Gravatar can be: %s', $sExtension, implode(', ', $this->aValidExtensions)));
+		if (!in_array($sExtension, $this->aValidExtensions))
+		{
+			throw new InvalidArgumentException(
+				sprintf(
+					'The extension "%s" is not a valid one, extension image for Gravatar can be: %s',
+					$sExtension,
+					implode(', ', $this->aValidExtensions)
+				)
+			);
 		}
 
 		$this->sExtension = $sExtension;
@@ -268,7 +287,7 @@ class Image extends Gravatar
 	 */
 	protected function getParams()
 	{
-		$aParams = array();
+		$aParams = [];
 
 		if (null !== $this->getSize()) {
 			$aParams['s'] = $this->getSize();
@@ -283,6 +302,6 @@ class Image extends Gravatar
 		}
 
 		return (null !== $this->sExtension ? '.'.$this->sExtension : '')
-			.(!empty($aParams) ? '?'.http_build_query($aParams, '', '&amp;') : '');
+			.(!empty($aParams) ? '?' . http_build_query($aParams, '', '&amp;') : '');
 	}
 }
