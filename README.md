@@ -29,7 +29,7 @@ It will help you generate the URL for Gravatar images and profiles.
 <a name="install"/>
 ### Requirements
 
-* PHP 5.3.0 or newer
+* PHP 5.4.0 or newer
 
 <a name="withComposer"/>
 ### With Composer
