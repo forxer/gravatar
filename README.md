@@ -1,3 +1,7 @@
+[![Latest Stable Version](https://poser.pugx.org/forxer/gravatar/v/stable.svg)](https://packagist.org/packages/forxer/gravatar)
+[![Total Downloads](https://poser.pugx.org/forxer/gravatar/downloads.svg)](https://packagist.org/packages/forxer/gravatar)
+[![License](https://poser.pugx.org/forxer/gravatar/license.svg)](https://packagist.org/packages/forxer/gravatar)
+
 # Gravatar
 
 Gravatar is a small library intended to provide easy integration of... Gravatar :)
