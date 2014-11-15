@@ -125,7 +125,7 @@ require 'vendor/autoload.php';
 
 use forxer\Gravatar\Gravatar;
 
-$emails = array('email1@example.com', 'email2@example.com','email3@example.com', /* ... */ );
+$emails = ['email1@example.com', 'email2@example.com','email3@example.com', /* ... */ ];
 
 // Get multiples Gravatar images:
 foreach (Gravatar::images($emails) as $url) {
@@ -160,7 +160,7 @@ require 'vendor/autoload.php';
 
 use forxer\Gravatar\Gravatar;
 
-$emails = array('email1@example.com', 'email2@example.com','email3@example.com', /* ... */ );
+$emails = ['email1@example.com', 'email2@example.com','email3@example.com', /* ... */ ];
 
 // Get multiples Gravatar images with size and default image:
 foreach (Gravatar::images($emails, 120, 'mm') as $url) {
@@ -191,7 +191,7 @@ require 'vendor/autoload.php';
 use forxer\Gravatar\Image as GravatarImage;
 use forxer\Gravatar\Profile as GravatarProfile;
 
-$emails = array('email1@example.com', 'email2@example.com','email3@example.com', /* ... */ );
+$emails = ['email1@example.com', 'email2@example.com','email3@example.com', /* ... */ ];
 
 // Get multiples Gravatar images with size and default image:
 $gravatarImage = new GravatarImage();
