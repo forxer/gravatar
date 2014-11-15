@@ -8,7 +8,8 @@
 	"license" : "MIT",
 	"authors" : [{
 			"name" : "Vincent Garnier",
-			"email" : "contact@okatea.org"
+			"email" : "forxer@gmail.org",
+			"homepage" : "http://forx.fr"
 		}
 	],
 	"require" : {
@@ -22,6 +23,6 @@
 	"minimum-stability" : "dev",
 	"support" : {
 		"issues" : "https://github.com/forxer/gravatar/issues",
-		"email" : "contact@okatea.org"
+		"email" : "forxer@gmail.com"
 	}
 }
