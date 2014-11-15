@@ -9,22 +9,22 @@ Gravatar is a small library intended to provide easy integration of... Gravatar 
 It will help you generate the URL for Gravatar images and profiles.
 
 * [Installation](#install)
-    * [Requirements](#requirements)
-    * [With Composer](#withComposer)
-    * [Without Composer](#withoutComposer)
+	* [Requirements](#requirements)
+	* [With Composer](#withComposer)
+	* [Without Composer](#withoutComposer)
 * [Usage](#Usage)
-    * [Single Gravatar image/profile](#singleGravatar)
-    * [Single Gravatar image/profile with optional parameters](#singleGravatarWithParameters)
-    * [Multiples Gravatar images/profiles](#multiplesGravatars)
-    * [Multiples Gravatar images/profiles with optional parameters](#multiplesGravatarsWithParameters)
-    * [The dynamic way](#dynamicWay)
+	* [Single Gravatar image/profile](#singleGravatar)
+	* [Single Gravatar image/profile with optional parameters](#singleGravatarWithParameters)
+	* [Multiples Gravatar images/profiles](#multiplesGravatars)
+	* [Multiples Gravatar images/profiles with optional parameters](#multiplesGravatarsWithParameters)
+	* [The dynamic way](#dynamicWay)
 * [Optional parameters](#optionalParameters)
-    * [Gravatar image size](#paramImageSize)
-    * [Default Gravatar image](#paramDefaultImage)
-    * [Gravatar image max rating](#paramImageMaxRating)
-    * [Gravatar image file-type extension](#paramImageExtension)
-    * [Use secure URL for Gravatar image](#paramImageSecureUrl)
-    * [Gravatar profile format](#paramProfileFormat)
+	* [Gravatar image size](#paramImageSize)
+	* [Default Gravatar image](#paramDefaultImage)
+	* [Gravatar image max rating](#paramImageMaxRating)
+	* [Gravatar image file-type extension](#paramImageExtension)
+	* [Use secure URL for Gravatar image](#paramImageSecureUrl)
+	* [Gravatar profile format](#paramProfileFormat)
 * [License](#license)
 
 <a name="install"/>
@@ -43,7 +43,7 @@ The easiest way to install Gravatar is via [Composer](http://getcomposer.org/).
 ```json
 {
 	"require": {
-		"forxer/Gravatar": "*"
+		"forxer/Gravatar": "~1.2"
 	}
 }
 ```
@@ -139,10 +139,10 @@ foreach (Gravatar::profiles($emails) as $url) {
 
 /*
 array (
-  'email1@example.com' => 'http://www.gravatar.com/avatar/b5c0c86c701a1b4b7c188c43df1593f5',
-  'email2@example.com' => 'http://www.gravatar.com/avatar/ef9d27fc9358ee9ba33311ad6959dc1f',
-  'email3@example.com' => 'http://www.gravatar.com/avatar/f5bc4de65c1cdd52c8910b1b28003404',
-  // ...
+'email1@example.com' => 'http://www.gravatar.com/avatar/b5c0c86c701a1b4b7c188c43df1593f5',
+'email2@example.com' => 'http://www.gravatar.com/avatar/ef9d27fc9358ee9ba33311ad6959dc1f',
+'email3@example.com' => 'http://www.gravatar.com/avatar/f5bc4de65c1cdd52c8910b1b28003404',
+// ...
 )
 */
 ```
@@ -196,11 +196,11 @@ $emails = array('email1@example.com', 'email2@example.com','email3@example.com',
 // Get multiples Gravatar images with size and default image:
 $gravatarImage = new GravatarImage();
 $gravatarImage
-    ->setSize(120)
-    ->setDefaultImage('mm');
+	->setSize(120)
+	->setDefaultImage('mm');
 
 foreach ($emails as $email) {
-    echo $gravatarImage->getUrl($email);
+	echo $gravatarImage->getUrl($email);
 }
 
 // Get multiples Gravatar profiles in JSON
@@ -208,7 +208,7 @@ $gravatarProfile = new GravatarProfile();
 $gravatarProfile->setFormat('json');
 
 foreach ($emails as $email) {
-    echo $gravatarProfile->getUrl($email);
+	echo $gravatarProfile->getUrl($email);
 }
 ```
 
