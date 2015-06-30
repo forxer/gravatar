@@ -9,22 +9,23 @@ Gravatar is a small library intended to provide easy integration of... Gravatar 
 It will help you generate the URL for Gravatar images and profiles.
 
 * [Installation](#install)
-	* [Requirements](#requirements)
-	* [With Composer](#withComposer)
-	* [Without Composer](#withoutComposer)
+    * [Requirements](#requirements)
+    * [With Composer](#withComposer)
+    * [Without Composer](#withoutComposer)
 * [Usage](#Usage)
-	* [Single Gravatar image/profile](#singleGravatar)
-	* [Single Gravatar image/profile with optional parameters](#singleGravatarWithParameters)
-	* [Multiples Gravatar images/profiles](#multiplesGravatars)
-	* [Multiples Gravatar images/profiles with optional parameters](#multiplesGravatarsWithParameters)
-	* [The dynamic way](#dynamicWay)
+    * [Single Gravatar image/profile](#singleGravatar)
+    * [Single Gravatar image/profile with optional parameters](#singleGravatarWithParameters)
+    * [Multiples Gravatar images/profiles](#multiplesGravatars)
+    * [Multiples Gravatar images/profiles with optional parameters](#multiplesGravatarsWithParameters)
+    * [The dynamic way](#dynamicWay)
 * [Optional parameters](#optionalParameters)
-	* [Gravatar image size](#paramImageSize)
-	* [Default Gravatar image](#paramDefaultImage)
-	* [Gravatar image max rating](#paramImageMaxRating)
-	* [Gravatar image file-type extension](#paramImageExtension)
-	* [Use secure URL for Gravatar image](#paramImageSecureUrl)
-	* [Gravatar profile format](#paramProfileFormat)
+    * [Gravatar image size](#paramImageSize)
+    * [Default Gravatar image](#paramDefaultImage)
+    * [Gravatar image max rating](#paramImageMaxRating)
+    * [Gravatar image file-type extension](#paramImageExtension)
+    * [Use secure URL for Gravatar image](#paramImageSecureUrl)
+    * [Force to always use the default image](#paramImageForceDefault)
+    * [Gravatar profile format](#paramProfileFormat)
 * [License](#license)
 
 <a name="install"/>
@@ -42,9 +43,9 @@ The easiest way to install Gravatar is via [Composer](http://getcomposer.org/).
 
 ```json
 {
-	"require": {
-		"forxer/Gravatar": "~1.2"
-	}
+    "require": {
+        "forxer/Gravatar": "~1.2"
+    }
 }
 ```
 
@@ -91,6 +92,7 @@ You can add some optional parameters:
 * Gravatar image max rating
 * Gravatar image file-type extension
 * Use secure URL for Gravatar image
+* Force to always use the default image
 * Profile format
 
 ```php
@@ -104,8 +106,8 @@ Gravatar::image('email@example.com', 120, 'mm');
 // output: http://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e?s=120&d=mm
 
 // Get a single Gravatar image with all options:
-Gravatar::image('email@example.com', 120, 'mm', 'g', 'jpg', true);
-// output: https://secure.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e.jpg?s=120&d=mm&r=g
+Gravatar::image('email@example.com', 120, 'mm', 'g', 'jpg', true, true);
+// output: https://secure.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e.jpg?s=120&d=mm&r=g&f=y
 
 // Get a single profile in JSON:
 echo Gravatar::profile('email@example.com', 'json');
@@ -129,12 +131,12 @@ $emails = ['email1@example.com', 'email2@example.com','email3@example.com', /* .
 
 // Get multiples Gravatar images:
 foreach (Gravatar::images($emails) as $url) {
-	echo $url;
+    echo $url;
 }
 
 // Get multiples Gravatar profiles:
 foreach (Gravatar::profiles($emails) as $url) {
-	echo $url;
+    echo $url;
 }
 
 /*
@@ -164,16 +166,16 @@ $emails = ['email1@example.com', 'email2@example.com','email3@example.com', /* .
 
 // Get multiples Gravatar images with size and default image:
 foreach (Gravatar::images($emails, 120, 'mm') as $url) {
-	echo $url;
+    echo $url;
 }
 // Get multiples Gravatar images with all options:
-foreach (Gravatar::images($emails, 120, 'mm', 'g', 'jpg', true) as $url) {
-	echo $url;
+foreach (Gravatar::images($emails, 120, 'mm', 'g', 'jpg', true, true) as $url) {
+    echo $url;
 }
 
 // Get multiples Gravatar profiles in JSON:
 foreach (Gravatar::profiles($emails, 'json') as $url) {
-	echo $url;
+    echo $url;
 }
 ```
 <a name="dynamicWay"/>
@@ -196,11 +198,11 @@ $emails = ['email1@example.com', 'email2@example.com','email3@example.com', /* .
 // Get multiples Gravatar images with size and default image:
 $gravatarImage = new GravatarImage();
 $gravatarImage
-	->setSize(120)
-	->setDefaultImage('mm');
+    ->setSize(120)
+    ->setDefaultImage('mm');
 
 foreach ($emails as $email) {
-	echo $gravatarImage->getUrl($email);
+    echo $gravatarImage->getUrl($email);
 }
 
 // Get multiples Gravatar profiles in JSON
@@ -208,7 +210,7 @@ $gravatarProfile = new GravatarProfile();
 $gravatarProfile->setFormat('json');
 
 foreach ($emails as $email) {
-	echo $gravatarProfile->getUrl($email);
+    echo $gravatarProfile->getUrl($email);
 }
 ```
 
@@ -233,7 +235,7 @@ Gravatar::images($emails_array, 120);
 // or use the `setSize()` method of a \forxer\Gravatar\Image instance
 $gravatarImage = new \forxer\Gravatar\Image();
 $gravatarImage
-	->setSize(120);
+    ->setSize(120);
 ```
 
 <a name="paramDefaultImage"/>
@@ -272,7 +274,7 @@ Gravatar::images($emails_array, null, 'mm');
 // or use the `setDefaultImage()` method of a \forxer\Gravatar\Image instance
 $gravatarImage = new \forxer\Gravatar\Image();
 $gravatarImage
-	->setDefaultImage('mm');
+    ->setDefaultImage('mm');
 ```
 
 <a name="paramImageMaxRating"/>
@@ -296,7 +298,7 @@ Gravatar::images($emails_array, null, null, 'g');
 // or use the `setMaxRating()` method of a \forxer\Gravatar\Image instance
 $gravatarImage = new \forxer\Gravatar\Image();
 $gravatarImage
-	->setMaxRating('g');
+    ->setMaxRating('g');
 ```
 
 <a name="paramImageExtension"/>
@@ -312,7 +314,7 @@ Gravatar::images($emails_array, null, null, null, 'jpg');
 // or use the `setExtension()` method of a \forxer\Gravatar\Image instance
 $gravatarImage = new \forxer\Gravatar\Image();
 $gravatarImage
-	->setExtension('jpg');
+    ->setExtension('jpg');
 ```
 
 <a name="paramImageSecureUrl"/>
@@ -328,15 +330,17 @@ Gravatar::images($emails_array, null, null, null, null, true);
 // or use the `enableSecure()` method of a \forxer\Gravatar\Image instance
 $gravatarImage = new \forxer\Gravatar\Image();
 $gravatarImage
-	->enableSecure();
+    ->enableSecure();
 ```
-To check to see if you are using "secure" mode, call the method `usingSecure()` of `\forxer\Gravatar\Avatar`,
+
+To check to see if you are using "secure" mode, call the method `usingSecure()` of `\forxer\Gravatar\Image`,
 which will return a boolean value regarding whether or not secure mode is enabled.
+
 
 ```php
 $gravatarImage = new \forxer\Gravatar\Image();
 $gravatarImage
-	->enableSecure();
+    ->enableSecure();
 
 //...
 
@@ -351,6 +355,47 @@ $gravatarImage->disableSecure();
 $gravatarImage->usingSecure(); // false
 ```
 
+
+<a name="paramImageForceDefault"/>
+### Force to always use the default image
+
+If for some reason you wanted to force the default image to always be load, you can do it:
+
+
+```php
+// to force to always use the default image, set the seventh parameter of `Gravatar::image()` and `Gravatar::images()` to `true`
+Gravatar::image($email_string, null, null, null, null, true, true);
+Gravatar::images($emails_array, null, null, null, null, true, true);
+
+// or use the `enableForceDefault()` method of a \forxer\Gravatar\Image instance
+$gravatarImage = new \forxer\Gravatar\Image();
+$gravatarImage
+    ->enableForceDefault();
+```
+
+To check to see if you are forcing default image, call the method `forcingDefault()` of `\forxer\Gravatar\Image`,
+which will return a boolean value regarding whether or not forcing default is enabled.
+
+
+```php
+$gravatarImage = new \forxer\Gravatar\Image();
+$gravatarImage
+    ->enableForceDefault();
+
+//...
+
+$gravatarImage->forcingDefault(); // true
+
+//...
+
+$gravatarImage->disableForceDefault();
+
+//...
+
+$gravatarImage->forcingDefault(); // false
+```
+
+
 <a name="paramProfileFormat"/>
 ### Gravatar profile format
 
@@ -363,7 +408,7 @@ Gravatar::profile($email_string, 'json');
 // or use the `setFormat()` method of \forxer\Gravatar\Profile
 $gravatarProfile = new \forxer\Gravatar\Profile();
 $gravatarProfile
-	->setFormat('json');
+    ->setFormat('json');
 ```
 
 The following formats are supported:
