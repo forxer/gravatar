@@ -159,7 +159,7 @@ class Image extends Gravatar
 
         if (filter_var($sDefaultImage, FILTER_VALIDATE_URL))
         {
-            $this->sDefaultImage = rawurlencode($sDefaultImage);
+            $this->sDefaultImage = $sDefaultImage;
             return $this;
         }
 
