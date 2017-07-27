@@ -28,15 +28,13 @@ It will help you generate the URL for Gravatar images and profiles.
     * [Gravatar profile format](#paramProfileFormat)
 * [License](#license)
 
-<a name="install"/>
+
 ## Installation
 
-<a name="install"/>
 ### Requirements
 
 * PHP 5.4.0 or newer
 
-<a name="withComposer"/>
 ### With Composer
 
 The easiest way to install Gravatar is via [Composer](http://getcomposer.org/).
@@ -49,7 +47,6 @@ The easiest way to install Gravatar is via [Composer](http://getcomposer.org/).
 }
 ```
 
-<a name="withoutComposer"/>
 ### Without Composer
 
 You should use composer, it's so convenient. However, if you really do not want, or can not, you can
@@ -57,10 +54,8 @@ You should use composer, it's so convenient. However, if you really do not want,
 
 Then, you do what it takes to use it with your own autoloader. The examples below use the Composer autoloader.
 
-<a name="Usage"/>
 ## Usage
 
-<a name="singleGravatar"/>
 ### Single Gravatar image/profile
 
 If you want to retrieve a single Gravatar image/profile URL you can use the main Gravatar class like this:
@@ -82,7 +77,6 @@ echo Gravatar::profile('email@example.com');
 
 The `Gravatar::image()` and `Gravatar::profile()` methods return the string to use as URL of the given email address.
 
-<a name="singleGravatarWithParameters"/>
 ### Single Gravatar image/profile with optional parameters
 
 You can add some optional parameters:
@@ -114,7 +108,6 @@ echo Gravatar::profile('email@example.com', 'json');
 // output: http://www.gravatar.com/5658ffccee7f0ebfda2b226238b1eb6e.json
 ```
 
-<a name="multiplesGravatars"/>
 ### Multiples Gravatar images/profiles
 
 If you want to retrieve multiples Gravatar images/profiles URL you can also use the main Gravatar class with `Gravatar::images()` and `Gravatar::profiles()` methods.
@@ -151,7 +144,6 @@ array (
 
 The `Gravatar::images()` and `Gravatar::profiles()` methods return an array of URL to use.
 
-<a name="multiplesGravatarsWithParameters"/>
 ### Multiples Gravatar images/profiles with optional parameters
 
 As for `Gravatar::image()` and `Gravatar::profile()` methods you can pass some optional parameters to `Gravatar::images()` and `Gravatar::profiles()`.
@@ -178,7 +170,7 @@ foreach (Gravatar::profiles($emails, 'json') as $url) {
     echo $url;
 }
 ```
-<a name="dynamicWay"/>
+
 ### The dynamic way
 
 In fact, `Gravatar::image()`, `Gravatar::images()`, `Gravatar::profile()` and `Gravatar::profiles()` static methods are just shortcuts for convenient use.
@@ -214,10 +206,8 @@ foreach ($emails as $email) {
 }
 ```
 
-<a name="optionalParameters"/>
 ## Optional parameters
 
-<a name="paramImageSize"/>
 ### Gravatar image size
 
 By default, images are presented at 80px by 80px if no size parameter is supplied.
@@ -238,7 +228,6 @@ $gravatarImage
     ->setSize(120);
 ```
 
-<a name="paramDefaultImage"/>
 ### Default Gravatar image
 
 What happens when an email address has no matching Gravatar image or when the gravatar specified exceeds your maximum allowed content rating?
@@ -277,7 +266,6 @@ $gravatarImage
     ->setDefaultImage('mm');
 ```
 
-<a name="paramImageMaxRating"/>
 ### Gravatar image max rating
 
 Gravatar allows users to self-rate their images so that they can indicate if an image is appropriate for a certain audience.
@@ -301,7 +289,6 @@ $gravatarImage
     ->setMaxRating('g');
 ```
 
-<a name="paramImageExtension"/>
 ### Gravatar image file-type extension
 
 If you require a file-type extension (some places do) then you may also specify it.
@@ -317,7 +304,6 @@ $gravatarImage
     ->setExtension('jpg');
 ```
 
-<a name="paramImageSecureUrl"/>
 ### Use secure URL for Gravatar image
 
 If your site is served over HTTPS, you'll likely want to serve gravatars over HTTPS as well to avoid "mixed content warnings".
@@ -355,8 +341,6 @@ $gravatarImage->disableSecure();
 $gravatarImage->usingSecure(); // false
 ```
 
-
-<a name="paramImageForceDefault"/>
 ### Force to always use the default image
 
 If for some reason you wanted to force the default image to always be load, you can do it:
@@ -395,8 +379,6 @@ $gravatarImage->disableForceDefault();
 $gravatarImage->forcingDefault(); // false
 ```
 
-
-<a name="paramProfileFormat"/>
 ### Gravatar profile format
 
 Gravatar profile data may be requested in different data formats for simpler programmatic access.
@@ -419,8 +401,6 @@ The following formats are supported:
 * VCF/vCard ; use 'vcf' as parameter
 * QR Code ; use 'qr' as parameter
 
-
-<a name="license"/>
 ## License
 
 This library is licensed under the MIT license; you can find a full copy of the license itself in the file /LICENSE
