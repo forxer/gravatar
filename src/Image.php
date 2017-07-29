@@ -12,8 +12,6 @@ use \InvalidArgumentException;
 
 class Image extends Gravatar
 {
-    const SECURE_URL = 'https://secure.gravatar.com/';
-
     /**
      * @var integer The size to use for avatars.
      */
@@ -51,11 +49,6 @@ class Image extends Gravatar
     protected $aValidExtensions = ['jpg', 'jpeg', 'gif', 'png'];
 
     /**
-     * @var boolean Should we use the secure (HTTPS) URL base?
-     */
-    protected $bUseSecureUrl = false;
-
-    /**
      * @var boolean Should we force the default image to always load?
      */
     protected $bForceDefault = false;
@@ -71,16 +64,56 @@ class Image extends Gravatar
      * @param string $sEmail The email to get the gravatar for.
      * @return string The URL to the gravatar.
      */
-    public function getUrl($sEmail)
+    public function getUrl($sEmail = null)
     {
+        if (null !== $sEmail) {
+            $this->setEmail($sEmail);
+        }
+
         if (null === $this->sParamsCache) {
             $this->sParamsCache = $this->getParams();
         }
 
-        return ($this->usingSecure() ? static::SECURE_URL : static::URL)
+        return static::URL
             . 'avatar/'
-            . static::getHash($sEmail)
+            . $this->getHash($this->getEmail())
             . $this->sParamsCache;
+    }
+
+    /**
+     * Return the avatar URL when this object is printed.
+     *
+     * @return string The URL to the gravatar.
+     */
+    public function __toString()
+    {
+        return $this->getUrl();
+    }
+
+    /**
+     * Get or set the avatar size to use.
+     *
+     * @param integer $iSize The avatar size to use, must be less than 2048 and greater than 0.
+     * @return number|\forxer\Gravatar\Image
+     */
+    public function size($iSize = null)
+    {
+        if (null === $iSize) {
+            return $this->getSize();
+        }
+
+        return $this->setSize($iSize);
+    }
+
+    /**
+     * Alias for the "size" method.
+     *
+     * @param integer $iSize The avatar size to use, must be less than 2048 and greater than 0.
+     * @return number|\forxer\Gravatar\Image
+     */
+    public function s($iSize= null)
+    {
+        return $this->size($iSize);
     }
 
     /**
@@ -96,8 +129,7 @@ class Image extends Gravatar
     /**
      * Set the avatar size to use.
      *
-     * @param integer $size    The avatar size to use, must be less than 2048 and greater than 0.
-     * @param boolean $bForceDefault Force the default image to be always load.
+     * @param integer $size The avatar size to use, must be less than 2048 and greater than 0.
      * @throws \InvalidArgumentException
      * @return \forxer\Gravatar\Image The current Gravatar Image instance.
      */
@@ -121,6 +153,34 @@ class Image extends Gravatar
     }
 
     /**
+     * Get or set the default image to use for avatars.
+     *
+     * @param string $sDefaultImage The default image to use. Use a valid image URL, or a recognized gravatar "default".
+     * @param boolean $bForce Force the default image to be always load.
+     * @return number|\forxer\Gravatar\Image
+     */
+    public function defaultImage($sDefaultImage = null, $bForce = false)
+    {
+        if (null === $sDefaultImage) {
+            return $this->getDefaultImage();
+        }
+
+        return $this->setDefaultImage($sDefaultImage, $bForce);
+    }
+
+    /**
+     * Alias for the "defaultImage" method.
+     *
+     * @param string $sDefaultImage The default image to use. Use a valid image URL, or a recognized gravatar "default".
+     * @param boolean $bForce Force the default image to be always load.
+     * @return number|\forxer\Gravatar\Image
+     */
+    public function d($sDefaultImage = null, $bForce = false)
+    {
+        return $this->defaultImage($sDefaultImage, $bForce);
+    }
+
+    /**
      * Get the current default image setting.
      *
      * @return string Default image.
@@ -134,6 +194,7 @@ class Image extends Gravatar
      * Set the default image to use for avatars.
      *
      * @param string $sDefaultImage The default image to use. Use a valid image URL, or a recognized gravatar "default".
+     * @param boolean $bForce Force the default image to be always load.
      * @throws \InvalidArgumentException
      * @return \forxer\Gravatar\Image The current Gravatar Image instance.
      */
@@ -207,6 +268,32 @@ class Image extends Gravatar
     }
 
     /**
+     * Get or set the maximum allowed rating for avatars.
+     *
+     * @param string $sRating
+     * @return string|\forxer\Gravatar\Image
+     */
+    public function rating($sRating = null)
+    {
+        if (null === $sRating) {
+            return $this->getMaxRating();
+        }
+
+        return $this->setMaxRating($sRating);
+    }
+
+    /**
+     * Alias for the "rating" method.
+     *
+     * @param string $sRating
+     * @return string|\forxer\Gravatar\Image
+     */
+    public function r($sRating = null)
+    {
+        return $this->rating($sRating);
+    }
+
+    /**
      * Get the current maximum allowed rating for avatars.
      *
      * @return string The string representing the current maximum allowed rating.
@@ -250,6 +337,32 @@ class Image extends Gravatar
     }
 
     /**
+     * Get or set the avatar extension to use.
+     *
+     * @param string $sExtension The avatar extension to use.
+     * @return string|\forxer\Gravatar\Image
+     */
+    public function extension($sExtension = null)
+    {
+        if (null === $sExtension) {
+            return $this->getExtension();
+        }
+
+        return $this->setExtension($sExtension);
+    }
+
+    /**
+     * Alias for the "extension" method.
+     *
+     * @param string $sExtension
+     * @return string|\forxer\Gravatar\Image
+     */
+    public function e($sExtension= null)
+    {
+        return $this->extension($sExtension);
+    }
+
+    /**
      * Get the currently set avatar extension.
      *
      * @return integer The current avatar extension in use
@@ -286,40 +399,6 @@ class Image extends Gravatar
         }
 
         $this->sExtension = $sExtension;
-
-        return $this;
-    }
-
-    /**
-     * Check if we are using the secure protocol for the URLs.
-     *
-     * @return boolean Are we supposed to use the secure protocol?
-     */
-    public function usingSecure()
-    {
-        return $this->bUseSecureUrl;
-    }
-
-    /**
-     * Enable the use of the secure protocol for URLs.
-     *
-     * @return \forxer\Gravatar\Image The current Gravatar Image instance.
-     */
-    public function enableSecure()
-    {
-        $this->bUseSecureUrl = true;
-
-        return $this;
-    }
-
-    /**
-     * Disable the use of the secure protocol for URLs.
-     *
-     * @return \forxer\Gravatar\Image The current Gravatar Image instance.
-     */
-    public function disableSecure()
-    {
-        $this->bUseSecureUrl = false;
 
         return $this;
     }

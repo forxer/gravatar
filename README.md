@@ -23,7 +23,6 @@ It will help you generate the URL for Gravatar images and profiles.
     * [Default Gravatar image](#default-gravatar-image)
     * [Gravatar image max rating](#gravatar-image-max-rating)
     * [Gravatar image file-type extension](#gravatar-image-file-type-extension)
-    * [Use secure URL for Gravatar image](#use-secure-url-for-gravatar-image)
     * [Force to always use the default image](#force-to-always-use-the-default-image)
     * [Gravatar profile format](#gravatar-profile-format)
 * [License](#license)
@@ -42,7 +41,7 @@ The easiest way to install Gravatar is via [Composer](http://getcomposer.org/).
 ```json
 {
     "require": {
-        "forxer/Gravatar": "~1.2"
+        "forxer/Gravatar": "~2.0"
     }
 }
 ```
@@ -85,7 +84,6 @@ You can add some optional parameters:
 * Default Gravatar image
 * Gravatar image max rating
 * Gravatar image file-type extension
-* Use secure URL for Gravatar image
 * Force to always use the default image
 * Profile format
 
@@ -96,12 +94,12 @@ require 'vendor/autoload.php';
 use forxer\Gravatar\Gravatar;
 
 // Get a single Gravatar image with size and default image:
-Gravatar::image('email@example.com', 120, 'mm');
+echo Gravatar::image('email@example.com', 120, 'mm');
 // output: http://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e?s=120&d=mm
 
 // Get a single Gravatar image with all options:
-Gravatar::image('email@example.com', 120, 'mm', 'g', 'jpg', true, true);
-// output: https://secure.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e.jpg?s=120&d=mm&r=g&f=y
+echo Gravatar::image('email@example.com', 120, 'mm', 'g', 'jpg', true);
+// output: https://gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e.jpg?s=120&d=mm&r=g&f=y
 
 // Get a single profile in JSON:
 echo Gravatar::profile('email@example.com', 'json');
@@ -226,6 +224,16 @@ Gravatar::images($emails_array, 120);
 $gravatarImage = new \forxer\Gravatar\Image();
 $gravatarImage
     ->setSize(120);
+
+// or the `size()` method of a \forxer\Gravatar\Image instance
+$gravatarImage = new \forxer\Gravatar\Image();
+$gravatarImage
+    ->size(120);
+
+// or its alias `s()`
+$gravatarImage = new \forxer\Gravatar\Image();
+$gravatarImage
+    ->s(120);
 ```
 
 ### Default Gravatar image
@@ -302,43 +310,6 @@ Gravatar::images($emails_array, null, null, null, 'jpg');
 $gravatarImage = new \forxer\Gravatar\Image();
 $gravatarImage
     ->setExtension('jpg');
-```
-
-### Use secure URL for Gravatar image
-
-If your site is served over HTTPS, you'll likely want to serve gravatars over HTTPS as well to avoid "mixed content warnings".
-
-```php
-// to use secure URL for Gravatar image set the sixth parameter of `Gravatar::image()` and `Gravatar::images()` to `true`
-Gravatar::image($email_string, null, null, null, null, true);
-Gravatar::images($emails_array, null, null, null, null, true);
-
-// or use the `enableSecure()` method of a \forxer\Gravatar\Image instance
-$gravatarImage = new \forxer\Gravatar\Image();
-$gravatarImage
-    ->enableSecure();
-```
-
-To check to see if you are using "secure" mode, call the method `usingSecure()` of `\forxer\Gravatar\Image`,
-which will return a boolean value regarding whether or not secure mode is enabled.
-
-
-```php
-$gravatarImage = new \forxer\Gravatar\Image();
-$gravatarImage
-    ->enableSecure();
-
-//...
-
-$gravatarImage->usingSecure(); // true
-
-//...
-
-$gravatarImage->disableSecure();
-
-//...
-
-$gravatarImage->usingSecure(); // false
 ```
 
 ### Force to always use the default image

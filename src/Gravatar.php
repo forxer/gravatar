@@ -8,12 +8,14 @@
 
 namespace forxer\Gravatar;
 
-use forxer\Gravatar\Image as GravatarImage;
-use forxer\Gravatar\Profile as GravatarProfile;
-
 class Gravatar
 {
-    const URL = 'http://www.gravatar.com/';
+    const URL = '//www.gravatar.com/';
+
+    /**
+     * @var string The address email to be used.
+     */
+    protected $sEmail;
 
     /**
      * Return the Gravatar image URL based on the provided email address.
@@ -23,21 +25,16 @@ class Gravatar
      * @param string $sDefaultImage The default image to use. Use a valid image URL, or a recognized gravatar "default".
      * @param string $sRating The maximum rating to use for avatars
      * @param string $sExtension The avatar extension to use
-     * @param boolean $bSecure Enable the use of the secure protocol for URLs.
      * @param boolean $bForceDefault Force the default image to be always load.
      * @return string The URL to the gravatar.
      */
-    public static function image($sEmail, $iSize = null, $sDefaultImage = null, $sRating = null, $sExtension = null, $bSecure = false, $bForceDefault = false)
+    public static function image($sEmail, $iSize = null, $sDefaultImage = null, $sRating = null, $sExtension = null, $bForceDefault = false)
     {
-        $gravatarImage = (new GravatarImage())
+        $gravatarImage = (new Image())
             ->setSize($iSize)
             ->setDefaultImage($sDefaultImage, $bForceDefault)
             ->setMaxRating($sRating)
             ->setExtension($sExtension);
-
-        if (true === $bSecure) {
-            $gravatarImage->enableSecure();
-        }
 
         return $gravatarImage->getUrl($sEmail);
     }
@@ -50,21 +47,16 @@ class Gravatar
      * @param string $sDefaultImage The default image to use. Use a valid image URL, or a recognized gravatar "default".
      * @param string $sRating The maximum rating to use for avatars.
      * @param string $sExtension The avatar extension to use.
-     * @param boolean $bSecure Enable the use of the secure protocol for URLs.
      * @param boolean $bForceDefault Force the default image to be always load.
      * @return array The list of URL to the Gravatar images.
      */
-    public static function images(array $aEmail, $iSize = null, $sDefaultImage = null, $sRating = null, $sExtension = null, $bSecure = false, $bForceDefault = false)
+    public static function images(array $aEmail, $iSize = null, $sDefaultImage = null, $sRating = null, $sExtension = null, $bForceDefault = false)
     {
-        $gravatarImage = (new GravatarImage())
+        $gravatarImage = (new Image())
             ->setSize($iSize)
             ->setDefaultImage($sDefaultImage, $bForceDefault)
             ->setMaxRating($sRating)
             ->setExtension($sExtension);
-
-        if ($bSecure) {
-            $gravatarImage->enableSecure();
-        }
 
         $aUrls = [];
 
@@ -84,7 +76,7 @@ class Gravatar
      */
     public static function profile($sEmail, $sFormat = null)
     {
-        return (new GravatarProfile())
+        return (new Profile())
             ->setFormat($sFormat)
             ->getUrl($sEmail);
     }
@@ -98,7 +90,7 @@ class Gravatar
      */
     public static function profiles(array $aEmail, $sFormat = null)
     {
-        $gravatarProfil = (new GravatarProfile())
+        $gravatarProfil = (new Profile())
             ->setFormat($sFormat);
 
         $aUrls = [];
@@ -108,6 +100,44 @@ class Gravatar
         }
 
         return $aUrls;
+    }
+
+    /**
+     * Get or set the address email to be used.
+     *
+     * @param string $sEmail
+     * @return number|\forxer\Gravatar\Gravatar
+     */
+    public function email($sEmail = null)
+    {
+        if (null === $sEmail) {
+            return $this->getEmail();
+        }
+
+        return $this->setEmail($sEmail);
+    }
+
+    /**
+     * Get the address email to be used.
+     *
+     * @return integer The current avatar size in use.
+     */
+    public function getEmail()
+    {
+        return $this->sEmail;
+    }
+
+    /**
+     * Set the address email to be used.
+     *
+     * @param string $sEmail
+     * @return \forxer\Gravatar\Gravatar
+     */
+    public function setEmail($sEmail)
+    {
+        $this->sEmail = $sEmail;
+
+        return $this;
     }
 
     /**

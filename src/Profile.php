@@ -12,83 +12,88 @@ use \InvalidArgumentException;
 
 class Profile extends Gravatar
 {
-	/**
-	 * @var string The format to append to the profile URL.
-	 */
-	protected $sFormat;
+    /**
+     * @var string The format to append to the profile URL.
+     */
+    protected $sFormat;
 
-	/**
-	 * @var array List of accepted format.
-	 */
-	protected $aValidFormats = ['json', 'xml', 'php', 'vcf', 'qr'];
+    /**
+     * @var array List of accepted format.
+     */
+    protected $aValidFormats = ['json', 'xml', 'php', 'vcf', 'qr'];
 
-	/**
-	 * Build the profile URL based on the provided email address.
-	 *
-	 * @param string $sEmail The email to get the gravatar profile for
-	 * @return string
-	 */
-	public function getUrl($sEmail)
-	{
-		return static::URL . static::getHash($sEmail)
-			. (null !== $this->sFormat ? '.' . $this->sFormat : null);
-	}
+    /**
+     * Build the profile URL based on the provided email address.
+     *
+     * @param string $sEmail The email to get the gravatar profile for
+     * @return string
+     */
+    public function getUrl($sEmail = null)
+    {
+        if (null !== $sEmail) {
+            $this->setEmail($sEmail);
+        }
 
-	/**
-	 * Return profile data based on the provided email address.
-	 *
-	 * @param string $sEmail The email to get the gravatar profile for
-	 * @return array
-	 */
-	public function getData($sEmail)
-	{
-		$this->sFormat = 'php';
+        return static::URL
+            . $this->getHash($this->getEmail())
+            . (null !== $this->sFormat ? '.' . $this->sFormat : null);
+    }
 
-		$sProfile = file_get_contents($this->getUrl($sEmail));
+    /**
+     * Return profile data based on the provided email address.
+     *
+     * @param string $sEmail The email to get the gravatar profile for
+     * @return array
+     */
+    public function getData($sEmail)
+    {
+        $this->sFormat = 'php';
 
-		$aProfile = unserialize($sProfile);
+        $sProfile = file_get_contents($this->getUrl($sEmail));
 
-		if (is_array($aProfile) && isset($aProfile['entry'])) {
-			return $aProfile;
-		}
-	}
+        $aProfile = unserialize($sProfile);
 
-	/**
-	 * Get the currently set profile format.
-	 *
-	 * @return integer The current profile format in use
-	 */
-	public function getFormat()
-	{
-		return $this->sFormat;
-	}
+        if (is_array($aProfile) && isset($aProfile['entry'])) {
+            return $aProfile;
+        }
+    }
 
-	/**
-	 * Set the profile format to use.
-	 *
-	 * @param string $sFormat The profile format to use
-	 * @throws \InvalidArgumentException
-	 * @return Profile The current Profile instance
-	 */
-	public function setFormat($sFormat = null)
-	{
-		if (null === $sFormat) {
-			return $this;
-		}
+    /**
+     * Get the currently set profile format.
+     *
+     * @return integer The current profile format in use
+     */
+    public function getFormat()
+    {
+        return $this->sFormat;
+    }
 
-		if (!in_array($sFormat, $this->aValidFormats))
-		{
-			throw new InvalidArgumentException(
-				sprintf(
-					'The format "%s" is not a valid one, profile format for Gravatar can be: %s',
-					$sFormat,
-					implode(', ', $this->aValidFormats)
-				)
-			);
-		}
+    /**
+     * Set the profile format to use.
+     *
+     * @param string $sFormat The profile format to use
+     * @throws \InvalidArgumentException
+     * @return Profile The current Profile instance
+     */
+    public function setFormat($sFormat = null)
+    {
+        if (null === $sFormat) {
+            return $this;
+        }
 
-		$this->sFormat = $sFormat;
+        if (!in_array($sFormat, $this->aValidFormats))
+        {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'The format "%s" is not a valid one, profile format for Gravatar can be: %s',
+                    $sFormat,
+                    implode(', ', $this->aValidFormats)
+                )
+            );
+        }
 
-		return $this;
-	}
+        $this->sFormat = $sFormat;
+
+        return $this;
+    }
 }

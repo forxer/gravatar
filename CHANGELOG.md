@@ -5,6 +5,12 @@ This changelog does not reference all the changes, only the most relevant to be 
 To get the diff for a specific change, go to https://github.com/forxer/gravatar/commit/XXX where XXX is the change hash
 To get the diff between two versions, go to https://github.com/forxer/gravatar/compare/1.1...1.2
 
+- **2.0.0**
+    - remove 'secure' optionnal parameter and always use 'protocol-agnostic' base URL instead
+    - add Image::size() helper method and its alias Image::s()
+    - add Image::defaultImage() helper method and its alias Image::d()
+    - add Image::rating() helper method and its alias Image::r()
+    - add Image::extension() helper method and its alias Image::e()
 - 1.3.2
     - fix readme anchor for TOC
 - 1.3.1
