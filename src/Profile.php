@@ -40,6 +40,16 @@ class Profile extends Gravatar
     }
 
     /**
+     * Return the profile URL when this object is printed.
+     *
+     * @return string The URL to the gravatar.
+     */
+    public function __toString()
+    {
+        return $this->getUrl();
+    }
+
+    /**
      * Return profile data based on the provided email address.
      *
      * @param string $sEmail The email to get the gravatar profile for

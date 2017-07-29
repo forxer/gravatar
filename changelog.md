@@ -7,6 +7,8 @@ To get the diff between two versions, go to https://github.com/forxer/gravatar/c
 
 - **2.0.0**
     - remove 'secure' optionnal parameter and always use 'protocol-agnostic' base URL instead
+    - add Gravatar::email() methods (helper/getter/setter)
+    - implement __toString() methods on Image and Profile classes
     - add Image::size() helper method and its alias Image::s()
     - add Image::defaultImage() helper method and its alias Image::d()
     - add Image::rating() helper method and its alias Image::r()
