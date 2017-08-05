@@ -69,6 +69,32 @@ class Profile extends Gravatar
     }
 
     /**
+     * Get or set the profile format to use.
+     *
+     * @param string $sFormat The profile format to use.
+     * @return string|\forxer\Gravatar\Profile
+     */
+    public function format($sFormat= null)
+    {
+        if (null === $sFormat) {
+            return $this->getFormat();
+        }
+
+        return $this->setFormat($sFormat);
+    }
+
+    /**
+     * Alias for the "format" method.
+     *
+     * @param string $sFormat
+     * @return string|\forxer\Gravatar\Profile
+     */
+    public function f($sFormat= null)
+    {
+        return $this->format($sFormat);
+    }
+
+    /**
      * Get the currently set profile format.
      *
      * @return integer The current profile format in use
