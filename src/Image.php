@@ -8,7 +8,10 @@
 
 namespace forxer\Gravatar;
 
-use \InvalidArgumentException;
+use Exception\InvalidDefaultImageException;
+use Exception\InvalidImageExtensionException;
+use Exception\InvalidImageSizeException;
+use Exception\InvalidMaxRatingImageException;
 
 class Image extends Gravatar
 {
@@ -54,11 +57,6 @@ class Image extends Gravatar
     protected $bForceDefault = false;
 
     /**
-     * @var string
-     */
-    protected $sParamsCache;
-
-    /**
      * Build the avatar URL based on the provided email address.
      *
      * @param string $sEmail The email to get the gravatar for.
@@ -70,14 +68,10 @@ class Image extends Gravatar
             $this->setEmail($sEmail);
         }
 
-        if (null === $this->sParamsCache) {
-            $this->sParamsCache = $this->getParams();
-        }
-
         return static::URL
-            . 'avatar/'
-            . $this->getHash($this->getEmail())
-            . $this->sParamsCache;
+            .'avatar/'
+            .$this->getHash($this->getEmail())
+            .$this->getParams();
     }
 
     /**
@@ -130,7 +124,7 @@ class Image extends Gravatar
      * Set the avatar size to use.
      *
      * @param integer $size The avatar size to use, must be less than 2048 and greater than 0.
-     * @throws \InvalidArgumentException
+     * @throws InvalidImageSizeException
      * @return \forxer\Gravatar\Image The current Gravatar Image instance.
      */
     public function setSize($iSize = null)
@@ -139,12 +133,10 @@ class Image extends Gravatar
             return $this;
         }
 
-        $this->sParamsCache = null;
-
         $iSize = intval($iSize);
 
         if ($iSize < 0 || $iSize > 2048) {
-            throw new InvalidArgumentException('Avatar size must be within 0 pixels and 2048 pixels');
+            throw new InvalidImageSizeException('Avatar size must be within 0 pixels and 2048 pixels');
         }
 
         $this->iSize = $iSize;
@@ -195,7 +187,7 @@ class Image extends Gravatar
      *
      * @param string $sDefaultImage The default image to use. Use a valid image URL, or a recognized gravatar "default".
      * @param boolean $bForce Force the default image to be always load.
-     * @throws \InvalidArgumentException
+     * @throws InvalidDefaultImageException
      * @return \forxer\Gravatar\Image The current Gravatar Image instance.
      */
     public function setDefaultImage($sDefaultImage = null, $bForce = false)
@@ -208,29 +200,25 @@ class Image extends Gravatar
             return $this;
         }
 
-        $this->sParamsCache = null;
-
         $_image = strtolower($sDefaultImage);
 
-        if (in_array($_image, $this->aValidDefaultsImages))
-        {
+        if (in_array($_image, $this->aValidDefaultsImages)) {
             $this->sDefaultImage = $_image;
             return $this;
         }
 
-        if (filter_var($sDefaultImage, FILTER_VALIDATE_URL))
-        {
+        if (filter_var($sDefaultImage, FILTER_VALIDATE_URL)) {
             $this->sDefaultImage = $sDefaultImage;
             return $this;
         }
 
-        throw new InvalidArgumentException(
-            sprintf(
-                'The default image "%s" is not a recognized gravatar "default" and is not a valid URL, default gravatar can be: %s',
-                $sDefaultImage,
-                implode(', ', $this->aValidDefaultsImages)
-            )
+        $message = sprintf(
+            'The default image "%s" is not a recognized gravatar "default" and is not a valid URL, default gravatar can be: %s',
+            $sDefaultImage,
+            implode(', ', $this->aValidDefaultsImages)
         );
+
+        throw new InvalidDefaultImageException($message);
     }
 
     /**
@@ -307,7 +295,7 @@ class Image extends Gravatar
      * Set the maximum allowed rating for avatars.
      *
      * @param string $sRating The maximum rating to use for avatars.
-     * @throws \InvalidArgumentException
+     * @throws InvalidMaxRatingImageException
      * @return \forxer\Gravatar\Image The current Gravatar Image instance.
      */
     public function setMaxRating($sRating = null)
@@ -316,19 +304,16 @@ class Image extends Gravatar
             return $this;
         }
 
-        $this->sParamsCache = null;
-
         $sRating = strtolower($sRating);
 
-        if (!in_array($sRating, $this->aValidRatings))
-        {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'Invalid rating "%s" specified, only allowed to be used are: %s',
-                    $sRating,
-                    implode(', ', $this->aValidRatings)
-                )
+        if (!in_array($sRating, $this->aValidRatings)) {
+            $message = sprintf(
+                'Invalid rating "%s" specified, only allowed to be used are: %s',
+                $sRating,
+                implode(', ', $this->aValidRatings)
             );
+
+            throw new InvalidMaxRatingImageException($message);
         }
 
         $this->sMaxRating = $sRating;
@@ -376,7 +361,7 @@ class Image extends Gravatar
      * Set the avatar extension to use.
      *
      * @param string $sExtension The avatar extension to use.
-     * @throws \InvalidArgumentException
+     * @throws InvalidImageExtensionException
      * @return \forxer\Gravatar\Image The current Gravatar Image instance.
      */
     public function setExtension($sExtension = null)
@@ -385,17 +370,14 @@ class Image extends Gravatar
             return $this;
         }
 
-        $this->sParamsCache = null;
-
-        if (!in_array($sExtension, $this->aValidExtensions))
-        {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'The extension "%s" is not a valid one, extension image for Gravatar can be: %s',
-                    $sExtension,
-                    implode(', ', $this->aValidExtensions)
-                )
+        if (!in_array($sExtension, $this->aValidExtensions)) {
+            $message = sprintf(
+                'The extension "%s" is not a valid one, extension image for Gravatar can be: %s',
+                $sExtension,
+                implode(', ', $this->aValidExtensions)
             );
+
+            throw new InvalidImageExtensionException($message);
         }
 
         $this->sExtension = $sExtension;
@@ -429,6 +411,6 @@ class Image extends Gravatar
         }
 
         return (null !== $this->sExtension ? '.'.$this->sExtension : '')
-            .(!empty($aParams) ? '?' . http_build_query($aParams, '', '&amp;') : '');
+            .(empty($aParams) ? '' : '?'.http_build_query($aParams, '', '&amp;'));
     }
 }

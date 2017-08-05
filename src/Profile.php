@@ -83,7 +83,7 @@ class Profile extends Gravatar
      *
      * @param string $sFormat The profile format to use
      * @throws \InvalidArgumentException
-     * @return Profile The current Profile instance
+     * @return \forxer\Gravatar\Profile The current Profile instance
      */
     public function setFormat($sFormat = null)
     {

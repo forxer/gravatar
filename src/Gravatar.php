@@ -18,7 +18,7 @@ class Gravatar
     protected $sEmail;
 
     /**
-     * Return the Gravatar image URL based on the provided email address.
+     * Return the Gravatar image based on the provided email address.
      *
      * @param string $sEmail The email to get the gravatar for.
      * @param string $iSize The avatar size to use, must be less than 2048 and greater than 0.
@@ -26,21 +26,22 @@ class Gravatar
      * @param string $sRating The maximum rating to use for avatars
      * @param string $sExtension The avatar extension to use
      * @param boolean $bForceDefault Force the default image to be always load.
-     * @return string The URL to the gravatar.
+     * @return \forxer\Gravatar\Image
      */
     public static function image($sEmail, $iSize = null, $sDefaultImage = null, $sRating = null, $sExtension = null, $bForceDefault = false)
     {
         $gravatarImage = (new Image())
+            ->setEmail($sEmail)
             ->setSize($iSize)
             ->setDefaultImage($sDefaultImage, $bForceDefault)
             ->setMaxRating($sRating)
             ->setExtension($sExtension);
 
-        return $gravatarImage->getUrl($sEmail);
+        return $gravatarImage;
     }
 
     /**
-     * Return multiples Gravatar images URL based on the provided array of emails addresses.
+     * Return multiples Gravatar images based on the provided array of emails addresses.
      *
      * @param array $aEmail The emails list to get the Gravatar images for.
      * @param string $iSize The avatar size to use, must be less than 2048 and greater than 0.
@@ -48,23 +49,24 @@ class Gravatar
      * @param string $sRating The maximum rating to use for avatars.
      * @param string $sExtension The avatar extension to use.
      * @param boolean $bForceDefault Force the default image to be always load.
-     * @return array The list of URL to the Gravatar images.
+     * @return array
      */
     public static function images(array $aEmail, $iSize = null, $sDefaultImage = null, $sRating = null, $sExtension = null, $bForceDefault = false)
     {
-        $gravatarImage = (new Image())
-            ->setSize($iSize)
-            ->setDefaultImage($sDefaultImage, $bForceDefault)
-            ->setMaxRating($sRating)
-            ->setExtension($sExtension);
-
-        $aUrls = [];
+        $aImages = [];
 
         foreach ($aEmail as $sEmail) {
-            $aUrls[$sEmail] = $gravatarImage->getUrl($sEmail);
+            $gravatarImage = (new Image())
+                ->setEmail($sEmail)
+                ->setSize($iSize)
+                ->setDefaultImage($sDefaultImage, $bForceDefault)
+                ->setMaxRating($sRating)
+                ->setExtension($sExtension);
+
+            $aImages[$sEmail] = $gravatarImage;
         }
 
-        return $aUrls;
+        return $aImages;
     }
 
     /**
@@ -72,34 +74,35 @@ class Gravatar
      *
      * @param string $sEmail The email to get the Gravatar profile for.
      * @param string $sFormat The profile format to use.
-     * @return string The URL to the Gravatar profile.
+     * @return \forxer\Gravatar\Profile
      */
     public static function profile($sEmail, $sFormat = null)
     {
         return (new Profile())
-            ->setFormat($sFormat)
-            ->getUrl($sEmail);
+            ->setEmail($sEmail)
+            ->setFormat($sFormat);
     }
 
     /**
-     * Return multiples Gravatar profiles URL based on the provided array of emails addresses.
+     * Return multiples Gravatar profiles based on the provided array of emails addresses.
      *
      * @param array $aEmail The emails list to get the Gravatar profiles for.
      * @param string $sFormat The profile format to use.
-     * @return array The list of URL to the Gravatar profiles.
+     * @return array
      */
     public static function profiles(array $aEmail, $sFormat = null)
     {
-        $gravatarProfil = (new Profile())
-            ->setFormat($sFormat);
-
-        $aUrls = [];
+        $aProfils = [];
 
         foreach ($aEmail as $sEmail) {
-            $aUrls[$sEmail] = $gravatarProfil->getUrl($sEmail);
+            $gravatarProfil = (new Profile())
+                ->setEmail($sEmail)
+                ->setFormat($sFormat);
+
+            $aProfils[$sEmail] = $gravatarProfil;
         }
 
-        return $aUrls;
+        return $aProfils;
     }
 
     /**

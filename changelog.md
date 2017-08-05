@@ -5,8 +5,11 @@ This changelog does not reference all the changes, only the most relevant to be 
 To get the diff for a specific change, go to https://github.com/forxer/gravatar/commit/XXX where XXX is the change hash
 To get the diff between two versions, go to https://github.com/forxer/gravatar/compare/1.1...1.2
 
+*BBC* : break backwards changes
+
 - **2.0.0**
-    - remove 'secure' optionnal parameter and always use 'protocol-agnostic' base URL instead
+    - now follows closely SemVer
+    - *BBC* remove 'secure' optionnal parameter and always use 'protocol-agnostic' base URL instead
     - add Gravatar::email() methods (helper/getter/setter)
     - implement __toString() methods on Image and Profile classes
     - add Image::size() helper method and its alias Image::s()
