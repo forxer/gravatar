@@ -3,17 +3,17 @@
 This changelog does not reference all the changes, only the most relevant to be included in this document.
 
 To get the diff for a specific change, go to https://github.com/forxer/gravatar/commit/XXX where XXX is the change hash
-To get the diff between two versions, go to https://github.com/forxer/gravatar/compare/1.1...1.2
+To get the diff between two versions, go to https://github.com/forxer/gravatar/compare/1.3...2.0
 
 *BBC* : break backwards changes
 
 - **2.0.0**
     - now follows closely SemVer
-    - *BBC* remove 'secure' optionnal parameter and always use 'protocol-agnostic' base URL instead
-    - *BBC* Gravatar::image now return Image instance instead of URL string
-    - *BBC* Gravatar::images now return array of Image instances instead of array of URL strings
-    - *BBC* Gravatar::profile now return Profile instance instead of URL string
-    - *BBC* Gravatar::profiles now return array of Profile instances instead of array of URL strings
+    - *BBC* : remove 'secure' optionnal parameter and always use 'protocol-agnostic' base URL instead
+    - *BBC* : Gravatar::image now return Image instance instead of URL string
+    - *BBC* : Gravatar::images now return array of Image instances instead of array of URL strings
+    - *BBC* : Gravatar::profile now return Profile instance instead of URL string
+    - *BBC* : Gravatar::profiles now return array of Profile instances instead of array of URL strings
     - add Image::__toString() method
     - add Profile::__toString() method
     - add Gravatar::email() methods (helper/getter/setter)
