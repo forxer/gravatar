@@ -10,12 +10,24 @@ To get the diff between two versions, go to https://github.com/forxer/gravatar/c
 - **2.0.0**
     - now follows closely SemVer
     - *BBC* remove 'secure' optionnal parameter and always use 'protocol-agnostic' base URL instead
+    - *BBC* Gravatar::image now return Image instance instead of URL string
+    - *BBC* Gravatar::images now return array of Image instances instead of array of URL strings
+    - *BBC* Gravatar::profile now return Profile instance instead of URL string
+    - *BBC* Gravatar::profiles now return array of Profile instances instead of array of URL strings
+    - add Image::__toString() method
+    - add Profile::__toString() method
     - add Gravatar::email() methods (helper/getter/setter)
-    - implement __toString() methods on Image and Profile classes
     - add Image::size() helper method and its alias Image::s()
     - add Image::defaultImage() helper method and its alias Image::d()
     - add Image::rating() helper method and its alias Image::r()
     - add Image::extension() helper method and its alias Image::e()
+    - add Profile::format() helper method and its alias Profile::f()
+    - add Exception\InvalidDefaultImageException class
+    - add Exception\InvalidImageExtensionException class
+    - add Exception\InvalidImageSizeException class
+    - add Exception\InvalidMaxRatingImageException class
+    - add Exception\InvalidProfileFormatException class
+    - remove useless internal image params cache
 - 1.3.2
     - fix readme anchor for TOC
 - 1.3.1
