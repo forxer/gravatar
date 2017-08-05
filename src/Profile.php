@@ -8,7 +8,7 @@
 
 namespace forxer\Gravatar;
 
-use \InvalidArgumentException;
+use Exception\InvalidProfileFormatException;
 
 class Profile extends Gravatar
 {
@@ -117,15 +117,14 @@ class Profile extends Gravatar
             return $this;
         }
 
-        if (!in_array($sFormat, $this->aValidFormats))
-        {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'The format "%s" is not a valid one, profile format for Gravatar can be: %s',
-                    $sFormat,
-                    implode(', ', $this->aValidFormats)
-                )
+        if (!in_array($sFormat, $this->aValidFormats)) {
+            $message = sprintf(
+                'The format "%s" is not a valid one, profile format for Gravatar can be: %s',
+                $sFormat,
+                implode(', ', $this->aValidFormats)
             );
+
+            throw new InvalidProfileFormatException($message);
         }
 
         $this->sFormat = $sFormat;
