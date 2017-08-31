@@ -8,6 +8,8 @@ Gravatar is a small library intended to provide easy integration of... Gravatar 
 
 It will help you generate the URL for Gravatar images and profiles.
 
+To use with Laravel, please look at: [laravel-gravatar](https://github.com/forxer/laravel-gravatar)
+
 * [Installation](#installation)
     * [Requirements](#requirements)
     * [With Composer](#with-composer)
