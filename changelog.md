@@ -7,6 +7,10 @@ To get the diff between two versions, go to https://github.com/forxer/gravatar/c
 
 *BBC* : break backwards changes
 
+- 2.1.0
+    - add Image::setForceDefault() and Image::getForceDefaultImage()
+    - add Image::forceDefault() helper method and its alias Image::f()
+
 - **2.0.0**
     - now follows closely SemVer
     - *BBC* : remove 'secure' optionnal parameter and always use 'protocol-agnostic' base URL instead

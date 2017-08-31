@@ -222,13 +222,62 @@ class Image extends Gravatar
     }
 
     /**
+     * Get or set if we have to force the default image to be always load.
+     *
+     * @param boolean $sRating
+     * @return boolean|\forxer\Gravatar\Image
+     */
+    public function forceDefault($bForceDefault = null)
+    {
+        if (null === $bForceDefault) {
+            return $this->getForceDefault();
+        }
+
+        return $this->setForceDefault($bForceDefault);
+    }
+
+    /**
+     * Alias for the "forceDefault" method.
+     *
+     * @param boolean $bForceDefault
+     * @return boolean|\forxer\Gravatar\Image
+     */
+    public function f($bForceDefault = null)
+    {
+        return $this->forceDefault($bForceDefault);
+    }
+
+    /**
      * Check if we are forcing the default image to be always load.
+     *
+     * @return boolean Are we forcing the default image?
+     */
+    public function getForceDefault()
+    {
+        return $this->bForceDefault;
+    }
+
+    /**
+     * Alias for the "getForceDefault" method.
      *
      * @return boolean Are we forcing the default image?
      */
     public function forcingDefault()
     {
-        return $this->bForceDefault;
+        return $this->getForceDefault();
+    }
+
+    /**
+     * Set if the default image has to be always load.
+     *
+     * @param boolean $bForceDefault Should we force or not the default image to be always load.
+     * @return \forxer\Gravatar\Image The current Gravatar Image instance.
+     */
+    public function setForceDefault($bForceDefault = false)
+    {
+        $this->bForceDefault = (bool)$bForceDefault;
+
+        return $this;
     }
 
     /**
@@ -238,7 +287,7 @@ class Image extends Gravatar
      */
     public function enableForceDefault()
     {
-        $this->bForceDefault = true;
+        $this->setForceDefault(true);
 
         return $this;
     }
@@ -250,7 +299,7 @@ class Image extends Gravatar
      */
     public function disableForceDefault()
     {
-        $this->bForceDefault = false;
+        $this->setForceDefault(false);
 
         return $this;
     }

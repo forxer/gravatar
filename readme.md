@@ -224,7 +224,7 @@ $gravatarImage = new \forxer\Gravatar\Image();
 $gravatarImage
     ->setSize(120);
 
-// or the `size()` method of a `\forxer\Gravatar\Image` instance
+// or the `size()` helper method of a `\forxer\Gravatar\Image` instance
 $gravatarImage = new \forxer\Gravatar\Image();
 $gravatarImage
     ->size(120);
@@ -233,6 +233,25 @@ $gravatarImage
 $gravatarImage = new \forxer\Gravatar\Image();
 $gravatarImage
     ->s(120);
+```
+
+If you want to retrieve the currently set avatar size, you can use one of following methods:
+
+```php
+// call the `getSize()` method of a `\forxer\Gravatar\Image` instance
+$gravatarImage = new \forxer\Gravatar\Image();
+$gravatarImage
+    ->getSize();
+
+// or the `size()` helper method of a `\forxer\Gravatar\Image` instance without parameter
+$gravatarImage = new \forxer\Gravatar\Image();
+$gravatarImage
+    ->size();
+
+// or its alias `s()`
+$gravatarImage = new \forxer\Gravatar\Image();
+$gravatarImage
+    ->s();
 ```
 
 ### Default Gravatar image
@@ -272,7 +291,7 @@ $gravatarImage = new \forxer\Gravatar\Image();
 $gravatarImage
     ->setDefaultImage('mm');
 
-// or the `defaultImage()` method of a `\forxer\Gravatar\Image` instance
+// or the `defaultImage()` helper method of a `\forxer\Gravatar\Image` instance
 $gravatarImage = new \forxer\Gravatar\Image();
 $gravatarImage
     ->defaultImage('mm');
@@ -281,6 +300,25 @@ $gravatarImage
 $gravatarImage = new \forxer\Gravatar\Image();
 $gravatarImage
     ->s('mm');
+```
+
+If you want to retrieve the currently set avatar default image, you can use one of following methods:
+
+```php
+// call the `getDefaultImage()` method of a `\forxer\Gravatar\Image` instance
+$gravatarImage = new \forxer\Gravatar\Image();
+$gravatarImage
+    ->getDefaultImage();
+
+// or the `defaultImage()` helper method of a `\forxer\Gravatar\Image` instance without parameter
+$gravatarImage = new \forxer\Gravatar\Image();
+$gravatarImage
+    ->defaultImage();
+
+// or its alias `d()`
+$gravatarImage = new \forxer\Gravatar\Image();
+$gravatarImage
+    ->d();
 ```
 
 ### Gravatar image max rating
@@ -305,7 +343,7 @@ $gravatarImage = new \forxer\Gravatar\Image();
 $gravatarImage
     ->setMaxRating('g');
 
-// or the `rating()` method of a `\forxer\Gravatar\Image` instance
+// or the `rating()` helper method of a `\forxer\Gravatar\Image` instance
 $gravatarImage = new \forxer\Gravatar\Image();
 $gravatarImage
     ->rating('g');
@@ -314,6 +352,25 @@ $gravatarImage
 $gravatarImage = new \forxer\Gravatar\Image();
 $gravatarImage
     ->r('g');
+```
+
+If you want to retrieve the currently set avatar max rating, you can use one of following methods:
+
+```php
+// call the `getMaxRating()` method of a `\forxer\Gravatar\Image` instance
+$gravatarImage = new \forxer\Gravatar\Image();
+$gravatarImage
+    ->getMaxRating();
+
+// or the `rating()` helper method of a `\forxer\Gravatar\Image` instance without parameter
+$gravatarImage = new \forxer\Gravatar\Image();
+$gravatarImage
+    ->rating();
+
+// or its alias `r()`
+$gravatarImage = new \forxer\Gravatar\Image();
+$gravatarImage
+    ->r();
 ```
 
 ### Gravatar image file-type extension
@@ -330,7 +387,7 @@ $gravatarImage = new \forxer\Gravatar\Image();
 $gravatarImage
     ->setExtension('jpg');
 
-// or the `extension()` method of a `\forxer\Gravatar\Image` instance
+// or the `extension()` helper method of a `\forxer\Gravatar\Image` instance
 $gravatarImage = new \forxer\Gravatar\Image();
 $gravatarImage
     ->extension('jpg');
@@ -341,6 +398,25 @@ $gravatarImage
     ->e('jpg');
 ```
 
+If you want to retrieve the currently set avatar file-type extension, you can use one of following methods:
+
+```php
+// call the `getExtension()` method of a `\forxer\Gravatar\Image` instance
+$gravatarImage = new \forxer\Gravatar\Image();
+$gravatarImage
+    ->getExtension();
+
+// or the `extension()` helper method of a `\forxer\Gravatar\Image` instance without parameter
+$gravatarImage = new \forxer\Gravatar\Image();
+$gravatarImage
+    ->extension();
+
+// or its alias `e()`
+$gravatarImage = new \forxer\Gravatar\Image();
+$gravatarImage
+    ->e();
+```
+
 ### Force to always use the default image
 
 If for some reason you wanted to force the default image to always be load, you can do it:
@@ -349,6 +425,21 @@ If for some reason you wanted to force the default image to always be load, you 
 // to force to always use the default image, set the sixth parameter of `Gravatar::image()` and `Gravatar::images()` to `true`
 Gravatar::image($email_string, null, null, null, null, true);
 Gravatar::images($emails_array, null, null, null, null, true);
+
+// or use the `setForceDefault()` method of a `\forxer\Gravatar\Image` instance
+$gravatarImage = new \forxer\Gravatar\Image();
+$gravatarImage
+    ->setForceDefault(true);
+
+// or the `forceDefault()` helper method of a `\forxer\Gravatar\Image` instance
+$gravatarImage = new \forxer\Gravatar\Image();
+$gravatarImage
+    ->forceDefault(true);
+
+// or its alias `f()`
+$gravatarImage = new \forxer\Gravatar\Image();
+$gravatarImage
+    ->f(true);
 
 // or use the `enableForceDefault()` method of a `\forxer\Gravatar\Image` instance
 $gravatarImage = new \forxer\Gravatar\Image();
@@ -390,7 +481,7 @@ $gravatarProfile = new \forxer\Gravatar\Profile();
 $gravatarProfile
     ->setFormat('json');
 
-// or the `format()` method of a `\forxer\Gravatar\Profile` instance
+// or the `format()` helper method of a `\forxer\Gravatar\Profile` instance
 $gravatarProfile = new \forxer\Gravatar\Profile();
 $gravatarProfile
     ->format('json');
