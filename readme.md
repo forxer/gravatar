@@ -301,7 +301,7 @@ $gravatarImage
 // or its alias `d()`
 $gravatarImage = new \forxer\Gravatar\Image();
 $gravatarImage
-    ->s('mm');
+    ->d('mm');
 ```
 
 If you want to retrieve the currently set avatar default image, you can use one of following methods:
