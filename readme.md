@@ -353,10 +353,10 @@ $gravatarImage = new \Gravatar\Image();
 $gravatarImage
     ->setMaxRating('g');
 
-// or the `rating()` helper method of a `\Gravatar\Image` instance
+// or the `maxrating()` helper method of a `\Gravatar\Image` instance
 $gravatarImage = new \Gravatar\Image();
 $gravatarImage
-    ->rating('g');
+    ->maxrating('g');
 
 // or its alias `r()`
 $gravatarImage = new \Gravatar\Image();
@@ -372,10 +372,10 @@ $gravatarImage = new \Gravatar\Image();
 $gravatarImage
     ->getMaxRating();
 
-// or the `rating()` helper method of a `\Gravatar\Image` instance without parameter
+// or the `maxrating()` helper method of a `\Gravatar\Image` instance without parameter
 $gravatarImage = new \Gravatar\Image();
 $gravatarImage
-    ->rating();
+    ->maxrating();
 
 // or its alias `r()`
 $gravatarImage = new \Gravatar\Image();

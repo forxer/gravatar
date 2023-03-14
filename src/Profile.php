@@ -1,14 +1,8 @@
 <?php
-/*
- * This file is part of forxer/Gravatar package.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 
 namespace Gravatar;
 
-use Exception\InvalidProfileFormatException;
+use Gravatar\Exception\InvalidProfileFormatException;
 
 class Profile extends Gravatar
 {

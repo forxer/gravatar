@@ -1,6 +1,6 @@
 <?php
 
-namespace Exception;
+namespace Gravatar\Exception;
 
 use InvalidArgumentException;
 

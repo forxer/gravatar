@@ -5,7 +5,11 @@ CHANGELOG
 ------------------
 
 - Removed support for PHP prior to 8.0
-- Replace `forxer\Gravatar\` namespace by `Gravatar\`
+- Replaced `forxer\Gravatar\` namespace by `Gravatar\`
+- Used more type hinting for consistency
+- Split code into traits to facilitate reading and maintenance
+- Renamint "rating" méthod into "maxRating"
+- Renaming most variables
 
 
 2.1.0 (2017-08-31)
