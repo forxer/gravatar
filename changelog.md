@@ -1,56 +1,88 @@
-# CHANGELOG
+CHANGELOG
+=========
 
-This changelog does not reference all the changes, only the most relevant to be included in this document.
+3.0.0 (2013-03-xx)
+------------------
 
-To get the diff for a specific change, go to https://github.com/forxer/gravatar/commit/XXX where XXX is the change hash
-To get the diff between two versions, go to https://github.com/forxer/gravatar/compare/1.3...2.0
+- Removed support for PHP prior to 8.0
+- Replace `forxer\Gravatar\` namespace by `Gravatar\`
 
-*BBC* : break backwards changes
 
-- 2.1.0
-    - add Image::setForceDefault() and Image::getForceDefaultImage()
-    - add Image::forceDefault() helper method and its alias Image::f()
+2.1.0 (2017-08-31)
+------------------
 
-- **2.0.0**
-    - now follows closely SemVer
-    - *BBC* : remove 'secure' optionnal parameter and always use 'protocol-agnostic' base URL instead
-    - *BBC* : Gravatar::image now return Image instance instead of URL string
-    - *BBC* : Gravatar::images now return array of Image instances instead of array of URL strings
-    - *BBC* : Gravatar::profile now return Profile instance instead of URL string
-    - *BBC* : Gravatar::profiles now return array of Profile instances instead of array of URL strings
-    - add Image::__toString() method
-    - add Profile::__toString() method
-    - add Gravatar::email() methods (helper/getter/setter)
-    - add Image::size() helper method and its alias Image::s()
-    - add Image::defaultImage() helper method and its alias Image::d()
-    - add Image::rating() helper method and its alias Image::r()
-    - add Image::extension() helper method and its alias Image::e()
-    - add Profile::format() helper method and its alias Profile::f()
-    - add Exception\InvalidDefaultImageException class
-    - add Exception\InvalidImageExtensionException class
-    - add Exception\InvalidImageSizeException class
-    - add Exception\InvalidMaxRatingImageException class
-    - add Exception\InvalidProfileFormatException class
-    - remove useless internal image params cache
-- 1.3.2
-    - fix readme anchor for TOC
-- 1.3.1
-    - do not double encode default image URL
-- **1.3.0**
-    - add force default image support
-    - replace tabs by spaces
-    - improved docblocks
-- 1.2.1
-    - misc informations update
-    - add changelog
-- **1.2.0**
-    - PHP 5.4
-- 1.1.2
-    - documentation
-    - coding standard
-- 1.1.1
-    - documentation
-- **1.1**
-    - global rewrite code base
-- **1.0**
-    - first public release
+- Added `Image::setForceDefault()` and `Image::getForceDefaultImage()`
+- Added `Image::forceDefault()` helper method and its alias `Image::f()`
+
+2.0.0 (2017-08-05)
+------------------
+
+- Now follows closely SemVer
+- Removed `secure` optionnal parameter and always use 'protocol-agnostic' base URL instead
+- `Gravatar::image()` now return Image instance instead of URL string
+- Added `Image::__toString()` method
+- `Gravatar::images()` now return array of Image instances instead of array of URL strings
+- `Gravatar::profile()` now return Profile instance instead of URL string
+- Added `Profile::__toString()` method
+- `Gravatar::profiles()` now return array of Profile instances instead of array of URL strings
+- Added `Gravatar::email()` methods (helper/getter/setter)
+- Added `Image::size()` helper method and its alias `Image::s()`
+- Added `Image::defaultImage()` helper method and its alias `Image::d()`
+- Added `Image::rating()` helper method and its alias `Image::r()`
+- Added `Image::extension()` helper method and its alias `Image::e()`
+- Added `Profile::format()` helper method and its alias `Profile::f()`
+- Added `Exception\InvalidDefaultImageException` class
+- Added `Exception\InvalidImageExtensionException` class
+- Added `Exception\InvalidImageSizeException` class
+- Added `Exception\InvalidMaxRatingImageException` class
+- Added `Exception\InvalidProfileFormatException` class
+- Removed useless internal image params cache
+
+1.3.2 (2017-07-27)
+------------------
+
+- Fixed readme anchor for TOC
+
+1.3.1 (2016-02-26)
+------------------
+
+- Fixed double encode default image URL
+
+1.3.0 (2015-06-30)
+------------------
+
+- Added force default image support
+- Replaced tabs by spaces
+- Improved docblocks
+
+1.2.1 (2014-11-15)
+------------------
+
+- pdated misc informations
+- Added changelog
+
+1.2.0 (2014-08-22)
+------------------
+
+- Removed support for PHP prior to 5.4
+
+1.1.2 (2014-02-19)
+------------------
+
+- Added more documentation
+- Coding standard
+
+1.1.1 (2014-02-19)
+------------------
+
+- Added more documentation
+
+1.1.0 (2014-02-19)
+------------------
+
+- Global rewrite of the base code
+
+1.0.0 (2014-02-19)
+------------------
+
+- First public release

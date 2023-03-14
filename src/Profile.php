@@ -1,12 +1,12 @@
 <?php
 /*
- * This file is part of forxer\Gravatar.
+ * This file is part of forxer/Gravatar package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace forxer\Gravatar;
+namespace Gravatar;
 
 use Exception\InvalidProfileFormatException;
 
@@ -35,8 +35,8 @@ class Profile extends Gravatar
         }
 
         return static::URL
-            . $this->getHash($this->getEmail())
-            . (null !== $this->sFormat ? '.' . $this->sFormat : null);
+            .$this->getHash($this->getEmail())
+            .(null !== $this->sFormat ? '.'.$this->sFormat : null);
     }
 
     /**
@@ -72,9 +72,9 @@ class Profile extends Gravatar
      * Get or set the profile format to use.
      *
      * @param string $sFormat The profile format to use.
-     * @return string|\forxer\Gravatar\Profile
+     * @return string|\Profile
      */
-    public function format($sFormat= null)
+    public function format($sFormat = null)
     {
         if (null === $sFormat) {
             return $this->getFormat();
@@ -87,9 +87,9 @@ class Profile extends Gravatar
      * Alias for the "format" method.
      *
      * @param string $sFormat
-     * @return string|\forxer\Gravatar\Profile
+     * @return string|\Profile
      */
-    public function f($sFormat= null)
+    public function f($sFormat = null)
     {
         return $this->format($sFormat);
     }
@@ -97,7 +97,7 @@ class Profile extends Gravatar
     /**
      * Get the currently set profile format.
      *
-     * @return integer The current profile format in use
+     * @return int The current profile format in use
      */
     public function getFormat()
     {
@@ -109,7 +109,7 @@ class Profile extends Gravatar
      *
      * @param string $sFormat The profile format to use
      * @throws \InvalidArgumentException
-     * @return \forxer\Gravatar\Profile The current Profile instance
+     * @return \Profile The current Profile instance
      */
     public function setFormat($sFormat = null)
     {
@@ -117,7 +117,7 @@ class Profile extends Gravatar
             return $this;
         }
 
-        if (!in_array($sFormat, $this->aValidFormats)) {
+        if (! in_array($sFormat, $this->aValidFormats)) {
             $message = sprintf(
                 'The format "%s" is not a valid one, profile format for Gravatar can be: %s',
                 $sFormat,

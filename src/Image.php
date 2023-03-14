@@ -1,12 +1,12 @@
 <?php
 /*
- * This file is part of forxer\Gravatar.
+ * This file is part of forxer/Gravatar package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace forxer\Gravatar;
+namespace Gravatar;
 
 use Exception\InvalidDefaultImageException;
 use Exception\InvalidImageExtensionException;
@@ -16,7 +16,7 @@ use Exception\InvalidMaxRatingImageException;
 class Image extends Gravatar
 {
     /**
-     * @var integer The size to use for avatars.
+     * @var int The size to use for avatars.
      */
     protected $iSize;
 
@@ -52,7 +52,7 @@ class Image extends Gravatar
     protected $aValidExtensions = ['jpg', 'jpeg', 'gif', 'png'];
 
     /**
-     * @var boolean Should we force the default image to always load?
+     * @var bool Should we force the default image to always load?
      */
     protected $bForceDefault = false;
 
@@ -87,8 +87,8 @@ class Image extends Gravatar
     /**
      * Get or set the avatar size to use.
      *
-     * @param integer $iSize The avatar size to use, must be less than 2048 and greater than 0.
-     * @return number|\forxer\Gravatar\Image
+     * @param int $iSize The avatar size to use, must be less than 2048 and greater than 0.
+     * @return number|\Image
      */
     public function size($iSize = null)
     {
@@ -102,10 +102,10 @@ class Image extends Gravatar
     /**
      * Alias for the "size" method.
      *
-     * @param integer $iSize The avatar size to use, must be less than 2048 and greater than 0.
-     * @return number|\forxer\Gravatar\Image
+     * @param int $iSize The avatar size to use, must be less than 2048 and greater than 0.
+     * @return number|\Image
      */
-    public function s($iSize= null)
+    public function s($iSize = null)
     {
         return $this->size($iSize);
     }
@@ -113,7 +113,7 @@ class Image extends Gravatar
     /**
      * Get the currently set avatar size.
      *
-     * @return integer The current avatar size in use.
+     * @return int The current avatar size in use.
      */
     public function getSize()
     {
@@ -123,9 +123,9 @@ class Image extends Gravatar
     /**
      * Set the avatar size to use.
      *
-     * @param integer $size The avatar size to use, must be less than 2048 and greater than 0.
+     * @param int $size The avatar size to use, must be less than 2048 and greater than 0.
      * @throws InvalidImageSizeException
-     * @return \forxer\Gravatar\Image The current Gravatar Image instance.
+     * @return \Image The current Gravatar Image instance.
      */
     public function setSize($iSize = null)
     {
@@ -148,8 +148,8 @@ class Image extends Gravatar
      * Get or set the default image to use for avatars.
      *
      * @param string $sDefaultImage The default image to use. Use a valid image URL, or a recognized gravatar "default".
-     * @param boolean $bForce Force the default image to be always load.
-     * @return number|\forxer\Gravatar\Image
+     * @param bool $bForce Force the default image to be always load.
+     * @return number|\Image
      */
     public function defaultImage($sDefaultImage = null, $bForce = false)
     {
@@ -164,8 +164,8 @@ class Image extends Gravatar
      * Alias for the "defaultImage" method.
      *
      * @param string $sDefaultImage The default image to use. Use a valid image URL, or a recognized gravatar "default".
-     * @param boolean $bForce Force the default image to be always load.
-     * @return number|\forxer\Gravatar\Image
+     * @param bool $bForce Force the default image to be always load.
+     * @return number|\Image
      */
     public function d($sDefaultImage = null, $bForce = false)
     {
@@ -186,9 +186,9 @@ class Image extends Gravatar
      * Set the default image to use for avatars.
      *
      * @param string $sDefaultImage The default image to use. Use a valid image URL, or a recognized gravatar "default".
-     * @param boolean $bForce Force the default image to be always load.
+     * @param bool $bForce Force the default image to be always load.
      * @throws InvalidDefaultImageException
-     * @return \forxer\Gravatar\Image The current Gravatar Image instance.
+     * @return \Image The current Gravatar Image instance.
      */
     public function setDefaultImage($sDefaultImage = null, $bForce = false)
     {
@@ -204,11 +204,13 @@ class Image extends Gravatar
 
         if (in_array($_image, $this->aValidDefaultsImages)) {
             $this->sDefaultImage = $_image;
+
             return $this;
         }
 
         if (filter_var($sDefaultImage, FILTER_VALIDATE_URL)) {
             $this->sDefaultImage = $sDefaultImage;
+
             return $this;
         }
 
@@ -224,8 +226,8 @@ class Image extends Gravatar
     /**
      * Get or set if we have to force the default image to be always load.
      *
-     * @param boolean $sRating
-     * @return boolean|\forxer\Gravatar\Image
+     * @param bool $sRating
+     * @return bool|\Image
      */
     public function forceDefault($bForceDefault = null)
     {
@@ -239,8 +241,8 @@ class Image extends Gravatar
     /**
      * Alias for the "forceDefault" method.
      *
-     * @param boolean $bForceDefault
-     * @return boolean|\forxer\Gravatar\Image
+     * @param bool $bForceDefault
+     * @return bool|\Image
      */
     public function f($bForceDefault = null)
     {
@@ -250,7 +252,7 @@ class Image extends Gravatar
     /**
      * Check if we are forcing the default image to be always load.
      *
-     * @return boolean Are we forcing the default image?
+     * @return bool Are we forcing the default image?
      */
     public function getForceDefault()
     {
@@ -260,7 +262,7 @@ class Image extends Gravatar
     /**
      * Alias for the "getForceDefault" method.
      *
-     * @return boolean Are we forcing the default image?
+     * @return bool Are we forcing the default image?
      */
     public function forcingDefault()
     {
@@ -270,12 +272,12 @@ class Image extends Gravatar
     /**
      * Set if the default image has to be always load.
      *
-     * @param boolean $bForceDefault Should we force or not the default image to be always load.
-     * @return \forxer\Gravatar\Image The current Gravatar Image instance.
+     * @param bool $bForceDefault Should we force or not the default image to be always load.
+     * @return \Image The current Gravatar Image instance.
      */
     public function setForceDefault($bForceDefault = false)
     {
-        $this->bForceDefault = (bool)$bForceDefault;
+        $this->bForceDefault = (bool) $bForceDefault;
 
         return $this;
     }
@@ -283,7 +285,7 @@ class Image extends Gravatar
     /**
      * Force the default image to be always load.
      *
-     * @return \forxer\Gravatar\Image The current Gravatar Image instance.
+     * @return \Image The current Gravatar Image instance.
      */
     public function enableForceDefault()
     {
@@ -295,7 +297,7 @@ class Image extends Gravatar
     /**
      * Do not force the default image to be always load.
      *
-     * @return \forxer\Gravatar\Image The current Gravatar Image instance.
+     * @return \Image The current Gravatar Image instance.
      */
     public function disableForceDefault()
     {
@@ -308,7 +310,7 @@ class Image extends Gravatar
      * Get or set the maximum allowed rating for avatars.
      *
      * @param string $sRating
-     * @return string|\forxer\Gravatar\Image
+     * @return string|\Image
      */
     public function rating($sRating = null)
     {
@@ -323,7 +325,7 @@ class Image extends Gravatar
      * Alias for the "rating" method.
      *
      * @param string $sRating
-     * @return string|\forxer\Gravatar\Image
+     * @return string|\Image
      */
     public function r($sRating = null)
     {
@@ -345,7 +347,7 @@ class Image extends Gravatar
      *
      * @param string $sRating The maximum rating to use for avatars.
      * @throws InvalidMaxRatingImageException
-     * @return \forxer\Gravatar\Image The current Gravatar Image instance.
+     * @return \Image The current Gravatar Image instance.
      */
     public function setMaxRating($sRating = null)
     {
@@ -355,7 +357,7 @@ class Image extends Gravatar
 
         $sRating = strtolower($sRating);
 
-        if (!in_array($sRating, $this->aValidRatings)) {
+        if (! in_array($sRating, $this->aValidRatings)) {
             $message = sprintf(
                 'Invalid rating "%s" specified, only allowed to be used are: %s',
                 $sRating,
@@ -374,7 +376,7 @@ class Image extends Gravatar
      * Get or set the avatar extension to use.
      *
      * @param string $sExtension The avatar extension to use.
-     * @return string|\forxer\Gravatar\Image
+     * @return string|\Image
      */
     public function extension($sExtension = null)
     {
@@ -389,9 +391,9 @@ class Image extends Gravatar
      * Alias for the "extension" method.
      *
      * @param string $sExtension
-     * @return string|\forxer\Gravatar\Image
+     * @return string|\Image
      */
-    public function e($sExtension= null)
+    public function e($sExtension = null)
     {
         return $this->extension($sExtension);
     }
@@ -399,7 +401,7 @@ class Image extends Gravatar
     /**
      * Get the currently set avatar extension.
      *
-     * @return integer The current avatar extension in use
+     * @return int The current avatar extension in use
      */
     public function getExtension()
     {
@@ -411,7 +413,7 @@ class Image extends Gravatar
      *
      * @param string $sExtension The avatar extension to use.
      * @throws InvalidImageExtensionException
-     * @return \forxer\Gravatar\Image The current Gravatar Image instance.
+     * @return \Image The current Gravatar Image instance.
      */
     public function setExtension($sExtension = null)
     {
@@ -419,7 +421,7 @@ class Image extends Gravatar
             return $this;
         }
 
-        if (!in_array($sExtension, $this->aValidExtensions)) {
+        if (! in_array($sExtension, $this->aValidExtensions)) {
             $message = sprintf(
                 'The extension "%s" is not a valid one, extension image for Gravatar can be: %s',
                 $sExtension,

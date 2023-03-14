@@ -1,12 +1,12 @@
 <?php
 /*
- * This file is part of forxer\Gravatar.
+ * This file is part of forxer/Gravatar package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace forxer\Gravatar;
+namespace Gravatar;
 
 class Gravatar
 {
@@ -25,8 +25,8 @@ class Gravatar
      * @param string $sDefaultImage The default image to use. Use a valid image URL, or a recognized gravatar "default".
      * @param string $sRating The maximum rating to use for avatars
      * @param string $sExtension The avatar extension to use
-     * @param boolean $bForceDefault Force the default image to be always load.
-     * @return \forxer\Gravatar\Image
+     * @param bool $bForceDefault Force the default image to be always load.
+     * @return \Image
      */
     public static function image($sEmail, $iSize = null, $sDefaultImage = null, $sRating = null, $sExtension = null, $bForceDefault = false)
     {
@@ -48,7 +48,7 @@ class Gravatar
      * @param string $sDefaultImage The default image to use. Use a valid image URL, or a recognized gravatar "default".
      * @param string $sRating The maximum rating to use for avatars.
      * @param string $sExtension The avatar extension to use.
-     * @param boolean $bForceDefault Force the default image to be always load.
+     * @param bool $bForceDefault Force the default image to be always load.
      * @return array
      */
     public static function images(array $aEmail, $iSize = null, $sDefaultImage = null, $sRating = null, $sExtension = null, $bForceDefault = false)
@@ -74,7 +74,7 @@ class Gravatar
      *
      * @param string $sEmail The email to get the Gravatar profile for.
      * @param string $sFormat The profile format to use.
-     * @return \forxer\Gravatar\Profile
+     * @return \Profile
      */
     public static function profile($sEmail, $sFormat = null)
     {
@@ -109,7 +109,7 @@ class Gravatar
      * Get or set the address email to be used.
      *
      * @param string $sEmail
-     * @return number|\forxer\Gravatar\Gravatar
+     * @return number|\Gravatar
      */
     public function email($sEmail = null)
     {
@@ -123,7 +123,7 @@ class Gravatar
     /**
      * Get the address email to be used.
      *
-     * @return integer The current avatar size in use.
+     * @return int The current avatar size in use.
      */
     public function getEmail()
     {
@@ -134,7 +134,7 @@ class Gravatar
      * Set the address email to be used.
      *
      * @param string $sEmail
-     * @return \forxer\Gravatar\Gravatar
+     * @return \Gravatar
      */
     public function setEmail($sEmail)
     {
