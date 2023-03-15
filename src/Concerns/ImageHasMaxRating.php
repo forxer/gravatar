@@ -31,7 +31,7 @@ trait ImageHasMaxRating
      * Alias for the "rating" method.
      *
      * @param int|null $maxRating
-     * @return Image|null
+     * @return Image|string|null
      */
     public function r(?string $maxRating = null): Image|string|null
     {
@@ -51,12 +51,16 @@ trait ImageHasMaxRating
     /**
      * Set the maximum allowed rating for avatars.
      *
-     * @param string $maxRating The maximum rating to use for avatars.
+     * @param string|null $maxRating The maximum rating to use for avatars.
      * @return Image The current Gravatar Image instance.
      * @throws InvalidMaxRatingImageException
      */
-    public function setMaxRating(string $maxRating): Image
+    public function setMaxRating(?string $maxRating = null): Image
     {
+        if ($maxRating === null) {
+            return $this;
+        }
+
         $maxRating = strtolower($maxRating);
 
         if (! in_array($maxRating, $this->validMaxRating())) {

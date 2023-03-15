@@ -2,35 +2,35 @@
 
 namespace Gravatar;
 
-use Gravatar\Exception\InvalidProfileFormatException;
+use Gravatar\Concerns\ProfileHasFormat;
 
 class Profile extends Gravatar
 {
-    /**
-     * @var string The format to append to the profile URL.
-     */
-    protected $sFormat;
+    use ProfileHasFormat;
 
     /**
-     * @var array List of accepted format.
+     * Construct Image instance
+     *
+     * @param string|null $email
+     * @return void
      */
-    protected $aValidFormats = ['json', 'xml', 'php', 'vcf', 'qr'];
+    public function __construct(?string $email = null)
+    {
+        if ($email !== null) {
+            $this->setEmail($email);
+        }
+    }
 
     /**
      * Build the profile URL based on the provided email address.
      *
-     * @param string $sEmail The email to get the gravatar profile for
      * @return string
      */
-    public function getUrl($sEmail = null)
+    public function url(): string
     {
-        if (null !== $sEmail) {
-            $this->setEmail($sEmail);
-        }
-
-        return static::URL
-            .$this->getHash($this->getEmail())
-            .(null !== $this->sFormat ? '.'.$this->sFormat : null);
+        return 'https:'.static::URL
+            .$this->hash($this->getEmail())
+            .($this->format !== null ? '.'.$this->format : null);
     }
 
     /**
@@ -38,91 +38,29 @@ class Profile extends Gravatar
      *
      * @return string The URL to the gravatar.
      */
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->getUrl();
+        return $this->url();
     }
 
     /**
      * Return profile data based on the provided email address.
      *
-     * @param string $sEmail The email to get the gravatar profile for
-     * @return array
+     * @param string $email The email to get the gravatar profile for
+     * @return array|null
      */
-    public function getData($sEmail)
+    public function getData(string $email): ?array
     {
-        $this->sFormat = 'php';
+        $this->format('php');
 
-        $sProfile = file_get_contents($this->getUrl($sEmail));
+        $profile = file_get_contents($this->url($email));
 
-        $aProfile = unserialize($sProfile);
+        $data = unserialize($profile);
 
-        if (is_array($aProfile) && isset($aProfile['entry'])) {
-            return $aProfile;
-        }
-    }
-
-    /**
-     * Get or set the profile format to use.
-     *
-     * @param string $sFormat The profile format to use.
-     * @return string|\Profile
-     */
-    public function format($sFormat = null)
-    {
-        if (null === $sFormat) {
-            return $this->getFormat();
+        if (is_array($data) && isset($data['entry'])) {
+            return $data;
         }
 
-        return $this->setFormat($sFormat);
-    }
-
-    /**
-     * Alias for the "format" method.
-     *
-     * @param string $sFormat
-     * @return string|\Profile
-     */
-    public function f($sFormat = null)
-    {
-        return $this->format($sFormat);
-    }
-
-    /**
-     * Get the currently set profile format.
-     *
-     * @return int The current profile format in use
-     */
-    public function getFormat()
-    {
-        return $this->sFormat;
-    }
-
-    /**
-     * Set the profile format to use.
-     *
-     * @param string $sFormat The profile format to use
-     * @throws \InvalidArgumentException
-     * @return \Profile The current Profile instance
-     */
-    public function setFormat($sFormat = null)
-    {
-        if (null === $sFormat) {
-            return $this;
-        }
-
-        if (! in_array($sFormat, $this->aValidFormats)) {
-            $message = sprintf(
-                'The format "%s" is not a valid one, profile format for Gravatar can be: %s',
-                $sFormat,
-                implode(', ', $this->aValidFormats)
-            );
-
-            throw new InvalidProfileFormatException($message);
-        }
-
-        $this->sFormat = $sFormat;
-
-        return $this;
+        return null;
     }
 }

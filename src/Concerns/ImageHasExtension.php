@@ -10,7 +10,7 @@ trait ImageHasExtension
     /**
      * @var string The extension to append to the avatars URL.
      */
-    protected string $extension = null;
+    protected ?string $extension = null;
 
     /**
      * Get or set the avatar extension to use.
@@ -51,13 +51,17 @@ trait ImageHasExtension
     /**
      * Set the avatar extension to use.
      *
-     * @param string $extension The avatar extension to use.
+     * @param string|null $extension The avatar extension to use.
      * @return Image The current Gravatar Image instance.
      * @throws InvalidImageExtensionException
      */
-    public function setExtension(string $extension): Image
+    public function setExtension(?string $extension = null): Image
     {
-        $maxRating = strtolower($extension);
+        if ($extension === null) {
+            return $this;
+        }
+
+        $extension = strtolower($extension);
 
         if (! in_array($extension, $this->validExtensions())) {
             $message = sprintf(

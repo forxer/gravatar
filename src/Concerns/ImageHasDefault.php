@@ -12,7 +12,7 @@ trait ImageHasDefault
     /**
      * @var string The default image to use ; either a string of the gravatar recognized default image "type" to use, or a URL
      */
-    protected ?string $defaultImage;
+    protected ?string $defaultImage = null;
 
     /**
      * Get or set the default image to use for avatars.

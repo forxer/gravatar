@@ -51,12 +51,16 @@ trait ImageHasSize
     /**
      * Set the avatar size to use.
      *
-     * @param int $size The avatar size to use, must be less than 2048 and greater than 0.
-     * @return Image|null The current Gravatar Image instance.
+     * @param int|null $size The avatar size to use, must be less than 2048 and greater than 0.
+     * @return Image The current Gravatar Image instance.
      * @throws InvalidImageSizeException
      */
-    public function setSize(int $size): Image
+    public function setSize(?int $size = null): Image
     {
+        if ($size === null) {
+            return $this;
+        }
+
         if ($size <= 0 || $size > 2048) {
             throw new InvalidImageSizeException('Avatar size must be within 0 pixels and 2048 pixels');
         }

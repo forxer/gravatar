@@ -6,9 +6,10 @@ CHANGELOG
 
 - Removed support for PHP prior to 8.0
 - Replaced `forxer\Gravatar\` namespace by `Gravatar\`
+- Replaced `getUrl(string $email)` by `getUrl()` ; email should be explictly defined before
 - Used more type hinting for consistency
 - Split code into traits to facilitate reading and maintenance
-- Renamint "rating" méthod into "maxRating"
+- Renaming "rating" méthod into "maxRating"
 - Renaming most variables
 
 

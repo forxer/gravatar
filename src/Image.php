@@ -15,22 +15,30 @@ class Image extends Gravatar
     use ImageHasSize;
 
     /**
-     * Build the avatar URL based on the provided email address.
+     * Construct Image instance
      *
-     * @param string $email The email to get the gravatar for.
-     * @return string The URL to the gravatar.
+     * @param string|null $email
+     * @return void
      */
-    public function getUrl($email = null)
+    public function __construct(?string $email = null)
     {
         if ($email !== null) {
             $this->setEmail($email);
         }
+    }
 
+    /**
+     * Build the avatar URL based on the provided settings.
+     *
+     * @return string The URL to the gravatar.
+     */
+    public function url(): string
+    {
         return static::URL
             .'avatar/'
-            .$this->getHash($this->getEmail())
+            .$this->hash($this->getEmail())
             .$this->getExtension()
-            .$this->getQueryString();
+            .$this->queryString();
     }
 
     /**
@@ -38,9 +46,9 @@ class Image extends Gravatar
      *
      * @return string The URL to the gravatar.
      */
-    public function __toString()
+    public function __toString(): string
     {
-        return $this->getUrl();
+        return $this->url();
     }
 
     /**
@@ -48,7 +56,7 @@ class Image extends Gravatar
      *
      * @return string
      */
-    protected function getQueryString()
+    protected function queryString(): string
     {
         $params = [];
 
