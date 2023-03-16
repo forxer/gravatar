@@ -5,13 +5,9 @@
 Gravatar
 ========
 
-Gravatar is a small library intended to provide easy integration of... [Gravatar](https://gravatar.com) :)
-
-It will help you generate the URL for Gravatar images and profiles in many ways.
+Gravatar is a small library intended to provide easy integration of... [Gravatar](https://gravatar.com) :) It will help you generate the URL for Gravatar images and profiles in many ways.
 
 **To use it in a *Laravel project*,** please look at: **[laravel-gravatar](https://github.com/forxer/laravel-gravatar)**
-
-If you want to use it with a version earlier than PHP 8, please use [version 2](https://github.com/forxer/gravatar/tree/2.1).
 
 ```php
 $avatar = gravatar('email@example.com')
@@ -22,6 +18,10 @@ $avatar = gravatar('email@example.com')
 echo $avatar;
 ```
 
+If you want to use it with a version earlier than PHP 8, please use [version 2](https://github.com/forxer/gravatar/tree/2.1).
+
+---
+
 * [Installation](#installation)
     * [Requirements](#requirements)
     * [With Composer](#with-composer)
@@ -30,9 +30,7 @@ echo $avatar;
     * [Use helpers](#use-helpers)
     * [Use the Gravatar base class](#use-the-gravatar-base-class)
         * [Single Gravatar image/profile](#single-gravatar-imageprofile)
-        * [Single Gravatar image/profile with optional parameters](#single-gravatar-imageprofile-with-optional-parameters)
         * [Multiples Gravatar images/profiles](#multiples-gravatar-imagesprofiles)
-        * [Multiples Gravatar images/profiles with optional parameters](#multiples-gravatar-imagesprofiles-with-optional-parameters)
     * [Instanciate the dedicated classes](#instanciate-the-dedicated-classes)
 * [Mandatory parameter](#mandatory-parameter)
 * [Optional parameters](#optional-parameters)
@@ -89,7 +87,7 @@ There are many ways to use this library:
 
 All of these ways return instances of `Gravatar\Image` and `Gravatar\Profile` that allow you to define specific settings/parameters as needed.
 
-Whatever method you use, you could use the `url()` method to retrieve it. Or display the URL directly because they implement the "magic" method `__toString()`.
+Whatever method you use, you could use the `url()` method to retrieve it. Or display the URL directly because they implement the `__toString()` method.
 
 ### Use helpers
 
@@ -150,54 +148,11 @@ echo Gravatar::image('email@example.com');
 
 // Get a Gravatar profile instance:
 $profile = Gravatar::profile('email@example.com');
-// return: Gravatar\Profile
+// return Gravatar\Profile
 
 // Get a  Gravatar profile URL:
 echo Gravatar::profile('email@example.com');
 // output: https//www.gravatar.com/5658ffccee7f0ebfda2b226238b1eb6e
-```
-
-[Back to top ^](#gravatar)
-
-#### Single Gravatar image/profile with optional parameters
-
-You can add some optional parameters:
-
-* Gravatar image size
-* Default Gravatar image
-* Gravatar image max rating
-* Gravatar image file-type extension
-* Force to always use the default image
-* Profile format
-
-```php
-<?php
-require 'vendor/autoload.php';
-
-use Gravatar\Gravatar;
-
-// Show a single Gravatar image with size and default image:
-echo Gravatar::image('email@example.com', 120, 'mp');
-// output: //www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e?s=120&d=mm
-
-// Show a single Gravatar image with all options:
-echo Gravatar::image('email@example.com', 120, 'mp', 'g', 'jpg', true);
-// output: //gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e.jpg?s=120&d=mm&r=g&f=y
-
-// Show a single Gravatar image with all options using named arguments:
-echo Gravatar::image(
-    email: 'email@example.com',
-    size: 120,
-    defaultImage: 'mp',
-    rating: 'g',
-    extension: 'jpg',
-    forceDefault: true
-);
-// output: //gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e.jpg?s=120&d=mm&r=g&f=y
-
-// Show a single profile in JSON:
-echo Gravatar::profile('email@example.com', 'json');
-// output: //www.gravatar.com/5658ffccee7f0ebfda2b226238b1eb6e.json
 ```
 
 [Back to top ^](#gravatar)
@@ -228,36 +183,6 @@ foreach (Gravatar::profiles($emails) as $profile) {
 ```
 
 The `Gravatar::images()` and `Gravatar::profiles()` methods return an array of instances of `Gravatar\Image` and `Gravatar\Profile`.
-
-[Back to top ^](#gravatar)
-
-#### Multiples Gravatar images/profiles with optional parameters
-
-As for `Gravatar::image()` and `Gravatar::profile()` methods you can pass some optional parameters to `Gravatar::images()` and `Gravatar::profiles()`.
-
-```php
-<?php
-require 'vendor/autoload.php';
-
-use Gravatar\Gravatar;
-
-$emails = ['email1@example.com', 'email2@example.com','email3@example.com', /* ... */ ];
-
-// Get multiples Gravatar images with size and default image:
-foreach (Gravatar::images($emails, 120, 'mp') as $image) {
-    echo $image;
-}
-
-// Get multiples Gravatar images with all options:
-foreach (Gravatar::images($emails, 120, 'mp', 'g', 'jpg', true) as $image) {
-    echo $image;
-}
-
-// Get multiples Gravatar profiles in JSON:
-foreach (Gravatar::profiles($emails, 'json') as $profile) {
-    echo $profile;
-}
-```
 
 [Back to top ^](#gravatar)
 
