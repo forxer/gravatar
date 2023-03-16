@@ -1,6 +1,16 @@
 UPGRADE
 =======
 
+From 3.x to 4.x
+---------------
+
+In version 3 I introduced 2 helpers `gravatar()` and `gravatar_profile()` but it was a bad idea.
+
+The `gravatar()` and `gravatar_profile()` helpers have been removed from the package because they could conflict with other global functions of the same name.
+
+I prefer to indicate how to define your own helpers rather than embedding them "hard" in the package.
+
+
 From 2.x to 3.x
 ---------------
 

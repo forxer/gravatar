@@ -17,10 +17,7 @@
 	"autoload" : {
 		"psr-4" : {
 			"Gravatar\\" : "src"
-		},
-        "files": [
-            "src/helpers.php"
-        ]
+		}
 	},
 	"minimum-stability" : "dev",
 	"support" : {

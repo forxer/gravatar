@@ -1,12 +1,20 @@
 CHANGELOG
 =========
 
+4.0.0 (2023-03-16)
+------------------
+
+- Removed `gravatar()` and `gravatar_profile()` helpers functions
+- Added documentation to implement own helpers
+
+
 3.0.1 (2023-03-16)
 ------------------
 
 - Added UPGRADE.md
 - Improved README.md file
 - Uppercased "README" and "CHANGELOG" files
+
 
 3.0.0 (2023-03-16)
 ------------------

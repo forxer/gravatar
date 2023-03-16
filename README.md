@@ -81,7 +81,7 @@ Usage
 
 There are many ways to use this library:
 
-- Use helpers fonctions `gravatar()` and `gravatar_profile()`
+- Use helpers fonctions
 - Use the Gravatar base class with its `Gravatar::image()` and `Gravatar::profile()` methods
 - Instantiate the dedicated classes `Gravatar\Image()` and `Gravatar\Profile()`
 
@@ -92,6 +92,45 @@ Whatever method you use, you could use the `url()` method to retrieve it. Or dis
 ### Use helpers
 
 The easiest way to use this library is to use the helper functions.
+
+Since version 4, in order to avoid conflicts with other packages, we no longer define the `gravatar()` and `gravatar_profile()` helpers. It's up to you to do this in your app with names that work for you and don't conflict with others. Here's how to do it; it's simple.
+
+In a file dedicated to the helper functions, define the version 3 functions using the names that suit you.
+
+```php
+<?php
+
+use Gravatar\Image;
+use Gravatar\Profile;
+
+if (! function_exists('gravatar')) {
+    /**
+     * Return a new Gravatar Image instance.
+     *
+     * @param string|null $email
+     * @return Image
+     */
+    function gravatar(?string $email = null): Image
+    {
+        return new Image($email);
+    }
+}
+
+if (! function_exists('gravatar_profile')) {
+    /**
+     * Return a new Gravatar Profile instance.
+     *
+     * @param string|null $email
+     * @return Profile
+     */
+    function gravatar_profile(?string $email = null): Profile
+    {
+        return new Profile($email);
+    }
+}
+```
+
+This way you can use them like this:
 
 ```php
 <?php
