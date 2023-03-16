@@ -13,7 +13,7 @@ class Gravatar
     /**
      * Return the Gravatar image based on the provided email address.
      *
-     * @param string $email The email to get the gravatar for.
+     * @param string|null $email The email to get the gravatar for.
      * @param int|null $size The avatar size to use, must be less than 2048 and greater than 0.
      * @param string|null $defaultImage The default image to use. Use a valid image URL, or a recognized gravatar "default".
      * @param string|null $rating The maximum rating to use for avatars
@@ -21,7 +21,7 @@ class Gravatar
      * @param bool $forceDefault Force the default image to be always load.
      * @return Image
      */
-    public static function image(string $email, ?int $size = null, ?string $defaultImage = null, ?string $rating = null, ?string $extension = null, bool $forceDefault = false): Image
+    public static function image(?string $email = null, ?int $size = null, ?string $defaultImage = null, ?string $rating = null, ?string $extension = null, bool $forceDefault = false): Image
     {
         $gravatarImage = (new Image($email))
             ->setSize($size)
@@ -61,11 +61,11 @@ class Gravatar
     /**
      * Return the Gravatar profile URL based on the provided email address.
      *
-     * @param string $email The email to get the Gravatar profile for.
+     * @param string|null $email The email to get the Gravatar profile for.
      * @param string|null $sFormat The profile format to use.
      * @return Profile
      */
-    public static function profile(string $email, ?string $format = null): Profile
+    public static function profile(?string $email = null, ?string $format = null): Profile
     {
         return (new Profile($email))
             ->setFormat($format);
@@ -93,11 +93,11 @@ class Gravatar
     /**
      * Get the email hash to use (after cleaning the string).
      *
-     * @param string $sEmail The email to get the hash for.
+     * @param string $email The email to get the hash for.
      * @return string The hashed form of the email.
      */
-    protected static function hash($sEmail)
+    protected static function hash(string $email): string
     {
-        return md5(strtolower(trim($sEmail)));
+        return md5(strtolower(trim($email)));
     }
 }

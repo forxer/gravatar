@@ -85,6 +85,6 @@ trait ImageHasExtension
      */
     private function validExtensions(): array
     {
-        return ['jpg', 'jpeg', 'gif', 'png'];
+        return ['jpg', 'jpeg', 'gif', 'png', 'webp'];
     }
 }

@@ -1,15 +1,15 @@
 CHANGELOG
 =========
 
-3.0.0 (2013-03-xx)
+3.0.0 (2023-03-16)
 ------------------
 
 - Removed support for PHP prior to 8.0
-- Renamed `forxer\Gravatar\` namespace by `Gravatar\`
-- Renamed `getUrl(string $email)` by `getUrl()` ; email should be explictly defined before
+- Renamed `forxer\Gravatar\` namespace to `Gravatar\`
+- Renamed `getUrl(string $email)` to `url()` ; email should be defined before
 - Introduced `gravatar()` and `gravatar_profile()` helpers functions
-- Used more type hinting for consistency
 - Split code into traits to facilitate reading and maintenance
+- Used more type hinting for consistency
 - Renamed most variables to facilitate reading
 
 

@@ -19,7 +19,7 @@ trait HasEmail
      */
     public function email(?string $email = null): Gravatar|string|null
     {
-        if (null === $email) {
+        if ($email === null) {
             return $this->getEmail();
         }
 

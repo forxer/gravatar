@@ -6,6 +6,7 @@ use Gravatar\Concerns\ImageHasDefault;
 use Gravatar\Concerns\ImageHasExtension;
 use Gravatar\Concerns\ImageHasMaxRating;
 use Gravatar\Concerns\ImageHasSize;
+use Gravatar\Exception\MissingEmailException;
 
 class Image extends Gravatar
 {
@@ -34,10 +35,18 @@ class Image extends Gravatar
      */
     public function url(): string
     {
+        $email = $this->getEmail();
+
+        if (empty($email)) {
+            throw new MissingEmailException('You should set an email address before trying to get a Gravatar URL');
+        }
+
+        $extension = $this->getExtension();
+
         return static::URL
             .'avatar/'
-            .$this->hash($this->getEmail())
-            .$this->getExtension()
+            .$this->hash($email)
+            .($extension ? '.'.$extension : '')
             .$this->queryString();
     }
 

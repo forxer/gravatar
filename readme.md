@@ -95,7 +95,11 @@ require 'vendor/autoload.php';
 $image = gravatar('email@example.com');
 // return: Gravatar\Image
 
-// Get a single Gravatar image URL:
+// Get a Gravatar image URL:
+$imageUrl = gravatar('email@example.com')->url();
+// return: //www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
+
+// Show a Gravatar image URL:
 echo gravatar('email@example.com');
 // output: //www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
 
@@ -127,6 +131,10 @@ $image = Gravatar::image('email@example.com');
 // return: Gravatar\Image
 
 // Get a single Gravatar image URL:
+$imageUrl = Gravatar::image('email@example.com')->url();
+// return: //www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
+
+// Show a single Gravatar image URL:
 echo Gravatar::image('email@example.com');
 // output: //www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
 
@@ -158,15 +166,26 @@ require 'vendor/autoload.php';
 
 use Gravatar\Gravatar;
 
-// Get a single Gravatar image with size and default image:
+// Show a single Gravatar image with size and default image:
 echo Gravatar::image('email@example.com', 120, 'mp');
 // output: //www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e?s=120&d=mm
 
-// Get a single Gravatar image with all options:
+// Show a single Gravatar image with all options:
 echo Gravatar::image('email@example.com', 120, 'mp', 'g', 'jpg', true);
 // output: //gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e.jpg?s=120&d=mm&r=g&f=y
 
-// Get a single profile in JSON:
+// Show a single Gravatar image with all options using named arguments:
+echo Gravatar::image(
+    email: 'email@example.com',
+    size: 120,
+    defaultImage: 'mp',
+    rating: 'g',
+    extension: 'jpg',
+    forceDefault: true
+);
+// output: //gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e.jpg?s=120&d=mm&r=g&f=y
+
+// Show a single profile in JSON:
 echo Gravatar::profile('email@example.com', 'json');
 // output: //www.gravatar.com/5658ffccee7f0ebfda2b226238b1eb6e.json
 ```
@@ -214,6 +233,7 @@ $emails = ['email1@example.com', 'email2@example.com','email3@example.com', /* .
 foreach (Gravatar::images($emails, 120, 'mp') as $image) {
     echo $image;
 }
+
 // Get multiples Gravatar images with all options:
 foreach (Gravatar::images($emails, 120, 'mp', 'g', 'jpg', true) as $image) {
     echo $image;
@@ -227,11 +247,11 @@ foreach (Gravatar::profiles($emails, 'json') as $profile) {
 
 ### Instanciate the dedicated classes
 
-In fact, `Gravatar::image()`, `Gravatar::images()`, `Gravatar::profile()` and `Gravatar::profiles()` static methods are just shortcuts for convenient use.
+In fact, either `gravatar()` and `gravatar_profile()` helpers functions or `Gravatar::image()`, `Gravatar::images()`, `Gravatar::profile()` and `Gravatar::profiles()` static methods are just shortcuts for convenient use.
 
-Behind these helpers and static methods, there are two classes : `Gravatar\Image` and `Gravatar\Profile`.
+Behind these helpers functions and static methods, there are two classes : `Gravatar\Image` and `Gravatar\Profile`.
 
-In some case, for some reason, you would use the library in another way.
+In some case, for some reason, you would use the library in another way. For exemple with a dependency injection container.
 
 ```php
 <?php
@@ -261,24 +281,34 @@ foreach ($emails as $email) {
     echo $gravatarProfile->email($email)->url();
 }
 ```
+
 Mandatory parameter
 -------------------
 
 Obviously the email address is a mandatory parameter that can be entered in different ways.
 
 ```php
-// the first parameter of `Gravatar::image()` and `Gravatar::images()`
-Gravatar::image($email);
-Gravatar::images($emails);
+// pass it as argument of the helper
+$gravatarImage = gravatar($email);
+
+// the first argument of `Gravatar::image()` and `Gravatar::images()`
+$gravatarImage = Gravatar::image($email);
+$gravatarImages = Gravatar::images($emails);
 
 // or pass it to the `Gravatar\Image` constructor
 $gravatarImage = new Gravatar\Image($email);
 
 // or use the `setEmail()` method of a `Gravatar\Image` instance
+$gravatarImage = gravatar();
+$gravatarImage->setEmail($email);
+
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->setEmail($email);
 
 // or the `email()` helper method of a `Gravatar\Image` instance
+$gravatarImage = gravatar();
+$gravatarImage->email($email);
+
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->email($email);
 ```
@@ -286,18 +316,27 @@ $gravatarImage->email($email);
 These previous examples are also valid for the profile.
 
 ```php
-// the first parameter of `Gravatar::profile()` and `Gravatar::profiles()`
-Gravatar::profile($email);
-Gravatar::profiles($emails);
+// pass it as argument of the helper
+$gravatarProfile = gravatar_profile($email);
+
+// the first argument of `Gravatar::profile()` and `Gravatar::profiles()`
+$gravatarProfile = Gravatar::profile($email);
+$gravatarProfiles = Gravatar::profiles($emails);
 
 // or pass it to the `Gravatar\Profile` constructor
 $gravatarProfile = new Gravatar\Profile($email);
 
 // or use the `setEmail()` method of a `Gravatar\Profile` instance
+$gravatarProfile = gravatar_profile();
+$gravatarProfile->setEmail($email);
+
 $gravatarProfile = new Gravatar\Profile();
 $gravatarProfile->setEmail($email);
 
 // or the `email()` helper method of a `Gravatar\Profile` instance
+$gravatarProfile = gravatar_profile();
+$gravatarProfile->email($email);
+
 $gravatarProfile = new Gravatar\Profile();
 $gravatarProfile->email($email);
 ```
@@ -315,15 +354,21 @@ so requesting larger sizes may result in pixelation/low-quality images.
 An avatar size should be an integer representing the size in pixels.
 
 ```php
-// pass the size as second parameter of `Gravatar::image()` and `Gravatar::images()`
-Gravatar::image($email, 120);
-Gravatar::images($emails, 120);
+// pass the size as second argument of `Gravatar::image()` and `Gravatar::images()`
+$gravatarImage = Gravatar::image($email, 120);
+$gravatarImages = Gravatar::images($emails, 120);
 
 // or use the `setSize()` method of a `Gravatar\Image` instance
+$gravatarImage = gravatar($email);
+$gravatarImage->setSize(120);
+
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->setSize(120);
 
 // or the `size()` helper method of a `Gravatar\Image` instance
+$gravatarImage = gravatar($email);
+$gravatarImage->size(120);
+
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->size(120);
 
@@ -335,15 +380,24 @@ $gravatarImage->s(120);
 If you want to retrieve the currently set avatar size, you can use one of following methods:
 
 ```php
-// call the `getSize()` method of a `Gravatar\Image` instance
+// call the `getSize()` method of a `Gravatar\Image` instance without argument
+$gravatarImage = gravatar();
+$gravatarImage->getSize();
+
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->getSize();
 
-// or the `size()` helper method of a `Gravatar\Image` instance without parameter
+// or the `size()` helper method of a `Gravatar\Image` instance without argument
+$gravatarImage = gravatar();
+$gravatarImage->size();
+
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->size();
 
 // or its alias `s()`
+$gravatarImage = gravatar();
+$gravatarImage->s();
+
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->s();
 ```
@@ -362,7 +416,7 @@ Most of these work by taking the requested email hash and using it to generate a
 To use these options, just pass one of the following keywords:
 
 * 404: do not load any image if none is associated with the email hash, instead return an HTTP 404 (File Not Found) response
-* mp: (mystery-man) a simple, cartoon-style silhouetted outline of a person (does not vary by email hash)
+* mp: (mystery-person) a simple, cartoon-style silhouetted outline of a person (does not vary by email hash)
 * identicon: a geometric pattern based on an email hash
 * monsterid: a generated 'monster' with different colors, faces, etc
 * wavatar: generated faces with differing features and backgrounds
@@ -378,35 +432,57 @@ To use these options, just pass one of the following keywords:
 ![Blank default Gravatar image](http://www.gravatar.com/avatar/00000000000000000000000000000000?d=blank&f=y)
 
 ```php
-// pass the default Gravatar image as third parameter of `Gravatar::image()` and `Gravatar::images()`
-Gravatar::image($email, null, 'mp');
-Gravatar::images($emails, null, 'mp');
+// pass the default Gravatar image as third argument of `Gravatar::image()` and `Gravatar::images()`
+$gravatarImage = Gravatar::image($email, null, 'mp');
+$gravatarImages = Gravatar::images($emails, null, 'mp');
+
+// or with named parameters
+$gravatarImage = Gravatar::image($email, defaultImage: 'mp');
+$gravatarImages = Gravatar::images($emails, defaultImage: 'mp');
 
 // or use the `setDefaultImage()` method of a `Gravatar\Image` instance
+$gravatarImage = gravatar($email);
+$gravatarImage->setDefaultImage('mp');
+
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->setDefaultImage('mp');
 
 // or the `defaultImage()` helper method of a `Gravatar\Image` instance
+$gravatarImage = gravatar($email);
+$gravatarImage->defaultImage('mp');
+
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->defaultImage('mp');
 
 // or its alias `d()`
 $gravatarImage = new Gravatar\Image($email);
+$gravatarImage = gravatar($email);
+$gravatarImage->d('mp');
+
 $gravatarImage->d('mp');
 ```
 
 If you want to retrieve the currently set avatar default image, you can use one of following methods:
 
 ```php
-// call the `getDefaultImage()` method of a `Gravatar\Image` instance
+// call the `getDefaultImage()` method of a `Gravatar\Image` instance without argument
+$gravatarImage = gravatar();
+$gravatarImage->getDefaultImage();
+
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->getDefaultImage();
 
-// or the `defaultImage()` helper method of a `Gravatar\Image` instance without parameter
+// or the `defaultImage()` helper method of a `Gravatar\Image` instance without argument
+$gravatarImage = gravatar();
+$gravatarImage->defaultImage();
+
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->defaultImage();
 
 // or its alias `d()`
+$gravatarImage = gravatar();
+$gravatarImage->d();
+
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->d();
 ```
@@ -424,19 +500,32 @@ You may specify one of the following ratings to request images up to and includi
 * x: may contain hardcore sexual imagery or extremely disturbing violence.
 
 ```php
-// pass the Gravatar image max rating as fourth parameter of `Gravatar::image()` and `Gravatar::images()`
-Gravatar::image($email, null, null, 'g');
-Gravatar::images($emails, null, null, 'g');
+// pass the Gravatar image max rating as fourth argument of `Gravatar::image()` and `Gravatar::images()`
+$gravatarImage = Gravatar::image($email, null, null, 'g');
+$gravatarImages = Gravatar::images($emails, null, null, 'g');
+
+// or with named parameters
+$gravatarImage = Gravatar::image($email, rating: 'g');
+$gravatarImages = Gravatar::images($emails, rating: 'g');
 
 // or use the `setMaxRating()` method of a `Gravatar\Image` instance
+$gravatarImage = gravatar($email);
+$gravatarImage->setMaxRating('g');
+
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->setMaxRating('g');
 
 // or the `maxrating()` helper method of a `Gravatar\Image` instance
+$gravatarImage = gravatar($email);
+$gravatarImage->maxrating('g');
+
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->maxrating('g');
 
 // or its alias `r()`
+$gravatarImage = gravatar($email);
+$gravatarImage->r('g');
+
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->r('g');
 ```
@@ -444,15 +533,24 @@ $gravatarImage->r('g');
 If you want to retrieve the currently set avatar max rating, you can use one of following methods:
 
 ```php
-// call the `getMaxRating()` method of a `Gravatar\Image` instance
+// call the `getMaxRating()` method of a `Gravatar\Image` instance without argument
+$gravatarImage = gravatar();
+$gravatarImage->getMaxRating();
+
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->getMaxRating();
 
-// or the `maxrating()` helper method of a `Gravatar\Image` instance without parameter
+// or the `maxrating()` helper method of a `Gravatar\Image` instance without argument
+$gravatarImage = gravatar();
+$gravatarImage->maxrating();
+
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->maxrating();
 
 // or its alias `r()`
+$gravatarImage = gravatar();
+$gravatarImage->r();
+
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->r();
 ```
@@ -462,19 +560,32 @@ $gravatarImage->r();
 If you require a file-type extension (some places do) then you may also specify it.
 
 ```php
-// pass the Gravatar image file-type extension as fifth parameter of `Gravatar::image()` and `Gravatar::images()`
+// pass the Gravatar image file-type extension as fifth argument of `Gravatar::image()` and `Gravatar::images()`
 Gravatar::image($email, null, null, null, 'jpg');
 Gravatar::images($emails, null, null, null, 'jpg');
 
+// or with named parameters
+$gravatarImage = Gravatar::image($email, extension: 'jpg');
+$gravatarImages = Gravatar::images($emails, extension: 'jpg');
+
 // or use the `setExtension()` method of a `Gravatar\Image` instance
+$gravatarImage = gravatar($email);
+$gravatarImage->setExtension('jpg');
+
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->setExtension('jpg');
 
 // or the `extension()` helper method of a `Gravatar\Image` instance
+$gravatarImage = gravatar($email);
+$gravatarImage->extension('jpg');
+
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->extension('jpg');
 
 // or its alias `e()`
+$gravatarImage = gravatar($email);
+$gravatarImage->e('jpg');
+
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->e('jpg');
 ```
@@ -482,15 +593,24 @@ $gravatarImage->e('jpg');
 If you want to retrieve the currently set avatar file-type extension, you can use one of following methods:
 
 ```php
-// call the `getExtension()` method of a `Gravatar\Image` instance
+// call the `getExtension()` method of a `Gravatar\Image` instance without argument
+$gravatarImage = gravatar();
+$gravatarImage->getExtension();
+
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->getExtension();
 
-// or the `extension()` helper method of a `Gravatar\Image` instance without parameter
+// or the `extension()` helper method of a `Gravatar\Image` instance without argument
+$gravatarImage = gravatar();
+$gravatarImage->getExtension();
+
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->extension();
 
 // or its alias `e()`
+$gravatarImage = gravatar();
+$gravatarImage->getExtension();
+
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->e();
 ```
@@ -500,23 +620,39 @@ $gravatarImage->e();
 If for some reason you wanted to force the default image to always be load, you can do it:
 
 ```php
-// to force to always use the default image, set the sixth parameter of `Gravatar::image()` and `Gravatar::images()` to `true`
+// to force to always use the default image, set the sixth argument of `Gravatar::image()` and `Gravatar::images()` to `true`
 Gravatar::image($email, null, null, null, null, true);
 Gravatar::images($emails, null, null, null, null, true);
 
+// or with named parameters
+$gravatarImage = Gravatar::image($email, forceDefault: true);
+$gravatarImages = Gravatar::images($emails, forceDefault: true);
+
 // or use the `setForceDefault()` method of a `Gravatar\Image` instance
+$gravatarImage = gravatar($email);
+$gravatarImage->setForceDefault(true);
+
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->setForceDefault(true);
 
 // or the `forceDefault()` helper method of a `Gravatar\Image` instance
+$gravatarImage = gravatar($email);
+$gravatarImage->forceDefault(true);
+
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->forceDefault(true);
 
 // or its alias `f()`
+$gravatarImage = gravatar($email);
+$gravatarImage->f(true);
+
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->f(true);
 
 // or use the `enableForceDefault()` method of a `Gravatar\Image` instance
+$gravatarImage = gravatar($email);
+$gravatarImage->setForceDefault(true);
+
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->enableForceDefault();
 ```
@@ -525,7 +661,7 @@ To check to see if you are forcing default image, call the method `forcingDefaul
 which will return a boolean value regarding whether or not forcing default is enabled.
 
 ```php
-$gravatarImage = new Gravatar\Image();
+$gravatarImage = gravatar();
 $gravatarImage->enableForceDefault();
 //...
 $gravatarImage->forcingDefault(); // true
@@ -540,7 +676,7 @@ $gravatarImage->forcingDefault(); // false
 Gravatar profile data may be requested in different data formats for simpler programmatic access.
 
 ```php
-// pass the Gravatar profile format as second parameter of `Gravatar::profile()` and `Gravatar::profiles()`
+// pass the Gravatar profile format as second argument of `Gravatar::profile()` and `Gravatar::profiles()`
 Gravatar::profile($email, 'json');
 
 // or use the `setFormat()` method of `Gravatar\Profile` instance
@@ -558,11 +694,27 @@ $gravatarProfile->f('json');
 
 The following formats are supported:
 
-* JSON ; use 'json' as parameter
-* XML ; use 'xml' as parameter
-* PHP ; use 'php' as parameter
-* VCF/vCard ; use 'vcf' as parameter
-* QR Code ; use 'qr' as parameter
+* JSON ; use 'json' as argument
+* XML ; use 'xml' as argument
+* PHP ; use 'php' as argument
+* VCF/vCard ; use 'vcf' as argument
+* QR Code ; use 'qr' as argument
+
+My personal favorite method
+---------------------------
+
+I prefer to use helpers that give explicit, readable syntax. But that's just my opinion ; and in some cases I use dependency injection, so dedicated classes.
+
+```php
+$avatar = gravatar('email@example.com')
+            ->size(120)
+            ->defaultImage('robohash')
+            ->extension('jpg');
+
+//...
+
+echo $avatar
+```
 
 License
 -------

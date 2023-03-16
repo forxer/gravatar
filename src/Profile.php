@@ -3,6 +3,7 @@
 namespace Gravatar;
 
 use Gravatar\Concerns\ProfileHasFormat;
+use Gravatar\Exception\MissingEmailException;
 
 class Profile extends Gravatar
 {
@@ -28,9 +29,17 @@ class Profile extends Gravatar
      */
     public function url(): string
     {
+        $email = $this->getEmail();
+
+        if (empty($email)) {
+            throw new MissingEmailException('You should set an email address before trying to get a Gravatar profile URL');
+        }
+
+        $format = $this->getFormat();
+
         return 'https:'.static::URL
-            .$this->hash($this->getEmail())
-            .($this->format !== null ? '.'.$this->format : null);
+            .$this->hash($email)
+            .($format ? '.'.$format : '');
     }
 
     /**

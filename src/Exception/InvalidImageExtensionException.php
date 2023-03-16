@@ -2,8 +2,8 @@
 
 namespace Gravatar\Exception;
 
-use InvalidArgumentException;
+use DomainException;
 
-class InvalidImageExtensionException extends InvalidArgumentException
+class InvalidImageExtensionException extends DomainException
 {
 }
