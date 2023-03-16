@@ -19,7 +19,7 @@ $avatar = gravatar('email@example.com')
     ->defaultImage('robohash')
     ->extension('jpg');
 //...
-echo $avatar
+echo $avatar;
 ```
 
 * [Installation](#installation)
@@ -61,12 +61,10 @@ composer require forxer/Gravatar
 
 Or manually directly in your `composer.json` file:
 
-```js
+```json
 {
     "require": {
-        //...
         "forxer/Gravatar": "^3.0.0"
-        //...
     }
 }
 ```
@@ -83,13 +81,13 @@ Then, you do what it takes to use it with your own autoloader. The examples belo
 Usage
 -----
 
-There are plenty of ways to use this library:
+There are many ways to use this library:
 
 - Use helpers fonctions `gravatar()` and `gravatar_profile()`
 - Use the Gravatar base class with its `Gravatar::image()` and `Gravatar::profile()` methods
 - Instantiate the dedicated classes `Gravatar\Image()` and `Gravatar\Profile()`
 
-All of these ways return instances that allow you to define specific settings/parameters as needed.
+All of these ways return instances of `Gravatar\Image` and `Gravatar\Profile` that allow you to define specific settings/parameters as needed.
 
 Whatever method you use, you could use the `url()` method to retrieve it. Or display the URL directly because they implement the "magic" method `__toString()`.
 
@@ -158,8 +156,6 @@ $profile = Gravatar::profile('email@example.com');
 echo Gravatar::profile('email@example.com');
 // output: https//www.gravatar.com/5658ffccee7f0ebfda2b226238b1eb6e
 ```
-
-The `Gravatar::image()` and `Gravatar::profile()` methods return instances of `Gravatar\Image` and `Gravatar\Profile`. These classes implement `__toString` method, so when you treat them as a string they return the string to use as URL of the given email address.
 
 [Back to top ^](#gravatar)
 
