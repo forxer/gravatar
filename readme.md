@@ -9,7 +9,7 @@ Gravatar is a small library intended to provide easy integration of... [Gravatar
 
 It will help you generate the URL for Gravatar images and profiles in many ways.
 
-**To use it in a Laravel project,** please look at: [laravel-gravatar](https://github.com/forxer/laravel-gravatar)
+**To use it in a *Laravel project*,** please look at: **[laravel-gravatar](https://github.com/forxer/laravel-gravatar)**
 
 If you want to use it with a version earlier than PHP 8, please use [version 2](https://github.com/forxer/gravatar/tree/2.1).
 
@@ -78,7 +78,7 @@ You should use composer, it's so convenient. However, if you really do not want,
 
 Then, you do what it takes to use it with your own autoloader. The examples below use the Composer autoloader.
 
-[Back to top](#gravatar)
+[Back to top ^](#gravatar)
 
 Usage
 -----
@@ -122,7 +122,7 @@ echo gravatar_profile('email@example.com');
 // output: https//www.gravatar.com/5658ffccee7f0ebfda2b226238b1eb6e
 ```
 
-[Back to top](#gravatar)
+[Back to top ^](#gravatar)
 
 ### Use the Gravatar base class
 
@@ -161,7 +161,7 @@ echo Gravatar::profile('email@example.com');
 
 The `Gravatar::image()` and `Gravatar::profile()` methods return instances of `Gravatar\Image` and `Gravatar\Profile`. These classes implement `__toString` method, so when you treat them as a string they return the string to use as URL of the given email address.
 
-[Back to top](#gravatar)
+[Back to top ^](#gravatar)
 
 #### Single Gravatar image/profile with optional parameters
 
@@ -204,7 +204,7 @@ echo Gravatar::profile('email@example.com', 'json');
 // output: //www.gravatar.com/5658ffccee7f0ebfda2b226238b1eb6e.json
 ```
 
-[Back to top](#gravatar)
+[Back to top ^](#gravatar)
 
 #### Multiples Gravatar images/profiles
 
@@ -233,7 +233,7 @@ foreach (Gravatar::profiles($emails) as $profile) {
 
 The `Gravatar::images()` and `Gravatar::profiles()` methods return an array of instances of `Gravatar\Image` and `Gravatar\Profile`.
 
-[Back to top](#gravatar)
+[Back to top ^](#gravatar)
 
 #### Multiples Gravatar images/profiles with optional parameters
 
@@ -263,7 +263,7 @@ foreach (Gravatar::profiles($emails, 'json') as $profile) {
 }
 ```
 
-[Back to top](#gravatar)
+[Back to top ^](#gravatar)
 
 ### Instanciate the dedicated classes
 
@@ -302,7 +302,7 @@ foreach ($emails as $email) {
 }
 ```
 
-[Back to top](#gravatar)
+[Back to top ^](#gravatar)
 
 Mandatory parameter
 -------------------
@@ -363,7 +363,7 @@ $gravatarProfile = new Gravatar\Profile();
 $gravatarProfile->email($email);
 ```
 
-[Back to top](#gravatar)
+[Back to top ^](#gravatar)
 
 Optional parameters
 -------------------
@@ -426,7 +426,7 @@ $gravatarImage = new Gravatar\Image();
 $gravatarImage->s();
 ```
 
-[Back to top](#gravatar)
+[Back to top ^](#gravatar)
 
 ### Default Gravatar image
 
@@ -513,7 +513,7 @@ $gravatarImage = new Gravatar\Image();
 $gravatarImage->d();
 ```
 
-[Back to top](#gravatar)
+[Back to top ^](#gravatar)
 
 ### Gravatar image max rating
 
@@ -583,7 +583,7 @@ $gravatarImage = new Gravatar\Image();
 $gravatarImage->r();
 ```
 
-[Back to top](#gravatar)
+[Back to top ^](#gravatar)
 
 ### Gravatar image file-type extension
 
@@ -645,7 +645,7 @@ $gravatarImage = new Gravatar\Image();
 $gravatarImage->e();
 ```
 
-[Back to top](#gravatar)
+[Back to top ^](#gravatar)
 
 ### Force to always use the default image
 
@@ -703,7 +703,7 @@ $gravatarImage->disableForceDefault();
 $gravatarImage->forcingDefault(); // false
 ```
 
-[Back to top](#gravatar)
+[Back to top ^](#gravatar)
 
 ### Gravatar profile format
 
@@ -734,7 +734,7 @@ The following formats are supported:
 * VCF/vCard ; use 'vcf' as argument
 * QR Code ; use 'qr' as argument
 
-[Back to top](#gravatar)
+[Back to top ^](#gravatar)
 
 License
 -------
