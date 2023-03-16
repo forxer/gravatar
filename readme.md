@@ -13,6 +13,15 @@ It will help you generate the URL for Gravatar images and profiles in many ways.
 
 If you want to use it with a version earlier than PHP 8, please use [version 2](https://github.com/forxer/gravatar/tree/2.1).
 
+```php
+$avatar = gravatar('email@example.com')
+    ->size(120)
+    ->defaultImage('robohash')
+    ->extension('jpg');
+//...
+echo $avatar
+```
+
 * [Installation](#installation)
     * [Requirements](#requirements)
     * [With Composer](#with-composer)
@@ -34,7 +43,6 @@ If you want to use it with a version earlier than PHP 8, please use [version 2](
     * [Force to always use the default image](#force-to-always-use-the-default-image)
     * [Gravatar profile format](#gravatar-profile-format)
 * [License](#license)
-
 
 Installation
 ------------
@@ -69,6 +77,8 @@ You should use composer, it's so convenient. However, if you really do not want,
 [download the latest version](https://github.com/forxer/gravatar/releases/latest) and unpack the archive.
 
 Then, you do what it takes to use it with your own autoloader. The examples below use the Composer autoloader.
+
+[Back to top](#gravatar)
 
 Usage
 -----
@@ -112,6 +122,8 @@ echo gravatar_profile('email@example.com');
 // output: https//www.gravatar.com/5658ffccee7f0ebfda2b226238b1eb6e
 ```
 
+[Back to top](#gravatar)
+
 ### Use the Gravatar base class
 
 But it is also possible to use the static methods of the base Gravatar class.
@@ -148,6 +160,8 @@ echo Gravatar::profile('email@example.com');
 ```
 
 The `Gravatar::image()` and `Gravatar::profile()` methods return instances of `Gravatar\Image` and `Gravatar\Profile`. These classes implement `__toString` method, so when you treat them as a string they return the string to use as URL of the given email address.
+
+[Back to top](#gravatar)
 
 #### Single Gravatar image/profile with optional parameters
 
@@ -190,6 +204,8 @@ echo Gravatar::profile('email@example.com', 'json');
 // output: //www.gravatar.com/5658ffccee7f0ebfda2b226238b1eb6e.json
 ```
 
+[Back to top](#gravatar)
+
 #### Multiples Gravatar images/profiles
 
 If you want to retrieve multiples Gravatar images/profiles URL you can also use the main Gravatar class with `Gravatar::images()` and `Gravatar::profiles()` methods.
@@ -216,6 +232,8 @@ foreach (Gravatar::profiles($emails) as $profile) {
 ```
 
 The `Gravatar::images()` and `Gravatar::profiles()` methods return an array of instances of `Gravatar\Image` and `Gravatar\Profile`.
+
+[Back to top](#gravatar)
 
 #### Multiples Gravatar images/profiles with optional parameters
 
@@ -244,6 +262,8 @@ foreach (Gravatar::profiles($emails, 'json') as $profile) {
     echo $profile;
 }
 ```
+
+[Back to top](#gravatar)
 
 ### Instanciate the dedicated classes
 
@@ -281,6 +301,8 @@ foreach ($emails as $email) {
     echo $gravatarProfile->email($email)->url();
 }
 ```
+
+[Back to top](#gravatar)
 
 Mandatory parameter
 -------------------
@@ -340,6 +362,8 @@ $gravatarProfile->email($email);
 $gravatarProfile = new Gravatar\Profile();
 $gravatarProfile->email($email);
 ```
+
+[Back to top](#gravatar)
 
 Optional parameters
 -------------------
@@ -402,6 +426,8 @@ $gravatarImage = new Gravatar\Image();
 $gravatarImage->s();
 ```
 
+[Back to top](#gravatar)
+
 ### Default Gravatar image
 
 What happens when an email address has no matching Gravatar image or when the gravatar specified exceeds your maximum allowed content rating?
@@ -428,7 +454,7 @@ To use these options, just pass one of the following keywords:
 ![Identicon default Gravatar image](http://www.gravatar.com/avatar/00000000000000000000000000000000?d=identicon&f=y)
 ![Wavatar default Gravatar image](http://www.gravatar.com/avatar/00000000000000000000000000000000?d=wavatar&f=y)
 ![Retro default Gravatar image](http://www.gravatar.com/avatar/00000000000000000000000000000000?d=retro&f=y)
-![Robohash default Gravatar image](http://www.gravatar.com/avatar/00000000000000000000000000000000?d=retro&f=y)
+![Robohash default Gravatar image](http://www.gravatar.com/avatar/00000000000000000000000000000000?d=robohash&f=y)
 ![Blank default Gravatar image](http://www.gravatar.com/avatar/00000000000000000000000000000000?d=blank&f=y)
 
 ```php
@@ -486,6 +512,8 @@ $gravatarImage->d();
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->d();
 ```
+
+[Back to top](#gravatar)
 
 ### Gravatar image max rating
 
@@ -555,6 +583,8 @@ $gravatarImage = new Gravatar\Image();
 $gravatarImage->r();
 ```
 
+[Back to top](#gravatar)
+
 ### Gravatar image file-type extension
 
 If you require a file-type extension (some places do) then you may also specify it.
@@ -615,6 +645,8 @@ $gravatarImage = new Gravatar\Image();
 $gravatarImage->e();
 ```
 
+[Back to top](#gravatar)
+
 ### Force to always use the default image
 
 If for some reason you wanted to force the default image to always be load, you can do it:
@@ -671,6 +703,8 @@ $gravatarImage->disableForceDefault();
 $gravatarImage->forcingDefault(); // false
 ```
 
+[Back to top](#gravatar)
+
 ### Gravatar profile format
 
 Gravatar profile data may be requested in different data formats for simpler programmatic access.
@@ -700,21 +734,7 @@ The following formats are supported:
 * VCF/vCard ; use 'vcf' as argument
 * QR Code ; use 'qr' as argument
 
-My personal favorite method
----------------------------
-
-I prefer to use helpers that give explicit, readable syntax. But that's just my opinion ; and in some cases I use dependency injection, so dedicated classes.
-
-```php
-$avatar = gravatar('email@example.com')
-            ->size(120)
-            ->defaultImage('robohash')
-            ->extension('jpg');
-
-//...
-
-echo $avatar
-```
+[Back to top](#gravatar)
 
 License
 -------
