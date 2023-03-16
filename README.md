@@ -57,16 +57,6 @@ The easiest way to install Gravatar is via [Composer](http://getcomposer.org/). 
 composer require forxer/Gravatar
 ```
 
-Or manually directly in your `composer.json` file:
-
-```json
-{
-    "require": {
-        "forxer/Gravatar": "^3.0.0"
-    }
-}
-```
-
 ### Without Composer
 
 You should use composer, it's so convenient. However, if you really do not want, or can not, you can
