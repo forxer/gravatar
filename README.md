@@ -1,6 +1,6 @@
-[![Latest Stable Version](https://poser.pugx.org/forxer/gravatar/v/stable.svg)](https://packagist.org/packages/forxer/gravatar)
-[![Total Downloads](https://poser.pugx.org/forxer/gravatar/downloads.svg)](https://packagist.org/packages/forxer/gravatar)
-[![License](https://poser.pugx.org/forxer/gravatar/license.svg)](https://packagist.org/packages/forxer/gravatar)
+[![Latest Stable Version](http://poser.pugx.org/forxer/gravatar/v)](https://packagist.org/packages/forxer/gravatar)
+[![Total Downloads](http://poser.pugx.org/forxer/gravatar/downloads)](https://packagist.org/packages/forxer/gravatar)
+[![License](http://poser.pugx.org/forxer/gravatar/license)](https://packagist.org/packages/forxer/gravatar)
 
 Gravatar
 ========
