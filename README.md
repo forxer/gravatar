@@ -346,7 +346,7 @@ $gravatarImage->size(120);
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->size(120);
 
-// or its alias `s()`
+// or its alias `s()` (as in the generated query string)
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->s(120);
 ```
@@ -430,11 +430,8 @@ $gravatarImage->defaultImage('mp');
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->defaultImage('mp');
 
-// or its alias `d()`
+// or its alias `d()` (as in the generated query string)
 $gravatarImage = new Gravatar\Image($email);
-$gravatarImage = gravatar($email);
-$gravatarImage->d('mp');
-
 $gravatarImage->d('mp');
 ```
 
@@ -493,14 +490,14 @@ $gravatarImage->setMaxRating('g');
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->setMaxRating('g');
 
-// or the `maxrating()` helper method of a `Gravatar\Image` instance
+// or the `maxRating()` helper method of a `Gravatar\Image` instance
 $gravatarImage = gravatar($email);
-$gravatarImage->maxrating('g');
+$gravatarImage->maxRating('g');
 
 $gravatarImage = new Gravatar\Image($email);
-$gravatarImage->maxrating('g');
+$gravatarImage->maxRating('g');
 
-// or its alias `r()`
+// or its alias `r()` (as in the generated query string)
 $gravatarImage = gravatar($email);
 $gravatarImage->r('g');
 
@@ -539,6 +536,14 @@ $gravatarImage->r();
 
 If you require a file-type extension (some places do) then you may also specify it.
 
+You can specify one of the following extensions for the generated URL:
+
+* 'jpg'
+* 'jpeg'
+* 'gif'
+* 'png'
+* 'webp'
+
 ```php
 // pass the Gravatar image file-type extension as fifth argument of `Gravatar::image()` and `Gravatar::images()`
 Gravatar::image($email, null, null, null, 'jpg');
@@ -562,7 +567,7 @@ $gravatarImage->extension('jpg');
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->extension('jpg');
 
-// or its alias `e()`
+// or its alias `e()` (as in the generated query string)
 $gravatarImage = gravatar($email);
 $gravatarImage->e('jpg');
 
@@ -624,7 +629,7 @@ $gravatarImage->forceDefault(true);
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->forceDefault(true);
 
-// or its alias `f()`
+// or its alias `f()` (as in the generated query string)
 $gravatarImage = gravatar($email);
 $gravatarImage->f(true);
 
@@ -671,7 +676,7 @@ $gravatarProfile->setFormat('json');
 $gravatarProfile = new Gravatar\Profile($email);
 $gravatarProfile->format('json');
 
-// or its alias `f()`
+// or its alias `f()` (as in the generated query string)
 $gravatarProfile = new Gravatar\Profile($email);
 $gravatarProfile->f('json');
 ```
