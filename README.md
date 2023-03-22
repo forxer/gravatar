@@ -18,9 +18,8 @@ $avatar = gravatar('email@example.com')
 echo $avatar;
 ```
 
-If you want to use it with a version earlier than PHP 8, please use [version 2](https://github.com/forxer/gravatar/tree/2.1).
-
----
+Index
+-----
 
 * [Installation](#installation)
     * [Requirements](#requirements)
@@ -48,6 +47,8 @@ Installation
 ### Requirements
 
 * PHP 8.0.0 or newer
+
+If you want to use it with a version earlier than PHP 8, please use [version 2](https://github.com/forxer/gravatar/tree/2.1).
 
 ### With Composer
 
@@ -118,6 +119,19 @@ if (! function_exists('gravatar_profile')) {
         return new Profile($email);
     }
 }
+```
+
+If you do not have a helpers functions file, you can create one for example at the root of your project, which you name `helpers.php` and which you fill in the `composer.json` file so that it is autoloaded. For example :
+
+```json
+    "autoload" : {
+        "psr-4" : {
+            "YourProject\\" : "src"
+        },
+        "files" : [
+            "src/helpers.php"
+        ]
+    },
 ```
 
 This way you can use them like this:

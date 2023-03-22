@@ -7,7 +7,7 @@ use Gravatar\Gravatar;
 trait HasEmail
 {
     /**
-     * @var string The address email to be used.
+     * @var string|null The address email to be used.
      */
     protected $email;
 
@@ -29,9 +29,9 @@ trait HasEmail
     /**
      * Get the address email to be used.
      *
-     * @return int The current avatar size in use.
+     * @return string|null The current email in use.
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -39,7 +39,7 @@ trait HasEmail
     /**
      * Set the address email to be used.
      *
-     * @param string $sEmail
+     * @param string $email
      * @return Gravatar
      */
     public function setEmail(string $email): Gravatar
