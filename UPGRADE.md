@@ -8,7 +8,7 @@ In version 3 I introduced 2 helpers `gravatar()` and `gravatar_profile()` but it
 
 The `gravatar()` and `gravatar_profile()` helpers have been removed from the package because they could conflict with other global functions of the same name.
 
-I prefer to indicate how to define your own helpers rather than embedding them "hard" in the package.
+I prefer to indicate how to define your own helpers rather than embedding them "hard" in the package. See the [helpers section in the README.md](https://github.com/forxer/gravatar#use-helpers) file.
 
 
 From 2.x to 3.x
