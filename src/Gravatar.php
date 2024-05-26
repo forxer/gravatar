@@ -8,7 +8,7 @@ class Gravatar
 {
     use HasEmail;
 
-    const URL = '//www.gravatar.com/';
+    public const URL = '//www.gravatar.com/';
 
     /**
      * Return the Gravatar image based on the provided email address.
@@ -22,13 +22,11 @@ class Gravatar
      */
     public static function image(?string $email = null, ?int $size = null, ?string $defaultImage = null, ?string $rating = null, ?string $extension = null, bool $forceDefault = false): Image
     {
-        $gravatarImage = (new Image($email))
+        return (new Image($email))
             ->setSize($size)
             ->setDefaultImage($defaultImage, $forceDefault)
             ->setMaxRating($rating)
             ->setExtension($extension);
-
-        return $gravatarImage;
     }
 
     /**

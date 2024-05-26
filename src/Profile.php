@@ -4,8 +4,9 @@ namespace Gravatar;
 
 use Gravatar\Concerns\ProfileHasFormat;
 use Gravatar\Exception\MissingEmailException;
+use Stringable;
 
-class Profile extends Gravatar
+class Profile extends Gravatar implements Stringable
 {
     use ProfileHasFormat;
 
@@ -58,7 +59,7 @@ class Profile extends Gravatar
     {
         $this->format('php');
 
-        $profile = file_get_contents($this->url($email));
+        $profile = file_get_contents($this->url());
 
         $data = unserialize($profile);
 

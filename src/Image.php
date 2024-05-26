@@ -7,8 +7,9 @@ use Gravatar\Concerns\ImageHasExtension;
 use Gravatar\Concerns\ImageHasMaxRating;
 use Gravatar\Concerns\ImageHasSize;
 use Gravatar\Exception\MissingEmailException;
+use Stringable;
 
-class Image extends Gravatar
+class Image extends Gravatar implements Stringable
 {
     use ImageHasDefault;
     use ImageHasExtension;
