@@ -63,10 +63,14 @@ class Profile extends Gravatar implements Stringable
 
         $data = unserialize($profile);
 
-        if (\is_array($data) && isset($data['entry'])) {
-            return $data;
+        if (! \is_array($data)) {
+            return null;
         }
 
-        return null;
+        if (! isset($data['entry'])) {
+            return null;
+        }
+
+        return $data;
     }
 }

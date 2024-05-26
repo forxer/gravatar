@@ -58,7 +58,7 @@ return static function (RectorConfig $rectorConfig): void {
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,
         SetList::TYPE_DECLARATION,
-        // SetList::EARLY_RETURN,
+        SetList::EARLY_RETURN,
         SetList::INSTANCEOF,
     ]);
 };
