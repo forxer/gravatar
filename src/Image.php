@@ -18,7 +18,6 @@ class Image extends Gravatar
     /**
      * Construct Image instance
      *
-     * @param string|null $email
      * @return void
      */
     public function __construct(?string $email = null)
@@ -62,8 +61,6 @@ class Image extends Gravatar
 
     /**
      * Get query string parameters to URL
-     *
-     * @return string
      */
     protected function queryString(): string
     {

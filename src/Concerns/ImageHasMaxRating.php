@@ -14,9 +14,6 @@ trait ImageHasMaxRating
 
     /**
      * Get or set the maximum allowed rating for avatars.
-     *
-     * @param string|null $maxRating
-     * @return Image|string|null
      */
     public function maxRating(?string $maxRating = null): Image|string|null
     {
@@ -30,8 +27,7 @@ trait ImageHasMaxRating
     /**
      * Alias for the "rating" method.
      *
-     * @param int|null $maxRating
-     * @return Image|string|null
+     * @param  int|null  $maxRating
      */
     public function r(?string $maxRating = null): Image|string|null
     {
@@ -51,8 +47,9 @@ trait ImageHasMaxRating
     /**
      * Set the maximum allowed rating for avatars.
      *
-     * @param string|null $maxRating The maximum rating to use for avatars.
+     * @param  string|null  $maxRating  The maximum rating to use for avatars.
      * @return Image The current Gravatar Image instance.
+     *
      * @throws InvalidMaxRatingImageException
      */
     public function setMaxRating(?string $maxRating = null): Image
@@ -63,7 +60,7 @@ trait ImageHasMaxRating
 
         $maxRating = strtolower($maxRating);
 
-        if (! in_array($maxRating, $this->validMaxRating())) {
+        if (! \in_array($maxRating, $this->validMaxRating())) {
             $message = sprintf(
                 'Invalid rating "%s" specified, only allowed to be used are: %s',
                 $maxRating,
@@ -80,8 +77,6 @@ trait ImageHasMaxRating
 
     /**
      * List of accepted max rating string names.
-     *
-     * @return array
      */
     private function validMaxRating(): array
     {

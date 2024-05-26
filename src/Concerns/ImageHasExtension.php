@@ -15,8 +15,7 @@ trait ImageHasExtension
     /**
      * Get or set the avatar extension to use.
      *
-     * @param string|null $extension The avatar extension to use.
-     * @return Image|string|null
+     * @param  string|null  $extension  The avatar extension to use.
      */
     public function extension(?string $extension = null): Image|string|null
     {
@@ -29,9 +28,6 @@ trait ImageHasExtension
 
     /**
      * Alias for the "extension" method.
-     *
-     * @param string|null $extension
-     * @return Image|string|null
      */
     public function e(?string $extension = null): Image|string|null
     {
@@ -51,8 +47,9 @@ trait ImageHasExtension
     /**
      * Set the avatar extension to use.
      *
-     * @param string|null $extension The avatar extension to use.
+     * @param  string|null  $extension  The avatar extension to use.
      * @return Image The current Gravatar Image instance.
+     *
      * @throws InvalidImageExtensionException
      */
     public function setExtension(?string $extension = null): Image
@@ -63,7 +60,7 @@ trait ImageHasExtension
 
         $extension = strtolower($extension);
 
-        if (! in_array($extension, $this->validExtensions())) {
+        if (! \in_array($extension, $this->validExtensions())) {
             $message = sprintf(
                 'The extension "%s" is not a valid one, extension image for Gravatar can be: %s',
                 $extension,
@@ -80,8 +77,6 @@ trait ImageHasExtension
 
     /**
      * List of accepted image extension string names.
-     *
-     * @return array
      */
     private function validExtensions(): array
     {

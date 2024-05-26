@@ -15,8 +15,7 @@ trait ProfileHasFormat
     /**
      * Get or set the profile format to use.
      *
-     * @param string|null $format The profile format to use.
-     * @return Profile|string|null
+     * @param  string|null  $format  The profile format to use.
      */
     public function format(?string $format = null): Profile|string|null
     {
@@ -30,7 +29,6 @@ trait ProfileHasFormat
     /**
      * Alias for the "format" method.
      *
-     * @param string|null $format
      * @return Profile|string|null
      */
     public function f(?string $format = null)
@@ -51,8 +49,9 @@ trait ProfileHasFormat
     /**
      * Set the profile format to use.
      *
-     * @param string|null $format The profile format to use
+     * @param  string|null  $format  The profile format to use
      * @return Profile The current Profile instance
+     *
      * @throws InvalidProfileFormatException
      */
     public function setFormat(?string $format = null): Profile
@@ -61,7 +60,7 @@ trait ProfileHasFormat
             return $this;
         }
 
-        if (! in_array($format, $this->validFormats())) {
+        if (! \in_array($format, $this->validFormats())) {
             $message = sprintf(
                 'The format "%s" is not a valid one, profile format for Gravatar can be: %s',
                 $format,
@@ -78,8 +77,6 @@ trait ProfileHasFormat
 
     /**
      * List of accepted format.
-     *
-     * @return array
      */
     private function validFormats(): array
     {

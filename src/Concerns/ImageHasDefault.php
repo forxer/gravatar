@@ -17,9 +17,8 @@ trait ImageHasDefault
     /**
      * Get or set the default image to use for avatars.
      *
-     * @param string|null $defaultImage The default image to use. Use a valid image URL, or a recognized gravatar "default".
-     * @param bool $forceDefault Force the default image to be always load.
-     * @return Image|null
+     * @param  string|null  $defaultImage  The default image to use. Use a valid image URL, or a recognized gravatar "default".
+     * @param  bool  $forceDefault  Force the default image to be always load.
      */
     public function defaultImage(?string $defaultImage = null, bool $forceDefault = false): ?Image
     {
@@ -33,8 +32,8 @@ trait ImageHasDefault
     /**
      * Alias for the "defaultImage" method.
      *
-     * @param string|null $defaultImage The default image to use. Use a valid image URL, or a recognized gravatar "default".
-     * @param bool $forceDefault Force the default image to be always load.
+     * @param  string|null  $defaultImage  The default image to use. Use a valid image URL, or a recognized gravatar "default".
+     * @param  bool  $forceDefault  Force the default image to be always load.
      * @return string|\Image
      */
     public function d(?string $defaultImage = null, bool $forceDefault = false): ?Image
@@ -55,10 +54,11 @@ trait ImageHasDefault
     /**
      * Set the default image to use for avatars.
      *
-     * @param string $defaultImage The default image to use. Use a valid image URL, or a recognized gravatar "default".
-     * @param bool $forceDefault Force the default image to be always load.
-     * @throws InvalidDefaultImageException
+     * @param  string  $defaultImage  The default image to use. Use a valid image URL, or a recognized gravatar "default".
+     * @param  bool  $forceDefault  Force the default image to be always load.
      * @return Image The current Gravatar Image instance.
+     *
+     * @throws InvalidDefaultImageException
      */
     public function setDefaultImage(?string $defaultImage = null, bool $forceDefault = false): Image
     {
@@ -72,7 +72,7 @@ trait ImageHasDefault
 
         $defaultImage = strtolower($defaultImage);
 
-        if (in_array($defaultImage, $this->validDefaultImages())) {
+        if (\in_array($defaultImage, $this->validDefaultImages())) {
             $this->defaultImage = $defaultImage;
 
             return $this;
@@ -95,8 +95,6 @@ trait ImageHasDefault
 
     /**
      * Return the list of accepted gravatar recognized default image "type".
-     *
-     * @return array
      */
     private function validDefaultImages(): array
     {

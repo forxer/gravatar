@@ -13,9 +13,6 @@ trait ImageForceDefault
 
     /**
      * Get or set if we have to force the default image to be always load.
-     *
-     * @param bool|null $forceDefault
-     * @return bool|Image
      */
     public function forceDefault(?bool $forceDefault = null): bool|Image
     {
@@ -28,9 +25,6 @@ trait ImageForceDefault
 
     /**
      * Alias for the "forceDefault" method.
-     *
-     * @param bool|null $forceDefault
-     * @return bool|Image
      */
     public function f(?bool $forceDefault = null): bool|Image
     {
@@ -60,7 +54,7 @@ trait ImageForceDefault
     /**
      * Set if the default image has to be always load.
      *
-     * @param bool $forceDefault Should we force or not the default image to be always load.
+     * @param  bool  $forceDefault  Should we force or not the default image to be always load.
      * @return Image The current Gravatar Image instance.
      */
     public function setForceDefault(bool $forceDefault): Image

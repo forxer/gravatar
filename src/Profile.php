@@ -12,7 +12,6 @@ class Profile extends Gravatar
     /**
      * Construct Image instance
      *
-     * @param string|null $email
      * @return void
      */
     public function __construct(?string $email = null)
@@ -24,8 +23,6 @@ class Profile extends Gravatar
 
     /**
      * Build the profile URL based on the provided email address.
-     *
-     * @return string
      */
     public function url(): string
     {
@@ -55,8 +52,7 @@ class Profile extends Gravatar
     /**
      * Return profile data based on the provided email address.
      *
-     * @param string $email The email to get the gravatar profile for
-     * @return array|null
+     * @param  string  $email  The email to get the gravatar profile for
      */
     public function getData(string $email): ?array
     {
@@ -66,7 +62,7 @@ class Profile extends Gravatar
 
         $data = unserialize($profile);
 
-        if (is_array($data) && isset($data['entry'])) {
+        if (\is_array($data) && isset($data['entry'])) {
             return $data;
         }
 

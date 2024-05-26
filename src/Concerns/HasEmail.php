@@ -13,9 +13,6 @@ trait HasEmail
 
     /**
      * Get or set the address email to be used.
-     *
-     * @param string|null $email
-     * @return Gravatar|string|null
      */
     public function email(?string $email = null): Gravatar|string|null
     {
@@ -38,9 +35,6 @@ trait HasEmail
 
     /**
      * Set the address email to be used.
-     *
-     * @param string $email
-     * @return Gravatar
      */
     public function setEmail(string $email): Gravatar
     {
