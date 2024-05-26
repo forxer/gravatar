@@ -1,6 +1,12 @@
 UPGRADE
 =======
 
+From 4.x to 5.x
+---------------
+
+This package now requires at least **PHP 8.2**, your project must correspond to this prerequisite.
+
+
 From 3.x to 4.x
 ---------------
 
