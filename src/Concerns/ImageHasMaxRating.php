@@ -64,9 +64,9 @@ trait ImageHasMaxRating
 
         if (! \in_array($maxRating, $this->validMaxRating())) {
             $message = sprintf(
-                'Invalid rating "%s" specified, only allowed to be used are: %s',
+                'Invalid rating "%s" specified, only allowed to be used are: "%s"',
                 $maxRating,
-                implode(', ', $this->validMaxRating())
+                implode('", "', $this->validMaxRating())
             );
 
             throw new InvalidMaxRatingImageException($message);

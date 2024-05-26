@@ -11,7 +11,7 @@ trait HasEmail
     /**
      * @var string|null The address email to be used.
      */
-    protected $email;
+    protected ?string $email = null;
 
     /**
      * Get or set the address email to be used.

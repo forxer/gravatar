@@ -14,8 +14,6 @@ class Profile extends Gravatar implements Stringable
 
     /**
      * Construct Image instance
-     *
-     * @return void
      */
     public function __construct(?string $email = null)
     {
@@ -31,7 +29,7 @@ class Profile extends Gravatar implements Stringable
     {
         $email = $this->getEmail();
 
-        if (empty($email)) {
+        if ($email === null || $email === '' || $email === '0') {
             throw new MissingEmailException('You should set an email address before trying to get a Gravatar profile URL');
         }
 

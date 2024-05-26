@@ -64,7 +64,7 @@ trait ImageHasDefault
      */
     public function setDefaultImage(?string $defaultImage = null, bool $forceDefault = false): Image
     {
-        if ($forceDefault === true) {
+        if ($forceDefault) {
             $this->enableForceDefault();
         }
 

@@ -64,9 +64,9 @@ trait ImageHasExtension
 
         if (! \in_array($extension, $this->validExtensions())) {
             $message = sprintf(
-                'The extension "%s" is not a valid one, extension image for Gravatar can be: %s',
+                'The extension "%s" is not a valid one, extension image for Gravatar can be: "%s"',
                 $extension,
-                implode(', ', $this->validExtensions())
+                implode('", "', $this->validExtensions())
             );
 
             throw new InvalidImageExtensionException($message);

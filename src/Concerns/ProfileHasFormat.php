@@ -64,9 +64,9 @@ trait ProfileHasFormat
 
         if (! \in_array($format, $this->validFormats())) {
             $message = sprintf(
-                'The format "%s" is not a valid one, profile format for Gravatar can be: %s',
+                'The format "%s" is not a valid one, profile format for Gravatar can be: "%s"',
                 $format,
-                implode(', ', $this->validFormats())
+                implode('", "', $this->validFormats())
             );
 
             throw new InvalidProfileFormatException($message);
