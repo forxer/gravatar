@@ -16,9 +16,6 @@ return RectorConfig::configure()
         cacheDirectory: __DIR__.'/.rector_cache',
     )
     ->withPaths([
-        __DIR__.'/breadcrumbs',
-        __DIR__.'/database',
-        __DIR__.'/routes',
         __DIR__.'/src',
     ])
 
@@ -28,12 +25,6 @@ return RectorConfig::configure()
     // only PHP 8.2
     ->withPhpSets(php82: true)
 
-    ->withSkip([
-        // Désactivation de cette règle car elle
-        // transforme :     array_map('intval',
-        // en :             array_map(intval(...),
-        FirstClassCallableRector::class,
-    ])
     ->withPreparedSets(
         deadCode: true,
         codeQuality: true,

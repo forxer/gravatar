@@ -37,7 +37,7 @@ class Profile extends Gravatar implements Stringable
 
         return 'https:'.static::URL
             .$this->hash($email)
-            .($format ? '.'.$format : '');
+            .($format !== null && $format !== '' && $format !== '0' ? '.'.$format : '');
     }
 
     /**

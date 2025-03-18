@@ -46,7 +46,7 @@ class Image extends Gravatar implements Stringable
         return static::URL
             .'avatar/'
             .$this->hash($email)
-            .($extension ? '.'.$extension : '')
+            .($extension !== null && $extension !== '' && $extension !== '0' ? '.'.$extension : '')
             .$this->queryString();
     }
 
@@ -67,15 +67,21 @@ class Image extends Gravatar implements Stringable
     {
         $params = [];
 
-        if ($size = $this->getSize()) {
+        $size = $this->getSize();
+
+        if ($size !== null && $size !== 0) {
             $params['s'] = $size;
         }
 
-        if ($defaultImage = $this->getDefaultImage()) {
+        $defaultImage = $this->getDefaultImage();
+
+        if ($defaultImage !== null && $defaultImage !== '' && $defaultImage !== '0') {
             $params['d'] = $defaultImage;
         }
 
-        if ($maxRating = $this->getMaxRating()) {
+        $maxRating = $this->getMaxRating();
+
+        if ($maxRating !== null && $maxRating !== '' && $maxRating !== '0') {
             $params['r'] = $maxRating;
         }
 
