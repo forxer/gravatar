@@ -86,7 +86,7 @@ trait ImageHasDefault
             return $this;
         }
 
-        $message = sprintf(
+        $message = \sprintf(
             'The default image "%s" is not a recognized gravatar "default" and is not a valid URL, default gravatar can be: %s',
             $defaultImage,
             implode(', ', $this->validDefaultImages())

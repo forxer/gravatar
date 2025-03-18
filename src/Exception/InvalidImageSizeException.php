@@ -6,6 +6,4 @@ namespace Gravatar\Exception;
 
 use DomainException;
 
-class InvalidImageSizeException extends DomainException
-{
-}
+class InvalidImageSizeException extends DomainException {}

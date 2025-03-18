@@ -1,64 +1,45 @@
 <?php
 
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
-use Rector\CodingStyle\Rector\ArrowFunction\StaticArrowFunctionRector;
-use Rector\CodingStyle\Rector\Closure\StaticClosureRector;
-use Rector\CodingStyle\Rector\FuncCall\ArraySpreadInsteadOfArrayMergeRector;
-use Rector\CodingStyle\Rector\PostInc\PostIncDecToPreIncDecRector;
 use Rector\Config\RectorConfig;
-use Rector\Php81\Rector\FuncCall\NullToStrictStringFuncCallArgRector;
-use Rector\Set\ValueObject\SetList;
+use Rector\Php81\Rector\Array_\FirstClassCallableRector;
 
-return static function (RectorConfig $rectorConfig): void {
-    // register paths
-    //----------------------------------------------------------
-    $rectorConfig->paths([
-        __DIR__.'/src',
-    ]);
-
-    $rectorConfig->parallel(
-        processTimeout: 360,
+return RectorConfig::configure()
+    ->withImportNames()
+    ->withParallel(
+        timeoutSeconds: 320,
         maxNumberOfProcess: 16,
-        jobSize: 20
+        jobSize: 20,
+    )
+    ->withCache(
+        cacheClass: FileCacheStorage::class,
+        cacheDirectory: __DIR__.'/.rector_cache',
+    )
+    ->withPaths([
+        __DIR__.'/breadcrumbs',
+        __DIR__.'/database',
+        __DIR__.'/routes',
+        __DIR__.'/src',
+    ])
+
+    // Up from PHP X.x to 8.2
+    // ->withPhpSets()
+
+    // only PHP 8.2
+    ->withPhpSets(php82: true)
+
+    ->withSkip([
+        // Désactivation de cette règle car elle
+        // transforme :     array_map('intval',
+        // en :             array_map(intval(...),
+        FirstClassCallableRector::class,
+    ])
+    ->withPreparedSets(
+        deadCode: true,
+        codeQuality: true,
+        codingStyle: true,
+        typeDeclarations: true,
+        instanceOf: true,
+        earlyReturn: true,
+        strictBooleans: true,
     );
-
-    $rectorConfig->importNames();
-
-    // cache settings
-    //----------------------------------------------------------
-
-    // Ensure file system caching is used instead of in-memory.
-    $rectorConfig->cacheClass(FileCacheStorage::class);
-
-    // Specify a path that works locally as well as on CI job runners.
-    $rectorConfig->cacheDirectory(__DIR__.'/.rector_cache');
-
-    // skip paths and/or rules
-    //----------------------------------------------------------
-    $rectorConfig->skip([
-        // Rector transforms $foo++ into ++$foo
-        // and behind Pint transforms ++$foo into $foo++;
-        // so I deactivate, leaving priority to Pint for the moment
-        PostIncDecToPreIncDecRector::class,
-
-        // Transforme des faux-positifs, je préfère désactiver ça (PHP 8.1)
-        //NullToStrictStringFuncCallArgRector::class,
-
-        // Personally I find reading is more difficult with this syntax, so I disable
-        ArraySpreadInsteadOfArrayMergeRector::class,
-
-        // Do not change closure and Arrow Function to Static
-        StaticClosureRector::class,
-        StaticArrowFunctionRector::class,
-    ]);
-
-    $rectorConfig->sets([
-        SetList::PHP_82,
-        SetList::DEAD_CODE,
-        SetList::CODE_QUALITY,
-        SetList::CODING_STYLE,
-        SetList::TYPE_DECLARATION,
-        SetList::EARLY_RETURN,
-        SetList::INSTANCEOF,
-    ]);
-};

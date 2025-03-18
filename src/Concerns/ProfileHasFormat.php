@@ -63,7 +63,7 @@ trait ProfileHasFormat
         }
 
         if (! \in_array($format, $this->validFormats())) {
-            $message = sprintf(
+            $message = \sprintf(
                 'The format "%s" is not a valid one, profile format for Gravatar can be: "%s"',
                 $format,
                 implode('", "', $this->validFormats())

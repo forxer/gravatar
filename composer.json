@@ -22,8 +22,8 @@
 		"php": "^8.2"
 	},
     "require-dev": {
-        "laravel/pint": "^1.16.0",
-        "rector/rector": "^1.1.0"
+        "laravel/pint": "^1.21.2",
+        "rector/rector": "^2.0.10"
     },
 	"autoload": {
 		"psr-4": {
