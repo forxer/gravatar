@@ -2,7 +2,6 @@
 
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\Config\RectorConfig;
-use Rector\Php81\Rector\Array_\FirstClassCallableRector;
 
 return RectorConfig::configure()
     ->withImportNames()
@@ -32,5 +31,5 @@ return RectorConfig::configure()
         typeDeclarations: true,
         instanceOf: true,
         earlyReturn: true,
-        strictBooleans: true,
+        // strictBooleans: true,
     );

@@ -89,6 +89,6 @@ class Image extends Gravatar implements Stringable
             $params['f'] = 'y';
         }
 
-        return $params === [] ? '' : '?'.http_build_query($params, '', '&amp;');
+        return $params === [] ? '' : '?'.http_build_query($params);
     }
 }
