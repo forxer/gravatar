@@ -405,6 +405,8 @@ In addition to allowing you to use your own image, Gravatar has a number of buil
 Most of these work by taking the requested email hash and using it to generate a themed image that is unique to that email address.
 To use these options, just pass one of the following keywords:
 
+* initials: uses the profile name as initials, with a generated background and foreground color
+* color: a generated color
 * 404: do not load any image if none is associated with the email hash, instead return an HTTP 404 (File Not Found) response
 * mp: (mystery-person) a simple, cartoon-style silhouetted outline of a person (does not vary by email hash)
 * identicon: a geometric pattern based on an email hash
@@ -414,6 +416,7 @@ To use these options, just pass one of the following keywords:
 * robohash: a generated robot with different colors, faces, etc
 * blank: a transparent PNG image
 
+![Initials default Gravatar image](http://www.gravatar.com/avatar/00000000000000000000000000000000?d=initials&initials=JD&f=y)
 ![Mystery-man default Gravatar image](http://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y)
 ![Identicon default Gravatar image](http://www.gravatar.com/avatar/00000000000000000000000000000000?d=identicon&f=y)
 ![Wavatar default Gravatar image](http://www.gravatar.com/avatar/00000000000000000000000000000000?d=wavatar&f=y)
