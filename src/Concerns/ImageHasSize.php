@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Gravatar\Concerns;
 
 use Gravatar\Exception\InvalidImageSizeException;
-use Gravatar\Image;
 
 trait ImageHasSize
 {
@@ -18,8 +17,9 @@ trait ImageHasSize
      * Get or set the avatar size to use.
      *
      * @param  int|null  $size  The avatar size to use, must be less than 2048 and greater than 0.
+     * @return $this|string|null
      */
-    public function size(?int $size = null): Image|int|null
+    public function size(?int $size = null): static|int|null
     {
         if ($size === null) {
             return $this->getSize();
@@ -32,8 +32,9 @@ trait ImageHasSize
      * Alias for the "size" method.
      *
      * @param  int|null  $size  The avatar size to use, must be less than 2048 and greater than 0.
+     * @return $this|string|null
      */
-    public function s(?int $size = null): Image|int|null
+    public function s(?int $size = null): static|int|null
     {
         return $this->size($size);
     }
@@ -52,11 +53,11 @@ trait ImageHasSize
      * Set the avatar size to use.
      *
      * @param  int|null  $size  The avatar size to use, must be less than 2048 and greater than 0.
-     * @return Image The current Gravatar Image instance.
+     * @return $this The current Gravatar Image instance.
      *
      * @throws InvalidImageSizeException
      */
-    public function setSize(?int $size = null): Image
+    public function setSize(?int $size = null): static
     {
         if ($size === null) {
             return $this;

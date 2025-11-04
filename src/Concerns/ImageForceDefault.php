@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Gravatar\Concerns;
 
-use Gravatar\Image;
-
 trait ImageForceDefault
 {
     /**
@@ -16,7 +14,7 @@ trait ImageForceDefault
     /**
      * Get or set if we have to force the default image to be always load.
      */
-    public function forceDefault(?bool $forceDefault = null): bool|Image
+    public function forceDefault(?bool $forceDefault = null): bool|static
     {
         if ($forceDefault === null) {
             return $this->getForceDefault();
@@ -28,7 +26,7 @@ trait ImageForceDefault
     /**
      * Alias for the "forceDefault" method.
      */
-    public function f(?bool $forceDefault = null): bool|Image
+    public function f(?bool $forceDefault = null): bool|static
     {
         return $this->forceDefault($forceDefault);
     }
@@ -57,9 +55,9 @@ trait ImageForceDefault
      * Set if the default image has to be always load.
      *
      * @param  bool  $forceDefault  Should we force or not the default image to be always load.
-     * @return Image The current Gravatar Image instance.
+     * @return $this The current Gravatar Image instance.
      */
-    public function setForceDefault(bool $forceDefault): Image
+    public function setForceDefault(bool $forceDefault): static
     {
         $this->forceDefault = $forceDefault;
 
@@ -69,24 +67,20 @@ trait ImageForceDefault
     /**
      * Force the default image to be always load.
      *
-     * @return Image The current Gravatar Image instance.
+     * @return $this The current Gravatar Image instance.
      */
-    public function enableForceDefault(): Image
+    public function enableForceDefault(): static
     {
-        $this->setForceDefault(true);
-
-        return $this;
+        return $this->setForceDefault(true);
     }
 
     /**
      * Do not force the default image to be always load.
      *
-     * @return Image The current Gravatar Image instance.
+     * @return $this The current Gravatar Image instance.
      */
-    public function disableForceDefault(): Image
+    public function disableForceDefault(): static
     {
-        $this->setForceDefault(false);
-
-        return $this;
+        return $this->setForceDefault(false);
     }
 }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Gravatar\Concerns;
 
 use Gravatar\Exception\InvalidProfileFormatException;
-use Gravatar\Profile;
 
 trait ProfileHasFormat
 {
@@ -18,8 +17,9 @@ trait ProfileHasFormat
      * Get or set the profile format to use.
      *
      * @param  string|null  $format  The profile format to use.
+     * @return $this|string|null
      */
-    public function format(?string $format = null): Profile|string|null
+    public function format(?string $format = null): static|string|null
     {
         if ($format === null) {
             return $this->getFormat();
@@ -31,9 +31,9 @@ trait ProfileHasFormat
     /**
      * Alias for the "format" method.
      *
-     * @return Profile|string|null
+     * @return $this|string|null
      */
-    public function f(?string $format = null)
+    public function f(?string $format = null): static|string|null
     {
         return $this->format($format);
     }
@@ -52,11 +52,11 @@ trait ProfileHasFormat
      * Set the profile format to use.
      *
      * @param  string|null  $format  The profile format to use
-     * @return Profile The current Profile instance
+     * @return $this The current Profile instance
      *
      * @throws InvalidProfileFormatException
      */
-    public function setFormat(?string $format = null): Profile
+    public function setFormat(?string $format = null): static
     {
         if ($format === null) {
             return $this;
