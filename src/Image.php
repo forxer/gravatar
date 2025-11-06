@@ -79,6 +79,17 @@ class Image extends Gravatar implements Stringable
             $params['d'] = $defaultImage;
         }
 
+        if ($defaultImage === 'initials') {
+            $initials = $this->getInitials();
+            $name = $this->getName();
+
+            if ($initials !== null && $initials !== '') {
+                $params['initials'] = $initials;
+            } elseif ($name !== null && $name !== '') {
+                $params['name'] = $name;
+            }
+        }
+
         $maxRating = $this->getMaxRating();
 
         if ($maxRating !== null && $maxRating !== '' && $maxRating !== '0') {

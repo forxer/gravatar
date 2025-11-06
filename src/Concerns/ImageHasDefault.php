@@ -8,7 +8,7 @@ use Gravatar\Exception\InvalidDefaultImageException;
 
 trait ImageHasDefault
 {
-    use ImageForceDefault;
+    use ImageForceDefault, ImageHasExtraParameters;
 
     /**
      * @var string|null The default image to use ; either a string of the gravatar recognized default image "type" to use, or a URL
@@ -101,6 +101,8 @@ trait ImageHasDefault
     private function validDefaultImages(): array
     {
         return [
+            'initials',
+            'color',
             '404',
             'mp',
             'identicon',
