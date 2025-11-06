@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Gravatar\Concerns;
 
-use Gravatar\Gravatar;
-
 trait HasEmail
 {
     /**
@@ -15,8 +13,10 @@ trait HasEmail
 
     /**
      * Get or set the address email to be used.
+     *
+     * @return $this|string|null
      */
-    public function email(?string $email = null): Gravatar|string|null
+    public function email(?string $email = null): static|string|null
     {
         if ($email === null) {
             return $this->getEmail();
@@ -37,8 +37,10 @@ trait HasEmail
 
     /**
      * Set the address email to be used.
+     *
+     * @return $this
      */
-    public function setEmail(string $email): Gravatar
+    public function setEmail(string $email): static
     {
         $this->email = $email;
 

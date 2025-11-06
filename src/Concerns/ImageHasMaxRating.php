@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Gravatar\Concerns;
 
 use Gravatar\Exception\InvalidMaxRatingImageException;
-use Gravatar\Image;
 
 trait ImageHasMaxRating
 {
@@ -16,8 +15,10 @@ trait ImageHasMaxRating
 
     /**
      * Get or set the maximum allowed rating for avatars.
+     *
+     * @return $this|string|null
      */
-    public function maxRating(?string $maxRating = null): Image|string|null
+    public function maxRating(?string $maxRating = null): static|string|null
     {
         if ($maxRating === null) {
             return $this->getMaxRating();
@@ -29,9 +30,9 @@ trait ImageHasMaxRating
     /**
      * Alias for the "rating" method.
      *
-     * @param  int|null  $maxRating
+     * @return $this|string|null
      */
-    public function r(?string $maxRating = null): Image|string|null
+    public function r(?string $maxRating = null): static|string|null
     {
         return $this->maxRating($maxRating);
     }
@@ -50,11 +51,11 @@ trait ImageHasMaxRating
      * Set the maximum allowed rating for avatars.
      *
      * @param  string|null  $maxRating  The maximum rating to use for avatars.
-     * @return Image The current Gravatar Image instance.
+     * @return $this The current Gravatar Image instance.
      *
      * @throws InvalidMaxRatingImageException
      */
-    public function setMaxRating(?string $maxRating = null): Image
+    public function setMaxRating(?string $maxRating = null): static
     {
         if ($maxRating === null) {
             return $this;

@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Gravatar\Concerns;
 
 use Gravatar\Exception\InvalidImageExtensionException;
-use Gravatar\Image;
 
 trait ImageHasExtension
 {
     /**
-     * @var string The extension to append to the avatars URL.
+     * @var string|null The extension to append to the avatars URL.
      */
     protected ?string $extension = null;
 
@@ -18,8 +17,9 @@ trait ImageHasExtension
      * Get or set the avatar extension to use.
      *
      * @param  string|null  $extension  The avatar extension to use.
+     * @return $this|string|null
      */
-    public function extension(?string $extension = null): Image|string|null
+    public function extension(?string $extension = null): static|string|null
     {
         if ($extension === null) {
             return $this->getExtension();
@@ -30,8 +30,10 @@ trait ImageHasExtension
 
     /**
      * Alias for the "extension" method.
+     *
+     * @return $this|string|null
      */
-    public function e(?string $extension = null): Image|string|null
+    public function e(?string $extension = null): static|string|null
     {
         return $this->extension($extension);
     }
@@ -50,11 +52,11 @@ trait ImageHasExtension
      * Set the avatar extension to use.
      *
      * @param  string|null  $extension  The avatar extension to use.
-     * @return Image The current Gravatar Image instance.
+     * @return $this The current Gravatar Image instance.
      *
      * @throws InvalidImageExtensionException
      */
-    public function setExtension(?string $extension = null): Image
+    public function setExtension(?string $extension = null): static
     {
         if ($extension === null) {
             return $this;

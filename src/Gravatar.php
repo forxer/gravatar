@@ -60,7 +60,7 @@ class Gravatar
      * Return the Gravatar profile URL based on the provided email address.
      *
      * @param  string|null  $email  The email to get the Gravatar profile for.
-     * @param  string|null  $sFormat  The profile format to use.
+     * @param  string|null  $format  The profile format to use.
      */
     public static function profile(?string $email = null, ?string $format = null): Profile
     {
@@ -71,19 +71,19 @@ class Gravatar
     /**
      * Return multiples Gravatar profiles based on the provided array of emails addresses.
      *
-     * @param  array  $aEmail  The emails list to get the Gravatar profiles for.
-     * @param  string|null  $sFormat  The profile format to use.
+     * @param  array  $emails  The emails list to get the Gravatar profiles for.
+     * @param  string|null  $format  The profile format to use.
      */
     public static function profiles(array $emails, ?string $format = null): array
     {
-        $profils = [];
+        $profiles = [];
 
         foreach ($emails as $email) {
-            $profils[$email] = (new Profile($email))
+            $profiles[$email] = (new Profile($email))
                 ->setFormat($format);
         }
 
-        return $profils;
+        return $profiles;
     }
 
     /**

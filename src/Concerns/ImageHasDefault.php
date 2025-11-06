@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace Gravatar\Concerns;
 
 use Gravatar\Exception\InvalidDefaultImageException;
-use Gravatar\Image;
 
 trait ImageHasDefault
 {
     use ImageForceDefault;
 
     /**
-     * @var string The default image to use ; either a string of the gravatar recognized default image "type" to use, or a URL
+     * @var string|null The default image to use ; either a string of the gravatar recognized default image "type" to use, or a URL
      */
     protected ?string $defaultImage = null;
 
@@ -21,8 +20,9 @@ trait ImageHasDefault
      *
      * @param  string|null  $defaultImage  The default image to use. Use a valid image URL, or a recognized gravatar "default".
      * @param  bool  $forceDefault  Force the default image to be always load.
+     * @return $this|string|null
      */
-    public function defaultImage(?string $defaultImage = null, bool $forceDefault = false): ?Image
+    public function defaultImage(?string $defaultImage = null, bool $forceDefault = false): static|string|null
     {
         if ($defaultImage === null) {
             return $this->getDefaultImage();
@@ -36,9 +36,9 @@ trait ImageHasDefault
      *
      * @param  string|null  $defaultImage  The default image to use. Use a valid image URL, or a recognized gravatar "default".
      * @param  bool  $forceDefault  Force the default image to be always load.
-     * @return string|\Image
+     * @return $this|string|null
      */
-    public function d(?string $defaultImage = null, bool $forceDefault = false): ?Image
+    public function d(?string $defaultImage = null, bool $forceDefault = false): static|string|null
     {
         return $this->defaultImage($defaultImage, $forceDefault);
     }
@@ -56,13 +56,13 @@ trait ImageHasDefault
     /**
      * Set the default image to use for avatars.
      *
-     * @param  string  $defaultImage  The default image to use. Use a valid image URL, or a recognized gravatar "default".
+     * @param  string|null  $defaultImage  The default image to use. Use a valid image URL, or a recognized gravatar "default".
      * @param  bool  $forceDefault  Force the default image to be always load.
-     * @return Image The current Gravatar Image instance.
+     * @return $this The current Gravatar Image instance.
      *
      * @throws InvalidDefaultImageException
      */
-    public function setDefaultImage(?string $defaultImage = null, bool $forceDefault = false): Image
+    public function setDefaultImage(?string $defaultImage = null, bool $forceDefault = false): static
     {
         if ($forceDefault) {
             $this->enableForceDefault();
