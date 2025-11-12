@@ -1,6 +1,20 @@
 CHANGELOG
 =========
 
+5.1.1 (2025-11-12)
+------------------
+
+- Changelog file forgotten
+- Rector
+
+
+5.1.0 (2025-11-06)
+------------------
+
+- Added "initials" and "color" default options
+- Stricter typings for return values
+
+
 5.0.2 (2024-05-28)
 ------------------
 
