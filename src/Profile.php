@@ -29,7 +29,7 @@ class Profile extends Gravatar implements Stringable
     {
         $email = $this->getEmail();
 
-        if ($email === null || $email === '' || $email === '0') {
+        if (\in_array($email, [null, '', '0'], true)) {
             throw new MissingEmailException('You should set an email address before trying to get a Gravatar profile URL');
         }
 
@@ -37,7 +37,7 @@ class Profile extends Gravatar implements Stringable
 
         return 'https:'.static::URL
             .$this->hash($email)
-            .($format !== null && $format !== '' && $format !== '0' ? '.'.$format : '');
+            .(\in_array($format, [null, '', '0'], true) ? '' : '.'.$format);
     }
 
     /**
