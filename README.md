@@ -450,37 +450,41 @@ $gravatarImage = new Gravatar\Image();
 $gravatarImage->d();
 ```
 
-#### Use the initials as the default value
+#### Customize the initials default image
 
-By default the initials avatar will show the initials attached to the avatar account.
+When using `initials` as the default image type, Gravatar will display initials from the user's profile along with a generated background and foreground color.
 
-For your convenience, you can use one of the "initials" or "name" methods.
+You can customize which initials are displayed by providing them explicitly or by providing a name from which the initials will be extracted.
 
-Pass the initials to show:
+**Note:** The `initials()` and `name()` methods only have an effect when the default image is set to `'initials'`. These parameters are ignored for other default image types.
+
+**Provide initials directly:**
 
 ```php
 // use the `setInitials()` method of a `Gravatar\Image` instance
 $gravatarImage = new Gravatar\Image($email);
+$gravatarImage->setDefaultImage('initials');
 $gravatarImage->setInitials('JD');
 
 // or the `initials()` helper method of a `Gravatar\Image` instance
 $gravatarImage = new Gravatar\Image($email);
-$gravatarImage->initials('JD');
+$gravatarImage->defaultImage('initials')->initials('JD');
 ```
 
-Pass the name and have the initials be extracted:
+**Provide a name to extract initials:**
 
 ```php
 // use the `setName()` method of a `Gravatar\Image` instance
 $gravatarImage = new Gravatar\Image($email);
+$gravatarImage->setDefaultImage('initials');
 $gravatarImage->setName('John Doe');
 
 // or the `name()` helper method of a `Gravatar\Image` instance
 $gravatarImage = new Gravatar\Image($email);
-$gravatarImage->name('John Doe');
+$gravatarImage->defaultImage('initials')->name('John Doe');
 ```
 
-Note that using an "initials" method will take precedence over a "name" method.
+**Important:** If you provide both initials and a name, the explicitly provided initials will take precedence over the name.
 
 [Back to top ^](#gravatar)
 

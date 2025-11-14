@@ -5,8 +5,7 @@ CHANGELOG
 ------------------
 
 - Improved documentation: reorganized helper examples to reduce redundancy
-- Fixed introduction example to not use undefined helpers
-- Documentation in progress for "initials" and "color" default options
+- Documentation for "initials" default option
 
 
 5.1.1 (2025-11-12)
