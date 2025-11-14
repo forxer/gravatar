@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+5.1.2 (2025-XX-XX)
+------------------
+
+- Improved documentation: reorganized helper examples to reduce redundancy
+- Fixed introduction example to not use undefined helpers
+- Documentation in progress for "initials" and "color" default options
+
+
 5.1.1 (2025-11-12)
 ------------------
 
