@@ -1,11 +1,13 @@
 CHANGELOG
 =========
 
-5.1.2 (2025-XX-XX)
+5.3.0 (2025-XX-XX)
 ------------------
 
-- Improved documentation: reorganized helper examples to reduce redundancy
-- Documentation for "initials" default option
+- Added `copy()` method to `Image` and `Profile` classes to duplicate instances with optional email change
+- Added `withInitials()` and `withName()` convenience methods
+- Renamed `ImageHasExtraParameters` trait to `ImageHasInitials` for better clarity
+- Improved documentation
 
 
 5.1.1 (2025-11-12)

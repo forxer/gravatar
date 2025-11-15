@@ -34,9 +34,11 @@ Index
         * [Multiples Gravatar images/profiles](#multiples-gravatar-imagesprofiles)
     * [Instanciate the dedicated classes](#instanciate-the-dedicated-classes)
 * [Mandatory parameter](#mandatory-parameter)
+* [Copying instances](#copying-instances)
 * [Optional parameters](#optional-parameters)
     * [Gravatar image size](#gravatar-image-size)
     * [Default Gravatar image](#default-gravatar-image)
+        * [Customize the initials default image](#customize-the-initials-default-image)
     * [Gravatar image max rating](#gravatar-image-max-rating)
     * [Gravatar image file-type extension](#gravatar-image-file-type-extension)
     * [Force to always use the default image](#force-to-always-use-the-default-image)
@@ -74,7 +76,7 @@ Usage
 
 There are many ways to use this library:
 
-- Use helpers fonctions
+- Use helpers functions
 - Use the Gravatar base class with its `Gravatar::image()` and `Gravatar::profile()` methods
 - Instantiate the dedicated classes `Gravatar\Image()` and `Gravatar\Profile()`
 
@@ -166,6 +168,12 @@ echo $avatar;
 $avatar = gravatar()
     ->email('email@example.com')
     ->size(200);
+echo $avatar;
+
+// With initials (convenience method):
+$avatar = gravatar('email@example.com')
+    ->withInitials('JD')
+    ->size(120);
 echo $avatar;
 
 // Get a Gravatar profile instance:
@@ -332,6 +340,38 @@ $gravatarProfile->email($email);
 
 [Back to top ^](#gravatar)
 
+Copying instances
+-----------------
+
+You can create a copy of an existing `Gravatar\Image` or `Gravatar\Profile` instance with all its settings using the `copy()` method. This is useful when you want to reuse a base configuration with different email addresses or slight variations.
+
+```php
+// Create a base configuration
+$baseAvatar = new Gravatar\Image();
+$baseAvatar->size(120)
+    ->defaultImage('robohash')
+    ->maxRating('pg');
+
+// Create copies with different emails
+$avatar1 = $baseAvatar->copy('user1@example.com');
+$avatar2 = $baseAvatar->copy('user2@example.com');
+
+// Create a copy with the same email but modify other settings
+$largeAvatar = $baseAvatar->copy()->size(200);
+```
+
+The same works for profiles:
+
+```php
+$baseProfile = new Gravatar\Profile();
+$baseProfile->format('json');
+
+$profile1 = $baseProfile->copy('user1@example.com');
+$profile2 = $baseProfile->copy('user2@example.com');
+```
+
+[Back to top ^](#gravatar)
+
 Optional parameters
 -------------------
 
@@ -456,33 +496,31 @@ When using `initials` as the default image type, Gravatar will display initials 
 
 You can customize which initials are displayed by providing them explicitly or by providing a name from which the initials will be extracted.
 
-**Note:** The `initials()` and `name()` methods only have an effect when the default image is set to `'initials'`. These parameters are ignored for other default image types.
-
-**Provide initials directly:**
+**Using convenience methods (recommended):**
 
 ```php
-// use the `setInitials()` method of a `Gravatar\Image` instance
+// use the `withInitials()` method - automatically sets default image to 'initials'
 $gravatarImage = new Gravatar\Image($email);
-$gravatarImage->setDefaultImage('initials');
-$gravatarImage->setInitials('JD');
+$gravatarImage->withInitials('JD');
 
-// or the `initials()` helper method of a `Gravatar\Image` instance
+// or use the `withName()` method - automatically sets default image to 'initials'
 $gravatarImage = new Gravatar\Image($email);
-$gravatarImage->defaultImage('initials')->initials('JD');
+$gravatarImage->withName('John Doe');
 ```
 
-**Provide a name to extract initials:**
+**Using explicit methods:**
 
 ```php
-// use the `setName()` method of a `Gravatar\Image` instance
+// manually set default image and then provide initials
 $gravatarImage = new Gravatar\Image($email);
-$gravatarImage->setDefaultImage('initials');
-$gravatarImage->setName('John Doe');
+$gravatarImage->defaultImage('initials')->initials('JD');
 
-// or the `name()` helper method of a `Gravatar\Image` instance
+// manually set default image and then provide name
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->defaultImage('initials')->name('John Doe');
 ```
+
+**Note:** The `initials()` and `name()` methods only have an effect when the default image is set to `'initials'`. These parameters are ignored for other default image types. To avoid confusion, use the convenience methods `withInitials()` or `withName()` which automatically set the default image type.
 
 **Important:** If you provide both initials and a name, the explicitly provided initials will take precedence over the name.
 
