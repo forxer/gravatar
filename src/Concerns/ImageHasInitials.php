@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Gravatar\Concerns;
 
-trait ImageHasExtraParameters
+trait ImageHasInitials
 {
     /**
      * @var string|null The user initials to use with "initials" default option
@@ -90,5 +90,29 @@ trait ImageHasExtraParameters
         $this->name = $name;
 
         return $this;
+    }
+
+    /**
+     * Convenience method to set both default image to "initials" and the initials value.
+     *
+     * @param  string  $initials  User initials.
+     * @return $this The current Gravatar Image instance.
+     */
+    public function withInitials(string $initials): static
+    {
+        return $this->setDefaultImage('initials')
+            ->setInitials($initials);
+    }
+
+    /**
+     * Convenience method to set both default image to "initials" and the name value.
+     *
+     * @param  string  $name  Username.
+     * @return $this The current Gravatar Image instance.
+     */
+    public function withName(string $name): static
+    {
+        return $this->setDefaultImage('initials')
+            ->setName($name);
     }
 }

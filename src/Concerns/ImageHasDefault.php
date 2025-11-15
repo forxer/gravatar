@@ -8,7 +8,7 @@ use Gravatar\Exception\InvalidDefaultImageException;
 
 trait ImageHasDefault
 {
-    use ImageForceDefault, ImageHasExtraParameters;
+    use ImageForceDefault, ImageHasInitials;
 
     /**
      * @var string|null The default image to use ; either a string of the gravatar recognized default image "type" to use, or a URL
