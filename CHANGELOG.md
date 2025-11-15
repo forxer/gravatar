@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-5.3.0 (2025-XX-XX)
+5.3.0 (2025-11-15)
 ------------------
 
 - Added `copy()` method to `Image` and `Profile` classes to duplicate instances with optional email change
