@@ -51,6 +51,24 @@ class Profile extends Gravatar implements Stringable
     }
 
     /**
+     * Create a copy of the current Profile instance with all its settings.
+     * Optionally change the email address in the copy.
+     *
+     * @param  string|null  $email  Optional new email address for the copy.
+     * @return static A new Profile instance with the same settings.
+     */
+    public function copy(?string $email = null): static
+    {
+        $copy = clone $this;
+
+        if ($email !== null) {
+            $copy->setEmail($email);
+        }
+
+        return $copy;
+    }
+
+    /**
      * Return profile data based on the provided email address.
      *
      * @param  string  $email  The email to get the gravatar profile for
