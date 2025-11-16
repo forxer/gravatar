@@ -26,8 +26,6 @@ class Profile extends Gravatar implements Stringable
 
     /**
      * Build the profile URL based on the provided email address.
-     *
-     * @return string
      */
     public function url(): string
     {

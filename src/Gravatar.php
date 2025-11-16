@@ -21,7 +21,6 @@ class Gravatar
      * @param  string|null  $rating  The maximum rating to use for avatars
      * @param  string|null  $extension  The avatar extension to use
      * @param  bool  $forceDefault  Force the default image to be always load.
-     * @return Image
      */
     public static function image(?string $email = null, ?int $size = null, ?string $defaultImage = null, ?string $rating = null, ?string $extension = null, bool $forceDefault = false): Image
     {
@@ -63,7 +62,6 @@ class Gravatar
      *
      * @param  string|null  $email  The email to get the Gravatar profile for.
      * @param  string|null  $format  The profile format to use.
-     * @return Profile
      */
     public static function profile(?string $email = null, ?string $format = null): Profile
     {

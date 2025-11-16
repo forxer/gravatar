@@ -78,8 +78,6 @@ class Image extends Gravatar implements Stringable
 
     /**
      * Get query string parameters to URL
-     *
-     * @return string
      */
     protected function queryString(): string
     {
