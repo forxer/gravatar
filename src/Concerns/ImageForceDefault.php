@@ -13,6 +13,9 @@ trait ImageForceDefault
 
     /**
      * Get or set if we have to force the default image to be always load.
+     *
+     * @param  bool|null  $forceDefault  Should we force or not the default image to be always load.
+     * @return bool|$this
      */
     public function forceDefault(?bool $forceDefault = null): bool|static
     {
@@ -25,6 +28,9 @@ trait ImageForceDefault
 
     /**
      * Alias for the "forceDefault" method.
+     *
+     * @param  bool|null  $forceDefault  Should we force or not the default image to be always load.
+     * @return bool|$this
      */
     public function f(?bool $forceDefault = null): bool|static
     {

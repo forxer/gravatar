@@ -27,6 +27,9 @@ enum ProfileFormat: string
 
     /**
      * Try to create a ProfileFormat from a string value
+     *
+     * @param  string  $value  The string value to convert.
+     * @return self|null
      */
     public static function tryFromString(string $value): ?self
     {

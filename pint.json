@@ -2,6 +2,7 @@
     "preset": "laravel",
     "rules": {
         "line_ending": false,
+        "no_superfluous_phpdoc_tags": false,
         "native_function_invocation": {
             "include": ["@compiler_optimized"],
             "scope": "namespaced",

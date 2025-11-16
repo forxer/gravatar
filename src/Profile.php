@@ -13,7 +13,9 @@ class Profile extends Gravatar implements Stringable
     use ProfileHasFormat;
 
     /**
-     * Construct Image instance
+     * Construct Profile instance
+     *
+     * @param  string|null  $email  The email address to use for the Gravatar profile.
      */
     public function __construct(?string $email = null)
     {
@@ -24,6 +26,8 @@ class Profile extends Gravatar implements Stringable
 
     /**
      * Build the profile URL based on the provided email address.
+     *
+     * @return string
      */
     public function url(): string
     {
@@ -68,6 +72,7 @@ class Profile extends Gravatar implements Stringable
      * Return profile data based on the provided email address.
      *
      * @param  string  $email  The email to get the gravatar profile for
+     * @return array<string, mixed>|null
      */
     public function getData(string $email): ?array
     {

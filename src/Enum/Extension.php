@@ -27,6 +27,9 @@ enum Extension: string
 
     /**
      * Try to create an Extension from a string value
+     *
+     * @param  string  $value  The string value to convert.
+     * @return self|null
      */
     public static function tryFromString(string $value): ?self
     {

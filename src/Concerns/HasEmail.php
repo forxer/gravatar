@@ -14,6 +14,7 @@ trait HasEmail
     /**
      * Get or set the address email to be used.
      *
+     * @param  string|null  $email  The address email to use.
      * @return $this|string|null
      */
     public function email(?string $email = null): static|string|null
@@ -28,6 +29,7 @@ trait HasEmail
     /**
      * Set the address email to be used.
      *
+     * @param  string  $email  The address email to use.
      * @return $this
      */
     public function setEmail(string $email): static

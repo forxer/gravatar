@@ -20,6 +20,8 @@ class Image extends Gravatar implements Stringable
 
     /**
      * Construct Image instance
+     *
+     * @param  string|null  $email  The email address to use for the Gravatar.
      */
     public function __construct(?string $email = null)
     {
@@ -76,6 +78,8 @@ class Image extends Gravatar implements Stringable
 
     /**
      * Get query string parameters to URL
+     *
+     * @return string
      */
     protected function queryString(): string
     {
