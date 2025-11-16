@@ -15,9 +15,10 @@ CHANGELOG
 - **PHP 8.4 Property Hooks**: All properties now use property hooks with validation logic
 - **Asymmetric Visibility**: Properties use `public private(set)` for better encapsulation
 - **Validation in Property Setters**: Moved validation logic into property hooks for cleaner code
-- **Constants for Valid Values**: Validation arrays are now private constants (e.g., `VALID_EXTENSIONS`, `VALID_MAX_RATINGS`, `VALID_DEFAULT_IMAGES`, `VALID_FORMATS`)
+- **Typed Enums**: Added enum classes for type-safe values (`Rating`, `Extension`, `DefaultImage`, `ProfileFormat`)
+  - Methods accept both enum instances and strings for backward compatibility
+  - Example: `$image->setMaxRating(Rating::PG)` or `$image->setMaxRating('pg')`
 - **Simplified Code**: Removed redundant getter methods - direct property access is now preferred
-- **Modernized Syntax**: Replaced verbose `in_array()` checks with cleaner comparisons where applicable
 
 ### Migration Guide
 
@@ -35,6 +36,15 @@ $email = $image->email;    // Direct property access
 // Setters remain unchanged
 $image->setSize(200);
 $image->setEmail('new@example.com');
+
+// NEW: You can now use enums for type safety (optional)
+use Gravatar\Enum\Rating;
+use Gravatar\Enum\Extension;
+use Gravatar\Enum\DefaultImage;
+
+$image->setMaxRating(Rating::PG);           // or still 'pg'
+$image->setExtension(Extension::JPG);       // or still 'jpg'
+$image->setDefaultImage(DefaultImage::ROBOHASH); // or still 'robohash'
 ```
 
 5.3.0 (2025-11-15)
