@@ -405,11 +405,11 @@ $gravatarImage->s(120);
 If you want to retrieve the currently set avatar size, you can use one of following methods:
 
 ```php
-// call the `getSize()` method of a `Gravatar\Image` instance without argument
+// access the `size` property directly (recommended in v6+)
 $gravatarImage = new Gravatar\Image();
-$gravatarImage->getSize();
+$size = $gravatarImage->size;
 
-// or the `size()` helper method of a `Gravatar\Image` instance without argument
+// or call the `size()` helper method without argument
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->size();
 
@@ -477,11 +477,11 @@ $gravatarImage->d('mp');
 If you want to retrieve the currently set avatar default image, you can use one of following methods:
 
 ```php
-// call the `getDefaultImage()` method of a `Gravatar\Image` instance without argument
+// access the `defaultImage` property directly (recommended in v6+)
 $gravatarImage = new Gravatar\Image();
-$gravatarImage->getDefaultImage();
+$defaultImage = $gravatarImage->defaultImage;
 
-// or the `defaultImage()` helper method of a `Gravatar\Image` instance without argument
+// or call the `defaultImage()` helper method without argument
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->defaultImage();
 
@@ -563,13 +563,13 @@ $gravatarImage->r('g');
 If you want to retrieve the currently set avatar max rating, you can use one of following methods:
 
 ```php
-// call the `getMaxRating()` method of a `Gravatar\Image` instance without argument
+// access the `maxRating` property directly (recommended in v6+)
 $gravatarImage = new Gravatar\Image();
-$gravatarImage->getMaxRating();
+$rating = $gravatarImage->maxRating;
 
-// or the `maxrating()` helper method of a `Gravatar\Image` instance without argument
+// or call the `maxRating()` helper method without argument
 $gravatarImage = new Gravatar\Image();
-$gravatarImage->maxrating();
+$gravatarImage->maxRating();
 
 // or its alias `r()`
 $gravatarImage = new Gravatar\Image();
@@ -615,11 +615,11 @@ $gravatarImage->e('jpg');
 If you want to retrieve the currently set avatar file-type extension, you can use one of following methods:
 
 ```php
-// call the `getExtension()` method of a `Gravatar\Image` instance without argument
+// access the `extension` property directly (recommended in v6+)
 $gravatarImage = new Gravatar\Image();
-$gravatarImage->getExtension();
+$extension = $gravatarImage->extension;
 
-// or the `extension()` helper method of a `Gravatar\Image` instance without argument
+// or call the `extension()` helper method without argument
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->extension();
 
