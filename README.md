@@ -38,6 +38,7 @@ Index
 * [Mandatory parameter](#mandatory-parameter)
 * [Copying instances](#copying-instances)
 * [Using type-safe enums](#using-type-safe-enums)
+    * [Fluent shorthand methods](#fluent-shorthand-methods)
 * [Optional parameters](#optional-parameters)
     * [Gravatar image size](#gravatar-image-size)
     * [Default Gravatar image](#default-gravatar-image)
@@ -452,6 +453,80 @@ $image->maxRating(Rating::G)
 - Compile-time validation
 - No typos in string values
 - Self-documenting code
+
+### Fluent shorthand methods
+
+Since version 6.0, you can use convenient fluent methods as shortcuts for common configurations. These methods provide a cleaner, more expressive syntax while keeping full backward compatibility.
+
+**Available for ratings:**
+
+```php
+$image->ratingG();    // equivalent to ->setMaxRating(Rating::G)
+$image->ratingPg();   // equivalent to ->setMaxRating(Rating::PG)
+$image->ratingR();    // equivalent to ->setMaxRating(Rating::R)
+$image->ratingX();    // equivalent to ->setMaxRating(Rating::X)
+```
+
+**Available for extensions:**
+
+```php
+$image->extensionJpg();   // equivalent to ->setExtension(Extension::JPG)
+$image->extensionJpeg();  // equivalent to ->setExtension(Extension::JPEG)
+$image->extensionGif();   // equivalent to ->setExtension(Extension::GIF)
+$image->extensionPng();   // equivalent to ->setExtension(Extension::PNG)
+$image->extensionWebp();  // equivalent to ->setExtension(Extension::WEBP)
+```
+
+**Available for default images:**
+
+```php
+$image->defaultImageInitials();    // equivalent to ->setDefaultImage(DefaultImage::INITIALS)
+$image->defaultImageColor();       // equivalent to ->setDefaultImage(DefaultImage::COLOR)
+$image->defaultImageNotFound();    // equivalent to ->setDefaultImage(DefaultImage::NOT_FOUND)
+$image->defaultImageMp();          // equivalent to ->setDefaultImage(DefaultImage::MYSTERY_PERSON)
+$image->defaultImageIdenticon();   // equivalent to ->setDefaultImage(DefaultImage::IDENTICON)
+$image->defaultImageMonsterid();   // equivalent to ->setDefaultImage(DefaultImage::MONSTERID)
+$image->defaultImageWavatar();     // equivalent to ->setDefaultImage(DefaultImage::WAVATAR)
+$image->defaultImageRetro();       // equivalent to ->setDefaultImage(DefaultImage::RETRO)
+$image->defaultImageRobohash();    // equivalent to ->setDefaultImage(DefaultImage::ROBOHASH)
+$image->defaultImageBlank();       // equivalent to ->setDefaultImage(DefaultImage::BLANK)
+```
+
+**Available for profile formats:**
+
+```php
+$profile->formatJson();  // equivalent to ->setFormat(ProfileFormat::JSON)
+$profile->formatXml();   // equivalent to ->setFormat(ProfileFormat::XML)
+$profile->formatPhp();   // equivalent to ->setFormat(ProfileFormat::PHP)
+$profile->formatVcf();   // equivalent to ->setFormat(ProfileFormat::VCF)
+$profile->formatQr();    // equivalent to ->setFormat(ProfileFormat::QR)
+```
+
+**Complete example with fluent methods:**
+
+```php
+use Gravatar\Image;
+use Gravatar\Profile;
+
+// Clean, expressive syntax
+$image = (new Image('email@example.com'))
+    ->size(120)
+    ->ratingPg()
+    ->extensionWebp()
+    ->defaultImageRobohash();
+
+$profile = (new Profile('email@example.com'))
+    ->formatJson();
+
+// Compare with the equivalent traditional syntax:
+$image = (new Image('email@example.com'))
+    ->size(120)
+    ->setMaxRating(Rating::PG)
+    ->setExtension(Extension::WEBP)
+    ->setDefaultImage(DefaultImage::ROBOHASH);
+```
+
+These fluent methods are purely syntactic sugar - they call the same underlying methods but with cleaner, more discoverable names. All three syntaxes (strings, enums, and fluent methods) are fully supported and can be mixed freely.
 
 [Back to top ^](#gravatar)
 

@@ -67,4 +67,44 @@ trait ProfileHasFormat
 
         return $this;
     }
+
+    /**
+     * Set the profile format to JSON.
+     */
+    public function formatJson(): static
+    {
+        return $this->setFormat(ProfileFormat::JSON);
+    }
+
+    /**
+     * Set the profile format to XML.
+     */
+    public function formatXml(): static
+    {
+        return $this->setFormat(ProfileFormat::XML);
+    }
+
+    /**
+     * Set the profile format to PHP (serialized).
+     */
+    public function formatPhp(): static
+    {
+        return $this->setFormat(ProfileFormat::PHP);
+    }
+
+    /**
+     * Set the profile format to VCF (vCard).
+     */
+    public function formatVcf(): static
+    {
+        return $this->setFormat(ProfileFormat::VCF);
+    }
+
+    /**
+     * Set the profile format to QR code.
+     */
+    public function formatQr(): static
+    {
+        return $this->setFormat(ProfileFormat::QR);
+    }
 }

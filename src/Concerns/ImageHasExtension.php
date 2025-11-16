@@ -71,4 +71,44 @@ trait ImageHasExtension
 
         return $this;
     }
+
+    /**
+     * Set the avatar extension to JPG.
+     */
+    public function extensionJpg(): static
+    {
+        return $this->setExtension(Extension::JPG);
+    }
+
+    /**
+     * Set the avatar extension to JPEG.
+     */
+    public function extensionJpeg(): static
+    {
+        return $this->setExtension(Extension::JPEG);
+    }
+
+    /**
+     * Set the avatar extension to GIF.
+     */
+    public function extensionGif(): static
+    {
+        return $this->setExtension(Extension::GIF);
+    }
+
+    /**
+     * Set the avatar extension to PNG.
+     */
+    public function extensionPng(): static
+    {
+        return $this->setExtension(Extension::PNG);
+    }
+
+    /**
+     * Set the avatar extension to WEBP.
+     */
+    public function extensionWebp(): static
+    {
+        return $this->setExtension(Extension::WEBP);
+    }
 }

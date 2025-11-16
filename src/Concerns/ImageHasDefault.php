@@ -80,4 +80,84 @@ trait ImageHasDefault
 
         return $this;
     }
+
+    /**
+     * Set the default image to initials.
+     */
+    public function defaultImageInitials(): static
+    {
+        return $this->setDefaultImage(DefaultImage::INITIALS);
+    }
+
+    /**
+     * Set the default image to a solid color background.
+     */
+    public function defaultImageColor(): static
+    {
+        return $this->setDefaultImage(DefaultImage::COLOR);
+    }
+
+    /**
+     * Set the default image to 404 (no image).
+     */
+    public function defaultImageNotFound(): static
+    {
+        return $this->setDefaultImage(DefaultImage::NOT_FOUND);
+    }
+
+    /**
+     * Set the default image to mystery person.
+     */
+    public function defaultImageMp(): static
+    {
+        return $this->setDefaultImage(DefaultImage::MYSTERY_PERSON);
+    }
+
+    /**
+     * Set the default image to identicon.
+     */
+    public function defaultImageIdenticon(): static
+    {
+        return $this->setDefaultImage(DefaultImage::IDENTICON);
+    }
+
+    /**
+     * Set the default image to monsterid.
+     */
+    public function defaultImageMonsterid(): static
+    {
+        return $this->setDefaultImage(DefaultImage::MONSTERID);
+    }
+
+    /**
+     * Set the default image to wavatar.
+     */
+    public function defaultImageWavatar(): static
+    {
+        return $this->setDefaultImage(DefaultImage::WAVATAR);
+    }
+
+    /**
+     * Set the default image to retro.
+     */
+    public function defaultImageRetro(): static
+    {
+        return $this->setDefaultImage(DefaultImage::RETRO);
+    }
+
+    /**
+     * Set the default image to robohash.
+     */
+    public function defaultImageRobohash(): static
+    {
+        return $this->setDefaultImage(DefaultImage::ROBOHASH);
+    }
+
+    /**
+     * Set the default image to blank (transparent).
+     */
+    public function defaultImageBlank(): static
+    {
+        return $this->setDefaultImage(DefaultImage::BLANK);
+    }
 }

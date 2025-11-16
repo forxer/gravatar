@@ -18,34 +18,14 @@ CHANGELOG
 - **Typed Enums**: Added enum classes for type-safe values (`Rating`, `Extension`, `DefaultImage`, `ProfileFormat`)
   - Methods accept both enum instances and strings for backward compatibility
   - Example: `$image->setMaxRating(Rating::PG)` or `$image->setMaxRating('pg')`
+- **Fluent Shorthand Methods**: Added convenient fluent methods for cleaner syntax
+  - Rating: `ratingG()`, `ratingPg()`, `ratingR()`, `ratingX()`
+  - Extension: `extensionJpg()`, `extensionJpeg()`, `extensionGif()`, `extensionPng()`, `extensionWebp()`
+  - Default images: `defaultImageInitials()`, `defaultImageRobohash()`, etc.
+  - Profile formats: `formatJson()`, `formatXml()`, `formatPhp()`, `formatVcf()`, `formatQr()`
+  - Example: `$image->ratingPg()->extensionWebp()` instead of `$image->setMaxRating('pg')->setExtension('webp')`
 - **Simplified Code**: Removed redundant getter methods - direct property access is now preferred
 
-### Migration Guide
-
-```php
-// Before (v5.x)
-$image = new Image('email@example.com');
-$size = $image->getSize();
-$email = $image->getEmail();
-
-// After (v6.x)
-$image = new Image('email@example.com');
-$size = $image->size;      // Direct property access
-$email = $image->email;    // Direct property access
-
-// Setters remain unchanged
-$image->setSize(200);
-$image->setEmail('new@example.com');
-
-// NEW: You can now use enums for type safety (optional)
-use Gravatar\Enum\Rating;
-use Gravatar\Enum\Extension;
-use Gravatar\Enum\DefaultImage;
-
-$image->setMaxRating(Rating::PG);           // or still 'pg'
-$image->setExtension(Extension::JPG);       // or still 'jpg'
-$image->setDefaultImage(DefaultImage::ROBOHASH); // or still 'robohash'
-```
 
 5.3.0 (2025-11-15)
 ------------------

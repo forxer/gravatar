@@ -71,4 +71,36 @@ trait ImageHasMaxRating
 
         return $this;
     }
+
+    /**
+     * Set the maximum rating to G (General Audiences).
+     */
+    public function ratingG(): static
+    {
+        return $this->setMaxRating(Rating::G);
+    }
+
+    /**
+     * Set the maximum rating to PG (Parental Guidance Suggested).
+     */
+    public function ratingPg(): static
+    {
+        return $this->setMaxRating(Rating::PG);
+    }
+
+    /**
+     * Set the maximum rating to R (Restricted).
+     */
+    public function ratingR(): static
+    {
+        return $this->setMaxRating(Rating::R);
+    }
+
+    /**
+     * Set the maximum rating to X (Adult Only).
+     */
+    public function ratingX(): static
+    {
+        return $this->setMaxRating(Rating::X);
+    }
 }

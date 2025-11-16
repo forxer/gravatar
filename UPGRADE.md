@@ -70,6 +70,60 @@ $image->size(200);
 
 Validation is now performed directly when setting properties through setter methods, using PHP 8.4's property hooks. This provides the same validation behavior but with more modern PHP syntax internally.
 
+### New Features in v6.x
+
+**1. Type-Safe Enums**
+
+You can now use enum classes instead of strings for better type safety and IDE support:
+
+```php
+use Gravatar\Enum\Rating;
+use Gravatar\Enum\Extension;
+use Gravatar\Enum\DefaultImage;
+use Gravatar\Enum\ProfileFormat;
+
+// Using enums (recommended)
+$image->setMaxRating(Rating::PG);
+$image->setExtension(Extension::WEBP);
+$image->setDefaultImage(DefaultImage::ROBOHASH);
+$profile->setFormat(ProfileFormat::JSON);
+
+// Strings still work for backward compatibility
+$image->setMaxRating('pg');
+$image->setExtension('webp');
+$image->setDefaultImage('robohash');
+$profile->setFormat('json');
+```
+
+**2. Fluent Shorthand Methods**
+
+New fluent methods provide cleaner, more expressive syntax:
+
+```php
+// Before (v5.x and still valid in v6.x)
+$image->setMaxRating('pg')
+      ->setExtension('webp')
+      ->setDefaultImage('robohash');
+
+// After (v6.x with enums)
+$image->setMaxRating(Rating::PG)
+      ->setExtension(Extension::WEBP)
+      ->setDefaultImage(DefaultImage::ROBOHASH);
+
+// NEW in v6.x (fluent shorthand)
+$image->ratingPg()
+      ->extensionWebp()
+      ->defaultImageRobohash();
+```
+
+Available fluent methods:
+- **Ratings**: `ratingG()`, `ratingPg()`, `ratingR()`, `ratingX()`
+- **Extensions**: `extensionJpg()`, `extensionJpeg()`, `extensionGif()`, `extensionPng()`, `extensionWebp()`
+- **Default Images**: `defaultImageInitials()`, `defaultImageColor()`, `defaultImageNotFound()`, `defaultImageMp()`, `defaultImageIdenticon()`, `defaultImageMonsterid()`, `defaultImageWavatar()`, `defaultImageRetro()`, `defaultImageRobohash()`, `defaultImageBlank()`
+- **Profile Formats**: `formatJson()`, `formatXml()`, `formatPhp()`, `formatVcf()`, `formatQr()`
+
+All three syntaxes (strings, enums, and fluent methods) work together and can be mixed freely.
+
 ### Migration Steps
 
 1. Update your PHP version to 8.4 or higher
