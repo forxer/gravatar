@@ -1,6 +1,42 @@
 CHANGELOG
 =========
 
+6.0.0 (TBD)
+-----------
+
+### Breaking Changes
+
+- **Minimum PHP version increased to 8.4**
+- Removed `getEmail()`, `getSize()`, `getExtension()`, `getMaxRating()`, `getDefaultImage()`, `getFormat()`, `getInitials()`, `getName()`, and `getForceDefault()` methods - use public property access instead
+- Properties are now publicly readable but can only be set through setter methods or internally
+
+### Improvements
+
+- **PHP 8.4 Property Hooks**: All properties now use property hooks with validation logic
+- **Asymmetric Visibility**: Properties use `public private(set)` for better encapsulation
+- **Validation in Property Setters**: Moved validation logic into property hooks for cleaner code
+- **Constants for Valid Values**: Validation arrays are now private constants (e.g., `VALID_EXTENSIONS`, `VALID_MAX_RATINGS`, `VALID_DEFAULT_IMAGES`, `VALID_FORMATS`)
+- **Simplified Code**: Removed redundant getter methods - direct property access is now preferred
+- **Modernized Syntax**: Replaced verbose `in_array()` checks with cleaner comparisons where applicable
+
+### Migration Guide
+
+```php
+// Before (v5.x)
+$image = new Image('email@example.com');
+$size = $image->getSize();
+$email = $image->getEmail();
+
+// After (v6.x)
+$image = new Image('email@example.com');
+$size = $image->size;      // Direct property access
+$email = $image->email;    // Direct property access
+
+// Setters remain unchanged
+$image->setSize(200);
+$image->setEmail('new@example.com');
+```
+
 5.3.0 (2025-11-15)
 ------------------
 

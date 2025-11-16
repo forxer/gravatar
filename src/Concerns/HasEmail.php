@@ -7,9 +7,9 @@ namespace Gravatar\Concerns;
 trait HasEmail
 {
     /**
-     * @var string|null The address email to be used.
+     * The address email to be used.
      */
-    protected ?string $email = null;
+    public private(set) ?string $email = null;
 
     /**
      * Get or set the address email to be used.
@@ -19,20 +19,10 @@ trait HasEmail
     public function email(?string $email = null): static|string|null
     {
         if ($email === null) {
-            return $this->getEmail();
+            return $this->email;
         }
 
         return $this->setEmail($email);
-    }
-
-    /**
-     * Get the address email to be used.
-     *
-     * @return string|null The current email in use.
-     */
-    public function getEmail(): ?string
-    {
-        return $this->email;
     }
 
     /**

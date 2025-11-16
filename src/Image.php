@@ -35,18 +35,14 @@ class Image extends Gravatar implements Stringable
      */
     public function url(): string
     {
-        $email = $this->getEmail();
-
-        if (\in_array($email, [null, '', '0'], true)) {
+        if ($this->email === null || $this->email === '' || $this->email === '0') {
             throw new MissingEmailException('You should set an email address before trying to get a Gravatar URL');
         }
 
-        $extension = $this->getExtension();
-
         return static::URL
             .'avatar/'
-            .$this->hash($email)
-            .(\in_array($extension, [null, '', '0'], true) ? '' : '.'.$extension)
+            .$this->hash($this->email)
+            .($this->extension !== null && $this->extension !== '' && $this->extension !== '0' ? '.'.$this->extension : '')
             .$this->queryString();
     }
 
@@ -85,36 +81,27 @@ class Image extends Gravatar implements Stringable
     {
         $params = [];
 
-        $size = $this->getSize();
-
-        if ($size !== null && $size !== 0) {
-            $params['s'] = $size;
+        if ($this->size !== null && $this->size !== 0) {
+            $params['s'] = $this->size;
         }
 
-        $defaultImage = $this->getDefaultImage();
-
-        if (! \in_array($defaultImage, [null, '', '0'], true)) {
-            $params['d'] = $defaultImage;
+        if ($this->defaultImage !== null && $this->defaultImage !== '' && $this->defaultImage !== '0') {
+            $params['d'] = $this->defaultImage;
         }
 
-        if ($defaultImage === 'initials') {
-            $initials = $this->getInitials();
-            $name = $this->getName();
-
-            if ($initials !== null && $initials !== '') {
-                $params['initials'] = $initials;
-            } elseif ($name !== null && $name !== '') {
-                $params['name'] = $name;
+        if ($this->defaultImage === 'initials') {
+            if ($this->initials !== null && $this->initials !== '') {
+                $params['initials'] = $this->initials;
+            } elseif ($this->name !== null && $this->name !== '') {
+                $params['name'] = $this->name;
             }
         }
 
-        $maxRating = $this->getMaxRating();
-
-        if (! \in_array($maxRating, [null, '', '0'], true)) {
-            $params['r'] = $maxRating;
+        if ($this->maxRating !== null && $this->maxRating !== '' && $this->maxRating !== '0') {
+            $params['r'] = $this->maxRating;
         }
 
-        if ($this->forcingDefault()) {
+        if ($this->forceDefault) {
             $params['f'] = 'y';
         }
 

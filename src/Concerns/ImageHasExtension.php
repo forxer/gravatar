@@ -8,10 +8,27 @@ use Gravatar\Exception\InvalidImageExtensionException;
 
 trait ImageHasExtension
 {
+    private const VALID_EXTENSIONS = ['jpg', 'jpeg', 'gif', 'png', 'webp'];
+
     /**
-     * @var string|null The extension to append to the avatars URL.
+     * The extension to append to the avatars URL.
      */
-    protected ?string $extension = null;
+    public private(set) ?string $extension = null {
+        set {
+            if ($value !== null) {
+                $value = strtolower($value);
+
+                if (! \in_array($value, self::VALID_EXTENSIONS)) {
+                    throw new InvalidImageExtensionException(\sprintf(
+                        'The extension "%s" is not a valid one, extension image for Gravatar can be: "%s"',
+                        $value,
+                        implode('", "', self::VALID_EXTENSIONS)
+                    ));
+                }
+            }
+            $this->extension = $value;
+        }
+    }
 
     /**
      * Get or set the avatar extension to use.
@@ -22,7 +39,7 @@ trait ImageHasExtension
     public function extension(?string $extension = null): static|string|null
     {
         if ($extension === null) {
-            return $this->getExtension();
+            return $this->extension;
         }
 
         return $this->setExtension($extension);
@@ -39,16 +56,6 @@ trait ImageHasExtension
     }
 
     /**
-     * Get the currently set avatar extension.
-     *
-     * @return string|null The current avatar extension in use
-     */
-    public function getExtension(): ?string
-    {
-        return $this->extension;
-    }
-
-    /**
      * Set the avatar extension to use.
      *
      * @param  string|null  $extension  The avatar extension to use.
@@ -58,32 +65,10 @@ trait ImageHasExtension
      */
     public function setExtension(?string $extension = null): static
     {
-        if ($extension === null) {
-            return $this;
+        if ($extension !== null) {
+            $this->extension = $extension;
         }
-
-        $extension = strtolower($extension);
-
-        if (! \in_array($extension, $this->validExtensions())) {
-            $message = \sprintf(
-                'The extension "%s" is not a valid one, extension image for Gravatar can be: "%s"',
-                $extension,
-                implode('", "', $this->validExtensions())
-            );
-
-            throw new InvalidImageExtensionException($message);
-        }
-
-        $this->extension = $extension;
 
         return $this;
-    }
-
-    /**
-     * List of accepted image extension string names.
-     */
-    private function validExtensions(): array
-    {
-        return ['jpg', 'jpeg', 'gif', 'png', 'webp'];
     }
 }

@@ -8,10 +8,27 @@ use Gravatar\Exception\InvalidMaxRatingImageException;
 
 trait ImageHasMaxRating
 {
+    private const VALID_MAX_RATINGS = ['g', 'pg', 'r', 'x'];
+
     /**
-     * @var string|null The maximum rating to allow for the avatars.
+     * The maximum rating to allow for the avatars.
      */
-    protected ?string $maxRating = null;
+    public private(set) ?string $maxRating = null {
+        set {
+            if ($value !== null) {
+                $value = strtolower($value);
+
+                if (! \in_array($value, self::VALID_MAX_RATINGS)) {
+                    throw new InvalidMaxRatingImageException(\sprintf(
+                        'Invalid rating "%s" specified, only allowed to be used are: "%s"',
+                        $value,
+                        implode('", "', self::VALID_MAX_RATINGS)
+                    ));
+                }
+            }
+            $this->maxRating = $value;
+        }
+    }
 
     /**
      * Get or set the maximum allowed rating for avatars.
@@ -21,7 +38,7 @@ trait ImageHasMaxRating
     public function maxRating(?string $maxRating = null): static|string|null
     {
         if ($maxRating === null) {
-            return $this->getMaxRating();
+            return $this->maxRating;
         }
 
         return $this->setMaxRating($maxRating);
@@ -38,16 +55,6 @@ trait ImageHasMaxRating
     }
 
     /**
-     * Get the current maximum allowed rating for avatars.
-     *
-     * @return string|null The string representing the current maximum allowed rating.
-     */
-    public function getMaxRating(): ?string
-    {
-        return $this->maxRating;
-    }
-
-    /**
      * Set the maximum allowed rating for avatars.
      *
      * @param  string|null  $maxRating  The maximum rating to use for avatars.
@@ -57,32 +64,10 @@ trait ImageHasMaxRating
      */
     public function setMaxRating(?string $maxRating = null): static
     {
-        if ($maxRating === null) {
-            return $this;
+        if ($maxRating !== null) {
+            $this->maxRating = $maxRating;
         }
-
-        $maxRating = strtolower($maxRating);
-
-        if (! \in_array($maxRating, $this->validMaxRating())) {
-            $message = \sprintf(
-                'Invalid rating "%s" specified, only allowed to be used are: "%s"',
-                $maxRating,
-                implode('", "', $this->validMaxRating())
-            );
-
-            throw new InvalidMaxRatingImageException($message);
-        }
-
-        $this->maxRating = $maxRating;
 
         return $this;
-    }
-
-    /**
-     * List of accepted max rating string names.
-     */
-    private function validMaxRating(): array
-    {
-        return ['g', 'pg', 'r', 'x'];
     }
 }

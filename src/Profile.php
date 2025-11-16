@@ -27,17 +27,13 @@ class Profile extends Gravatar implements Stringable
      */
     public function url(): string
     {
-        $email = $this->getEmail();
-
-        if (\in_array($email, [null, '', '0'], true)) {
+        if ($this->email === null || $this->email === '' || $this->email === '0') {
             throw new MissingEmailException('You should set an email address before trying to get a Gravatar profile URL');
         }
 
-        $format = $this->getFormat();
-
         return 'https:'.static::URL
-            .$this->hash($email)
-            .(\in_array($format, [null, '', '0'], true) ? '' : '.'.$format);
+            .$this->hash($this->email)
+            .($this->format !== null && $this->format !== '' && $this->format !== '0' ? '.'.$this->format : '');
     }
 
     /**
@@ -75,6 +71,7 @@ class Profile extends Gravatar implements Stringable
      */
     public function getData(string $email): ?array
     {
+        $this->setEmail($email);
         $this->format('php');
 
         $profile = file_get_contents($this->url());

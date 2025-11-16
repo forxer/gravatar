@@ -8,10 +8,23 @@ use Gravatar\Exception\InvalidProfileFormatException;
 
 trait ProfileHasFormat
 {
+    private const VALID_FORMATS = ['json', 'xml', 'php', 'vcf', 'qr'];
+
     /**
-     * @var string|null The format to append to the profile URL.
+     * The format to append to the profile URL.
      */
-    protected ?string $format = null;
+    public private(set) ?string $format = null {
+        set {
+            if ($value !== null && ! \in_array($value, self::VALID_FORMATS)) {
+                throw new InvalidProfileFormatException(\sprintf(
+                    'The format "%s" is not a valid one, profile format for Gravatar can be: "%s"',
+                    $value,
+                    implode('", "', self::VALID_FORMATS)
+                ));
+            }
+            $this->format = $value;
+        }
+    }
 
     /**
      * Get or set the profile format to use.
@@ -22,7 +35,7 @@ trait ProfileHasFormat
     public function format(?string $format = null): static|string|null
     {
         if ($format === null) {
-            return $this->getFormat();
+            return $this->format;
         }
 
         return $this->setFormat($format);
@@ -39,16 +52,6 @@ trait ProfileHasFormat
     }
 
     /**
-     * Get the currently set profile format.
-     *
-     * @return string|null The current profile format in use
-     */
-    public function getFormat(): ?string
-    {
-        return $this->format;
-    }
-
-    /**
      * Set the profile format to use.
      *
      * @param  string|null  $format  The profile format to use
@@ -58,30 +61,10 @@ trait ProfileHasFormat
      */
     public function setFormat(?string $format = null): static
     {
-        if ($format === null) {
-            return $this;
+        if ($format !== null) {
+            $this->format = $format;
         }
-
-        if (! \in_array($format, $this->validFormats())) {
-            $message = \sprintf(
-                'The format "%s" is not a valid one, profile format for Gravatar can be: "%s"',
-                $format,
-                implode('", "', $this->validFormats())
-            );
-
-            throw new InvalidProfileFormatException($message);
-        }
-
-        $this->format = $format;
 
         return $this;
-    }
-
-    /**
-     * List of accepted format.
-     */
-    private function validFormats(): array
-    {
-        return ['json', 'xml', 'php', 'vcf', 'qr'];
     }
 }

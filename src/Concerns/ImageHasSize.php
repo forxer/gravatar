@@ -9,9 +9,16 @@ use Gravatar\Exception\InvalidImageSizeException;
 trait ImageHasSize
 {
     /**
-     * @var int|null The size to use for avatars.
+     * The size to use for avatars.
      */
-    protected ?int $size = null;
+    public private(set) ?int $size = null {
+        set {
+            if ($value !== null && ($value <= 0 || $value > 2048)) {
+                throw new InvalidImageSizeException('Avatar size must be within 0 pixels and 2048 pixels');
+            }
+            $this->size = $value;
+        }
+    }
 
     /**
      * Get or set the avatar size to use.
@@ -22,7 +29,7 @@ trait ImageHasSize
     public function size(?int $size = null): static|int|null
     {
         if ($size === null) {
-            return $this->getSize();
+            return $this->size;
         }
 
         return $this->setSize($size);
@@ -40,16 +47,6 @@ trait ImageHasSize
     }
 
     /**
-     * Get the currently set avatar size.
-     *
-     * @return int|null The current avatar size in use.
-     */
-    public function getSize(): ?int
-    {
-        return $this->size;
-    }
-
-    /**
      * Set the avatar size to use.
      *
      * @param  int|null  $size  The avatar size to use, must be less than 2048 and greater than 0.
@@ -59,15 +56,9 @@ trait ImageHasSize
      */
     public function setSize(?int $size = null): static
     {
-        if ($size === null) {
-            return $this;
+        if ($size !== null) {
+            $this->size = $size;
         }
-
-        if ($size <= 0 || $size > 2048) {
-            throw new InvalidImageSizeException('Avatar size must be within 0 pixels and 2048 pixels');
-        }
-
-        $this->size = $size;
 
         return $this;
     }

@@ -7,14 +7,14 @@ namespace Gravatar\Concerns;
 trait ImageHasInitials
 {
     /**
-     * @var string|null The user initials to use with "initials" default option
+     * The user initials to use with "initials" default option
      */
-    protected ?string $initials = null;
+    public private(set) ?string $initials = null;
 
     /**
-     * @var string|null The username to use with "initials" default option.
+     * The username to use with "initials" default option.
      */
-    protected ?string $name = null;
+    public private(set) ?string $name = null;
 
     /**
      * Get or set the user initials to use with "initials" default option.
@@ -25,20 +25,10 @@ trait ImageHasInitials
     public function initials(?string $initials = null): static|string|null
     {
         if ($initials === null) {
-            return $this->getInitials();
+            return $this->initials;
         }
 
         return $this->setInitials($initials);
-    }
-
-    /**
-     * Get the current user initials setting.
-     *
-     * @return string|null User initials.
-     */
-    public function getInitials(): ?string
-    {
-        return $this->initials;
     }
 
     /**
@@ -63,20 +53,10 @@ trait ImageHasInitials
     public function name(?string $name = null): static|string|null
     {
         if ($name === null) {
-            return $this->getName();
+            return $this->name;
         }
 
         return $this->setName($name);
-    }
-
-    /**
-     * Get the current username setting.
-     *
-     * @return string|null Username.
-     */
-    public function getName(): ?string
-    {
-        return $this->name;
     }
 
     /**

@@ -7,9 +7,9 @@ namespace Gravatar\Concerns;
 trait ImageForceDefault
 {
     /**
-     * @var bool Should we force the default image to always load?
+     * Should we force the default image to always load?
      */
-    protected bool $forceDefault = false;
+    public private(set) bool $forceDefault = false;
 
     /**
      * Get or set if we have to force the default image to be always load.
@@ -17,7 +17,7 @@ trait ImageForceDefault
     public function forceDefault(?bool $forceDefault = null): bool|static
     {
         if ($forceDefault === null) {
-            return $this->getForceDefault();
+            return $this->forceDefault;
         }
 
         return $this->setForceDefault($forceDefault);
@@ -32,23 +32,13 @@ trait ImageForceDefault
     }
 
     /**
-     * Check if we are forcing the default image to be always load.
-     *
-     * @return bool Are we forcing the default image?
-     */
-    public function getForceDefault(): bool
-    {
-        return $this->forceDefault;
-    }
-
-    /**
-     * Alias for the "getForceDefault" method.
+     * Alias for checking if we are forcing the default image.
      *
      * @return bool Are we forcing the default image?
      */
     public function forcingDefault(): bool
     {
-        return $this->getForceDefault();
+        return $this->forceDefault;
     }
 
     /**

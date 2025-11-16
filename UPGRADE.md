@@ -1,6 +1,87 @@
 UPGRADE
 =======
 
+From 5.x to 6.x
+---------------
+
+This package now requires at least **PHP 8.4**, your project must correspond to this prerequisite.
+
+### Major Changes
+
+**1. Getter Methods Removed**
+
+All getter methods have been removed. Use direct property access instead:
+
+```php
+// Before (v5.x)
+$email = $image->getEmail();
+$size = $image->getSize();
+$extension = $image->getExtension();
+$maxRating = $image->getMaxRating();
+$defaultImage = $image->getDefaultImage();
+$initials = $image->getInitials();
+$name = $image->getName();
+$forceDefault = $image->getForceDefault();
+
+$format = $profile->getFormat();
+
+// After (v6.x)
+$email = $image->email;
+$size = $image->size;
+$extension = $image->extension;
+$maxRating = $image->maxRating;
+$defaultImage = $image->defaultImage;
+$initials = $image->initials;
+$name = $image->name;
+$forceDefault = $image->forceDefault;
+
+$format = $profile->format;
+```
+
+**2. Properties Are Now Publicly Readable**
+
+All properties now use PHP 8.4's asymmetric visibility (`public private(set)`), making them readable from outside the class:
+
+```php
+// You can now read properties directly
+echo $image->email;      // Works!
+echo $image->size;       // Works!
+
+// But you cannot write to them directly (will throw an error)
+$image->email = 'new@example.com';  // Error!
+
+// Use setter methods to modify values
+$image->setEmail('new@example.com');  // Works!
+```
+
+**3. Helper Methods Remain Unchanged**
+
+The helper methods (`email()`, `size()`, `extension()`, etc.) continue to work as before and can still be used for both getting and setting values:
+
+```php
+// Get value
+$size = $image->size();
+
+// Set value
+$image->size(200);
+```
+
+**4. Validation Now Happens in Property Hooks**
+
+Validation is now performed directly when setting properties through setter methods, using PHP 8.4's property hooks. This provides the same validation behavior but with more modern PHP syntax internally.
+
+### Migration Steps
+
+1. Update your PHP version to 8.4 or higher
+2. Replace all getter method calls with direct property access:
+   - Find: `->getEmail()`
+   - Replace: `->email`
+   - Find: `->getSize()`
+   - Replace: `->size`
+   - (and so on for all getter methods)
+3. Ensure you're only using setter methods (not direct assignment) to modify properties
+4. Test your application thoroughly
+
 From 4.x to 5.x
 ---------------
 

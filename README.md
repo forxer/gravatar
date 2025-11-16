@@ -50,9 +50,9 @@ Installation
 
 ### Requirements
 
-* PHP 8.2 or newer
+* PHP 8.4 or newer
 
-If you want to use it with a version earlier than PHP 8.2, please use one of the previous versions that suits your needs: [v4](https://github.com/forxer/gravatar/tree/4.x), [v3](https://github.com/forxer/gravatar/tree/3.x), [v2](https://github.com/forxer/gravatar/tree/2.1) or [v1](https://github.com/forxer/gravatar/tree/1.3).
+If you want to use it with a version earlier than PHP 8.4, please use one of the previous versions that suits your needs: [v5](https://github.com/forxer/gravatar/tree/5.x), [v4](https://github.com/forxer/gravatar/tree/4.x), [v3](https://github.com/forxer/gravatar/tree/3.x), [v2](https://github.com/forxer/gravatar/tree/2.1) or [v1](https://github.com/forxer/gravatar/tree/1.3).
 
 ### With Composer
 
