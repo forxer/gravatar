@@ -11,11 +11,13 @@ To use it in a **Laravel project**, please look at: **[laravel-gravatar](https:/
 
 ```php
 use Gravatar\Gravatar;
+use Gravatar\Enum\DefaultImage;
+use Gravatar\Enum\Extension;
 
 $avatar = Gravatar::image('email@example.com')
     ->size(120)
-    ->defaultImage('robohash')
-    ->extension('jpg');
+    ->defaultImage(DefaultImage::ROBOHASH)
+    ->extension(Extension::JPG);
 //...
 echo $avatar;
 ```
@@ -35,6 +37,7 @@ Index
     * [Instanciate the dedicated classes](#instanciate-the-dedicated-classes)
 * [Mandatory parameter](#mandatory-parameter)
 * [Copying instances](#copying-instances)
+* [Using type-safe enums](#using-type-safe-enums)
 * [Optional parameters](#optional-parameters)
     * [Gravatar image size](#gravatar-image-size)
     * [Default Gravatar image](#default-gravatar-image)
@@ -369,6 +372,86 @@ $baseProfile->format('json');
 $profile1 = $baseProfile->copy('user1@example.com');
 $profile2 = $baseProfile->copy('user2@example.com');
 ```
+
+[Back to top ^](#gravatar)
+
+Using type-safe enums
+---------------------
+
+Since version 6.0, you can use type-safe enum classes instead of strings for better IDE support and type safety. All methods accept both enums and strings for maximum flexibility.
+
+### Available enums
+
+```php
+use Gravatar\Enum\Rating;
+use Gravatar\Enum\Extension;
+use Gravatar\Enum\DefaultImage;
+use Gravatar\Enum\ProfileFormat;
+```
+
+**Rating enum** - Maximum image rating:
+- `Rating::G` - General audiences
+- `Rating::PG` - Parental guidance
+- `Rating::R` - Restricted
+- `Rating::X` - Explicit
+
+**Extension enum** - Image file extensions:
+- `Extension::JPG`
+- `Extension::JPEG`
+- `Extension::GIF`
+- `Extension::PNG`
+- `Extension::WEBP`
+
+**DefaultImage enum** - Default image types:
+- `DefaultImage::INITIALS` - User initials
+- `DefaultImage::COLOR` - Generated color
+- `DefaultImage::NOT_FOUND` - 404 response
+- `DefaultImage::MYSTERY_PERSON` - Mystery person silhouette
+- `DefaultImage::IDENTICON` - Geometric pattern
+- `DefaultImage::MONSTERID` - Generated monster
+- `DefaultImage::WAVATAR` - Generated face
+- `DefaultImage::RETRO` - 8-bit arcade style
+- `DefaultImage::ROBOHASH` - Generated robot
+- `DefaultImage::BLANK` - Transparent PNG
+
+**ProfileFormat enum** - Profile data formats:
+- `ProfileFormat::JSON`
+- `ProfileFormat::XML`
+- `ProfileFormat::PHP`
+- `ProfileFormat::VCF`
+- `ProfileFormat::QR`
+
+### Usage examples
+
+```php
+use Gravatar\Image;
+use Gravatar\Enum\Rating;
+use Gravatar\Enum\Extension;
+use Gravatar\Enum\DefaultImage;
+
+$image = new Image('email@example.com');
+
+// Using enums (recommended for type safety)
+$image->setMaxRating(Rating::PG);
+$image->setExtension(Extension::JPG);
+$image->setDefaultImage(DefaultImage::ROBOHASH);
+
+// Using strings (still fully supported)
+$image->setMaxRating('pg');
+$image->setExtension('jpg');
+$image->setDefaultImage('robohash');
+
+// You can mix both approaches
+$image->maxRating(Rating::G)
+    ->extension('png')
+    ->defaultImage(DefaultImage::RETRO);
+```
+
+**Benefits of using enums:**
+- IDE autocomplete and type hints
+- Compile-time validation
+- No typos in string values
+- Self-documenting code
 
 [Back to top ^](#gravatar)
 
