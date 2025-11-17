@@ -26,6 +26,7 @@ CHANGELOG
   - Profile formats: `formatJson()`, `formatXml()`, `formatPhp()`, `formatVcf()`, `formatQr()`
   - Example: `$image->ratingPg()->extensionWebp()` instead of `$image->setMaxRating('pg')->setExtension('webp')`
 - **Simplified Code**: Removed redundant getter methods - direct property access is now preferred
+- **Documentation**: Reorganized documentation into dedicated files in the `docs/` directory for better navigation
 
 
 5.3.0 (2025-11-15)

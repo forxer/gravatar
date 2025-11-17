@@ -167,8 +167,10 @@ All three syntaxes (strings, enums, and fluent methods) work together and can be
    - Replace: `->maxRating(` or `->ratingPg()`, etc.
    - Find: `->d(`
    - Replace: `->defaultImage(` or `->defaultImageMp()`, etc.
-   - Find: `->f(`
-   - Replace: `->forceDefault(` or `->formatJson()`, etc.
+   - Find: `->f(` (on Image)
+   - Replace: `->forceDefault(`
+   - Find: `->f(` (on Profile)
+   - Replace: `->format(` or `->formatJson()`, etc.
 4. Ensure you're only using setter methods (not direct assignment) to modify properties
 5. Test your application thoroughly
 
