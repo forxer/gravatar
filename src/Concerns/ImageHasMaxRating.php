@@ -15,17 +15,21 @@ trait ImageHasMaxRating
     public private(set) ?string $maxRating = null {
         set {
             if ($value !== null) {
-                $value = strtolower($value);
+                // Convert Rating enum to string if needed
+                $stringValue = $value instanceof Rating ? $value->value : $value;
+                $stringValue = strtolower($stringValue);
 
-                if (! \in_array($value, Rating::values())) {
+                if (! \in_array($stringValue, Rating::values())) {
                     throw new InvalidMaxRatingImageException(\sprintf(
                         'Invalid rating "%s" specified, only allowed to be used are: "%s"',
-                        $value,
+                        $stringValue,
                         implode('", "', Rating::values())
                     ));
                 }
+                $this->maxRating = $stringValue;
+            } else {
+                $this->maxRating = null;
             }
-            $this->maxRating = $value;
         }
     }
 
@@ -41,22 +45,7 @@ trait ImageHasMaxRating
             return $this->maxRating;
         }
 
-        return $this->setMaxRating($maxRating);
-    }
-
-    /**
-     * Set the maximum allowed rating for avatars.
-     *
-     * @param  Rating|string|null  $maxRating  The maximum rating to use for avatars.
-     * @return $this The current Gravatar Image instance.
-     *
-     * @throws InvalidMaxRatingImageException
-     */
-    public function setMaxRating(Rating|string|null $maxRating = null): static
-    {
-        if ($maxRating !== null) {
-            $this->maxRating = $maxRating instanceof Rating ? $maxRating->value : $maxRating;
-        }
+        $this->maxRating = $maxRating;
 
         return $this;
     }
@@ -66,7 +55,7 @@ trait ImageHasMaxRating
      */
     public function ratingG(): static
     {
-        return $this->setMaxRating(Rating::G);
+        return $this->maxRating(Rating::G);
     }
 
     /**
@@ -74,7 +63,7 @@ trait ImageHasMaxRating
      */
     public function ratingPg(): static
     {
-        return $this->setMaxRating(Rating::PG);
+        return $this->maxRating(Rating::PG);
     }
 
     /**
@@ -82,7 +71,7 @@ trait ImageHasMaxRating
      */
     public function ratingR(): static
     {
-        return $this->setMaxRating(Rating::R);
+        return $this->maxRating(Rating::R);
     }
 
     /**
@@ -90,6 +79,6 @@ trait ImageHasMaxRating
      */
     public function ratingX(): static
     {
-        return $this->setMaxRating(Rating::X);
+        return $this->maxRating(Rating::X);
     }
 }

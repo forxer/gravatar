@@ -7,15 +7,16 @@ CHANGELOG
 ### Breaking Changes
 
 - **Minimum PHP version increased to 8.4**
-- Removed `getEmail()`, `getSize()`, `getExtension()`, `getMaxRating()`, `getDefaultImage()`, `getFormat()`, `getInitials()`, `getName()`, and `getForceDefault()` methods - use public property access instead
-- Removed short alias methods `s()`, `e()`, `r()`, `d()`, `f()` - use full method names or new fluent shorthand methods instead
-- Properties are now publicly readable but can only be set through setter methods or internally
+- **Removed getter methods**: `getEmail()`, `getSize()`, `getExtension()`, `getMaxRating()`, `getDefaultImage()`, `getFormat()`, `getInitials()`, `getName()`, and `getForceDefault()` - use direct property access instead (e.g., `$image->size` instead of `$image->getSize()`)
+- **Removed setter methods**: `setEmail()`, `setSize()`, `setExtension()`, `setMaxRating()`, `setDefaultImage()`, `setFormat()`, `setInitials()`, `setName()`, and `setForceDefault()` - use helper methods instead (e.g., `$image->size(120)` instead of `$image->setSize(120)`)
+- **Removed short alias methods**: `s()`, `e()`, `r()`, `d()`, `f()` - use full helper method names or new fluent shorthand methods instead
+- **Properties are now read-only**: All properties use `public private(set)` visibility and can only be modified through helper methods
 
 ### Improvements
 
-- **PHP 8.4 Property Hooks**: All properties now use property hooks with validation logic
+- **PHP 8.4 Property Hooks**: All properties now use property hooks with both conversion and validation logic
 - **Asymmetric Visibility**: Properties use `public private(set)` for better encapsulation
-- **Validation in Property Setters**: Moved validation logic into property hooks for cleaner code
+- **Centralized Logic in Property Hooks**: Enum conversion and validation are now entirely handled in property hooks, simplifying setter methods
 - **Typed Enums**: Added enum classes for type-safe values (`Rating`, `Extension`, `DefaultImage`, `ProfileFormat`)
   - Methods accept both enum instances and strings for backward compatibility
   - Example: `$image->setMaxRating(Rating::PG)` or `$image->setMaxRating('pg')`

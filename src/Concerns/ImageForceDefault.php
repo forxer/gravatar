@@ -23,7 +23,9 @@ trait ImageForceDefault
             return $this->forceDefault;
         }
 
-        return $this->setForceDefault($forceDefault);
+        $this->forceDefault = $forceDefault;
+
+        return $this;
     }
 
     /**
@@ -37,26 +39,13 @@ trait ImageForceDefault
     }
 
     /**
-     * Set if the default image has to be always load.
-     *
-     * @param  bool  $forceDefault  Should we force or not the default image to be always load.
-     * @return $this The current Gravatar Image instance.
-     */
-    public function setForceDefault(bool $forceDefault): static
-    {
-        $this->forceDefault = $forceDefault;
-
-        return $this;
-    }
-
-    /**
      * Force the default image to be always load.
      *
      * @return $this The current Gravatar Image instance.
      */
     public function enableForceDefault(): static
     {
-        return $this->setForceDefault(true);
+        return $this->forceDefault(true);
     }
 
     /**
@@ -66,6 +55,6 @@ trait ImageForceDefault
      */
     public function disableForceDefault(): static
     {
-        return $this->setForceDefault(false);
+        return $this->forceDefault(false);
     }
 }

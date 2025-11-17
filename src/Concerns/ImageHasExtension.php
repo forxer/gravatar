@@ -15,17 +15,21 @@ trait ImageHasExtension
     public private(set) ?string $extension = null {
         set {
             if ($value !== null) {
-                $value = strtolower($value);
+                // Convert Extension enum to string if needed
+                $stringValue = $value instanceof Extension ? $value->value : $value;
+                $stringValue = strtolower($stringValue);
 
-                if (! \in_array($value, Extension::values())) {
+                if (! \in_array($stringValue, Extension::values())) {
                     throw new InvalidImageExtensionException(\sprintf(
                         'The extension "%s" is not a valid one, extension image for Gravatar can be: "%s"',
-                        $value,
+                        $stringValue,
                         implode('", "', Extension::values())
                     ));
                 }
+                $this->extension = $stringValue;
+            } else {
+                $this->extension = null;
             }
-            $this->extension = $value;
         }
     }
 
@@ -41,22 +45,7 @@ trait ImageHasExtension
             return $this->extension;
         }
 
-        return $this->setExtension($extension);
-    }
-
-    /**
-     * Set the avatar extension to use.
-     *
-     * @param  Extension|string|null  $extension  The avatar extension to use.
-     * @return $this The current Gravatar Image instance.
-     *
-     * @throws InvalidImageExtensionException
-     */
-    public function setExtension(Extension|string|null $extension = null): static
-    {
-        if ($extension !== null) {
-            $this->extension = $extension instanceof Extension ? $extension->value : $extension;
-        }
+        $this->extension = $extension;
 
         return $this;
     }
@@ -66,7 +55,7 @@ trait ImageHasExtension
      */
     public function extensionJpg(): static
     {
-        return $this->setExtension(Extension::JPG);
+        return $this->extension(Extension::JPG);
     }
 
     /**
@@ -74,7 +63,7 @@ trait ImageHasExtension
      */
     public function extensionJpeg(): static
     {
-        return $this->setExtension(Extension::JPEG);
+        return $this->extension(Extension::JPEG);
     }
 
     /**
@@ -82,7 +71,7 @@ trait ImageHasExtension
      */
     public function extensionGif(): static
     {
-        return $this->setExtension(Extension::GIF);
+        return $this->extension(Extension::GIF);
     }
 
     /**
@@ -90,7 +79,7 @@ trait ImageHasExtension
      */
     public function extensionPng(): static
     {
-        return $this->setExtension(Extension::PNG);
+        return $this->extension(Extension::PNG);
     }
 
     /**
@@ -98,6 +87,6 @@ trait ImageHasExtension
      */
     public function extensionWebp(): static
     {
-        return $this->setExtension(Extension::WEBP);
+        return $this->extension(Extension::WEBP);
     }
 }

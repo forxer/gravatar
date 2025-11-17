@@ -17,17 +17,21 @@ trait ImageHasDefault
     public private(set) ?string $defaultImage = null {
         set {
             if ($value !== null) {
-                $value = strtolower($value);
+                // Convert DefaultImage enum to string if needed
+                $stringValue = $value instanceof DefaultImage ? $value->value : $value;
+                $stringValue = strtolower($stringValue);
 
-                if (! \in_array($value, DefaultImage::values()) && ! filter_var($value, FILTER_VALIDATE_URL)) {
+                if (! \in_array($stringValue, DefaultImage::values()) && ! filter_var($stringValue, FILTER_VALIDATE_URL)) {
                     throw new InvalidDefaultImageException(\sprintf(
                         'The default image "%s" is not a recognized gravatar "default" and is not a valid URL, default gravatar can be: %s',
-                        $value,
+                        $stringValue,
                         implode(', ', DefaultImage::values())
                     ));
                 }
+                $this->defaultImage = $stringValue;
+            } else {
+                $this->defaultImage = null;
             }
-            $this->defaultImage = $value;
         }
     }
 
@@ -44,27 +48,11 @@ trait ImageHasDefault
             return $this->defaultImage;
         }
 
-        return $this->setDefaultImage($defaultImage, $forceDefault);
-    }
-
-    /**
-     * Set the default image to use for avatars.
-     *
-     * @param  DefaultImage|string|null  $defaultImage  The default image to use. Use a valid image URL, or a recognized gravatar "default".
-     * @param  bool  $forceDefault  Force the default image to be always load.
-     * @return $this The current Gravatar Image instance.
-     *
-     * @throws InvalidDefaultImageException
-     */
-    public function setDefaultImage(DefaultImage|string|null $defaultImage = null, bool $forceDefault = false): static
-    {
         if ($forceDefault) {
             $this->enableForceDefault();
         }
 
-        if ($defaultImage !== null) {
-            $this->defaultImage = $defaultImage instanceof DefaultImage ? $defaultImage->value : $defaultImage;
-        }
+        $this->defaultImage = $defaultImage;
 
         return $this;
     }
@@ -74,7 +62,7 @@ trait ImageHasDefault
      */
     public function defaultImageInitials(): static
     {
-        return $this->setDefaultImage(DefaultImage::INITIALS);
+        return $this->defaultImage(DefaultImage::INITIALS);
     }
 
     /**
@@ -82,7 +70,7 @@ trait ImageHasDefault
      */
     public function defaultImageColor(): static
     {
-        return $this->setDefaultImage(DefaultImage::COLOR);
+        return $this->defaultImage(DefaultImage::COLOR);
     }
 
     /**
@@ -90,7 +78,7 @@ trait ImageHasDefault
      */
     public function defaultImageNotFound(): static
     {
-        return $this->setDefaultImage(DefaultImage::NOT_FOUND);
+        return $this->defaultImage(DefaultImage::NOT_FOUND);
     }
 
     /**
@@ -98,7 +86,7 @@ trait ImageHasDefault
      */
     public function defaultImageMp(): static
     {
-        return $this->setDefaultImage(DefaultImage::MYSTERY_PERSON);
+        return $this->defaultImage(DefaultImage::MYSTERY_PERSON);
     }
 
     /**
@@ -106,7 +94,7 @@ trait ImageHasDefault
      */
     public function defaultImageIdenticon(): static
     {
-        return $this->setDefaultImage(DefaultImage::IDENTICON);
+        return $this->defaultImage(DefaultImage::IDENTICON);
     }
 
     /**
@@ -114,7 +102,7 @@ trait ImageHasDefault
      */
     public function defaultImageMonsterid(): static
     {
-        return $this->setDefaultImage(DefaultImage::MONSTERID);
+        return $this->defaultImage(DefaultImage::MONSTERID);
     }
 
     /**
@@ -122,7 +110,7 @@ trait ImageHasDefault
      */
     public function defaultImageWavatar(): static
     {
-        return $this->setDefaultImage(DefaultImage::WAVATAR);
+        return $this->defaultImage(DefaultImage::WAVATAR);
     }
 
     /**
@@ -130,7 +118,7 @@ trait ImageHasDefault
      */
     public function defaultImageRetro(): static
     {
-        return $this->setDefaultImage(DefaultImage::RETRO);
+        return $this->defaultImage(DefaultImage::RETRO);
     }
 
     /**
@@ -138,7 +126,7 @@ trait ImageHasDefault
      */
     public function defaultImageRobohash(): static
     {
-        return $this->setDefaultImage(DefaultImage::ROBOHASH);
+        return $this->defaultImage(DefaultImage::ROBOHASH);
     }
 
     /**
@@ -146,6 +134,6 @@ trait ImageHasDefault
      */
     public function defaultImageBlank(): static
     {
-        return $this->setDefaultImage(DefaultImage::BLANK);
+        return $this->defaultImage(DefaultImage::BLANK);
     }
 }

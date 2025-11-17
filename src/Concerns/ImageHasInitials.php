@@ -28,17 +28,6 @@ trait ImageHasInitials
             return $this->initials;
         }
 
-        return $this->setInitials($initials);
-    }
-
-    /**
-     * Set the user initials to use with "initials" default option.
-     *
-     * @param  string|null  $initials  User initials.
-     * @return $this The current Gravatar Image instance.
-     */
-    public function setInitials(?string $initials): static
-    {
         $this->initials = $initials;
 
         return $this;
@@ -56,17 +45,6 @@ trait ImageHasInitials
             return $this->name;
         }
 
-        return $this->setName($name);
-    }
-
-    /**
-     * Set the username to use with "initials" default option.
-     *
-     * @param  string|null  $name  Username.
-     * @return $this The current Gravatar Image instance.
-     */
-    public function setName(?string $name): static
-    {
         $this->name = $name;
 
         return $this;
@@ -80,8 +58,8 @@ trait ImageHasInitials
      */
     public function withInitials(string $initials): static
     {
-        return $this->setDefaultImage('initials')
-            ->setInitials($initials);
+        return $this->defaultImage('initials')
+            ->initials($initials);
     }
 
     /**
@@ -92,7 +70,7 @@ trait ImageHasInitials
      */
     public function withName(string $name): static
     {
-        return $this->setDefaultImage('initials')
-            ->setName($name);
+        return $this->defaultImage('initials')
+            ->name($name);
     }
 }

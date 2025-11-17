@@ -38,23 +38,58 @@ $forceDefault = $image->forceDefault;
 $format = $profile->format;
 ```
 
-**2. Properties Are Now Publicly Readable**
+**2. Setter Methods Removed**
 
-All properties now use PHP 8.4's asymmetric visibility (`public private(set)`), making them readable from outside the class:
+All setter methods have been removed. Use helper methods instead:
 
 ```php
-// You can now read properties directly
+// Before (v5.x)
+$image->setEmail('email@example.com');
+$image->setSize(120);
+$image->setExtension('jpg');
+$image->setMaxRating('pg');
+$image->setDefaultImage('robohash');
+$image->setForceDefault(true);
+$image->setInitials('JD');
+$image->setName('John Doe');
+
+$profile->setFormat('json');
+
+// After (v6.x) - use helper methods
+$image->email('email@example.com');
+$image->size(120);
+$image->extension('jpg');
+$image->maxRating('pg');
+$image->defaultImage('robohash');
+$image->forceDefault(true);
+$image->initials('JD');
+$image->name('John Doe');
+
+$profile->format('json');
+
+// Or use fluent shorthand methods
+$image->extensionJpg()
+      ->ratingPg()
+      ->defaultImageRobohash();
+```
+
+**3. Properties Are Now Read-Only**
+
+All properties use PHP 8.4's asymmetric visibility (`public private(set)`). They are publicly readable but can only be modified through helper methods:
+
+```php
+// Reading properties works
 echo $image->email;      // Works!
 echo $image->size;       // Works!
 
-// But you cannot write to them directly (will throw an error)
+// Writing to them directly throws an error
 $image->email = 'new@example.com';  // Error!
 
-// Use setter methods to modify values
-$image->setEmail('new@example.com');  // Works!
+// Use helper methods to modify values
+$image->email('new@example.com');  // Works!
 ```
 
-**3. Short Alias Methods Removed**
+**4. Short Alias Methods Removed**
 
 The short alias methods (`s()`, `e()`, `r()`, `d()`, `f()`) have been removed for better code clarity:
 
@@ -79,21 +114,22 @@ $image->extensionJpg()
       ->defaultImageMp();
 ```
 
-**4. Helper Methods Remain Unchanged**
+**5. Helper Methods Are Now the Primary API**
 
-The helper methods (`email()`, `size()`, `extension()`, etc.) continue to work as before and can still be used for both getting and setting values:
+The helper methods (`email()`, `size()`, `extension()`, etc.) are now the recommended way to both get and set values:
 
 ```php
-// Get value
-$size = $image->size();
+// Get value (or use direct property access)
+$size = $image->size();      // Helper method
+$size = $image->size;        // Direct property access (also works)
 
-// Set value
-$image->size(200);
+// Set value (must use helper method)
+$image->size(200);           // Helper method (required)
 ```
 
-**5. Validation Now Happens in Property Hooks**
+**6. Validation Now Happens in Property Hooks**
 
-Validation is now performed directly when setting properties through setter methods, using PHP 8.4's property hooks. This provides the same validation behavior but with more modern PHP syntax internally.
+All conversion and validation logic now happens automatically in PHP 8.4 property hooks when you use helper methods. This provides the same validation behavior but with more modern PHP syntax internally.
 
 ### New Features in v6.x
 
@@ -151,28 +187,39 @@ All three syntaxes (strings, enums, and fluent methods) work together and can be
 
 ### Migration Steps
 
-1. Update your PHP version to 8.4 or higher
-2. Replace all getter method calls with direct property access:
-   - Find: `->getEmail()`
-   - Replace: `->email`
-   - Find: `->getSize()`
-   - Replace: `->size`
-   - (and so on for all getter methods)
-3. Replace all short alias methods with full names or fluent shorthand methods:
-   - Find: `->s(`
-   - Replace: `->size(`
-   - Find: `->e(`
-   - Replace: `->extension(` or `->extensionJpg()`, etc.
-   - Find: `->r(`
-   - Replace: `->maxRating(` or `->ratingPg()`, etc.
-   - Find: `->d(`
-   - Replace: `->defaultImage(` or `->defaultImageMp()`, etc.
-   - Find: `->f(` (on Image)
-   - Replace: `->forceDefault(`
-   - Find: `->f(` (on Profile)
-   - Replace: `->format(` or `->formatJson()`, etc.
-4. Ensure you're only using setter methods (not direct assignment) to modify properties
-5. Test your application thoroughly
+1. **Update your PHP version to 8.4 or higher**
+
+2. **Replace all getter method calls with direct property access:**
+   - Find: `->getEmail()` → Replace: `->email`
+   - Find: `->getSize()` → Replace: `->size`
+   - Find: `->getExtension()` → Replace: `->extension`
+   - Find: `->getMaxRating()` → Replace: `->maxRating`
+   - Find: `->getDefaultImage()` → Replace: `->defaultImage`
+   - Find: `->getFormat()` → Replace: `->format`
+   - Find: `->getInitials()` → Replace: `->initials`
+   - Find: `->getName()` → Replace: `->name`
+   - Find: `->getForceDefault()` → Replace: `->forceDefault`
+
+3. **Replace all setter method calls with helper methods:**
+   - Find: `->setEmail(` → Replace: `->email(`
+   - Find: `->setSize(` → Replace: `->size(`
+   - Find: `->setExtension(` → Replace: `->extension(`
+   - Find: `->setMaxRating(` → Replace: `->maxRating(`
+   - Find: `->setDefaultImage(` → Replace: `->defaultImage(`
+   - Find: `->setFormat(` → Replace: `->format(`
+   - Find: `->setInitials(` → Replace: `->initials(`
+   - Find: `->setName(` → Replace: `->name(`
+   - Find: `->setForceDefault(` → Replace: `->forceDefault(`
+
+4. **Replace all short alias methods:**
+   - Find: `->s(` → Replace: `->size(`
+   - Find: `->e(` → Replace: `->extension(` or `->extensionJpg()`, etc.
+   - Find: `->r(` → Replace: `->maxRating(` or `->ratingPg()`, etc.
+   - Find: `->d(` → Replace: `->defaultImage(` or `->defaultImageMp()`, etc.
+   - Find: `->f(` (on Image) → Replace: `->forceDefault(`
+   - Find: `->f(` (on Profile) → Replace: `->format(` or `->formatJson()`, etc.
+
+5. **Test your application thoroughly**
 
 From 4.x to 5.x
 ---------------

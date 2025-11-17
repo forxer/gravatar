@@ -14,14 +14,21 @@ trait ProfileHasFormat
      */
     public private(set) ?string $format = null {
         set {
-            if ($value !== null && ! \in_array($value, ProfileFormat::values())) {
-                throw new InvalidProfileFormatException(\sprintf(
-                    'The format "%s" is not a valid one, profile format for Gravatar can be: "%s"',
-                    $value,
-                    implode('", "', ProfileFormat::values())
-                ));
+            if ($value !== null) {
+                // Convert ProfileFormat enum to string if needed
+                $stringValue = $value instanceof ProfileFormat ? $value->value : $value;
+
+                if (! \in_array($stringValue, ProfileFormat::values())) {
+                    throw new InvalidProfileFormatException(\sprintf(
+                        'The format "%s" is not a valid one, profile format for Gravatar can be: "%s"',
+                        $stringValue,
+                        implode('", "', ProfileFormat::values())
+                    ));
+                }
+                $this->format = $stringValue;
+            } else {
+                $this->format = null;
             }
-            $this->format = $value;
         }
     }
 
@@ -37,22 +44,7 @@ trait ProfileHasFormat
             return $this->format;
         }
 
-        return $this->setFormat($format);
-    }
-
-    /**
-     * Set the profile format to use.
-     *
-     * @param  ProfileFormat|string|null  $format  The profile format to use
-     * @return $this The current Profile instance
-     *
-     * @throws InvalidProfileFormatException
-     */
-    public function setFormat(ProfileFormat|string|null $format = null): static
-    {
-        if ($format !== null) {
-            $this->format = $format instanceof ProfileFormat ? $format->value : $format;
-        }
+        $this->format = $format;
 
         return $this;
     }
@@ -62,7 +54,7 @@ trait ProfileHasFormat
      */
     public function formatJson(): static
     {
-        return $this->setFormat(ProfileFormat::JSON);
+        return $this->format(ProfileFormat::JSON);
     }
 
     /**
@@ -70,7 +62,7 @@ trait ProfileHasFormat
      */
     public function formatXml(): static
     {
-        return $this->setFormat(ProfileFormat::XML);
+        return $this->format(ProfileFormat::XML);
     }
 
     /**
@@ -78,7 +70,7 @@ trait ProfileHasFormat
      */
     public function formatPhp(): static
     {
-        return $this->setFormat(ProfileFormat::PHP);
+        return $this->format(ProfileFormat::PHP);
     }
 
     /**
@@ -86,7 +78,7 @@ trait ProfileHasFormat
      */
     public function formatVcf(): static
     {
-        return $this->setFormat(ProfileFormat::VCF);
+        return $this->format(ProfileFormat::VCF);
     }
 
     /**
@@ -94,6 +86,6 @@ trait ProfileHasFormat
      */
     public function formatQr(): static
     {
-        return $this->setFormat(ProfileFormat::QR);
+        return $this->format(ProfileFormat::QR);
     }
 }
