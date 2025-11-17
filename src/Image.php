@@ -26,7 +26,7 @@ class Image extends Gravatar implements Stringable
     public function __construct(?string $email = null)
     {
         if ($email !== null) {
-            $this->setEmail($email);
+            $this->email($email);
         }
     }
 
@@ -70,7 +70,7 @@ class Image extends Gravatar implements Stringable
         $copy = clone $this;
 
         if ($email !== null) {
-            $copy->setEmail($email);
+            $copy->email($email);
         }
 
         return $copy;
@@ -94,8 +94,8 @@ class Image extends Gravatar implements Stringable
         if ($this->defaultImage === 'initials') {
             if ($this->initials !== null && $this->initials !== '') {
                 $params['initials'] = $this->initials;
-            } elseif ($this->name !== null && $this->name !== '') {
-                $params['name'] = $this->name;
+            } elseif ($this->initialsName !== null && $this->initialsName !== '') {
+                $params['name'] = $this->initialsName;
             }
         }
 

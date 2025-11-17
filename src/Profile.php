@@ -20,7 +20,7 @@ class Profile extends Gravatar implements Stringable
     public function __construct(?string $email = null)
     {
         if ($email !== null) {
-            $this->setEmail($email);
+            $this->email($email);
         }
     }
 
@@ -60,7 +60,7 @@ class Profile extends Gravatar implements Stringable
         $copy = clone $this;
 
         if ($email !== null) {
-            $copy->setEmail($email);
+            $copy->email($email);
         }
 
         return $copy;
@@ -74,7 +74,7 @@ class Profile extends Gravatar implements Stringable
      */
     public function getData(string $email): ?array
     {
-        $this->setEmail($email);
+        $this->email($email);
         $this->format('php');
 
         $profile = file_get_contents($this->url());

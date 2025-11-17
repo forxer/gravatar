@@ -12,9 +12,9 @@ trait ImageHasInitials
     public ?string $initials = null;
 
     /**
-     * The username to use with "initials" default option.
+     * The name to use with "initials" default option for generating initials.
      */
-    public ?string $name = null;
+    public ?string $initialsName = null;
 
     /**
      * Get or set the user initials to use with "initials" default option.
@@ -34,18 +34,18 @@ trait ImageHasInitials
     }
 
     /**
-     * Get or set the username to use with "initials" default option.
+     * Get or set the name to use with "initials" default option for generating initials.
      *
-     * @param  string|null  $name  Username.
+     * @param  string|null  $initialsName  Name for generating initials.
      * @return $this|string|null
      */
-    public function name(?string $name = null): static|string|null
+    public function initialsName(?string $initialsName = null): static|string|null
     {
-        if ($name === null) {
-            return $this->name;
+        if ($initialsName === null) {
+            return $this->initialsName;
         }
 
-        $this->name = $name;
+        $this->initialsName = $initialsName;
 
         return $this;
     }
@@ -65,12 +65,12 @@ trait ImageHasInitials
     /**
      * Convenience method to set both default image to "initials" and the name value.
      *
-     * @param  string  $name  Username.
+     * @param  string  $initialsName  Name for generating initials.
      * @return $this The current Gravatar Image instance.
      */
-    public function withName(string $name): static
+    public function withInitialsName(string $initialsName): static
     {
         return $this->defaultImage('initials')
-            ->name($name);
+            ->initialsName($initialsName);
     }
 }
