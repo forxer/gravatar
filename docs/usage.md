@@ -203,8 +203,8 @@ $emails = ['email1@example.com', 'email2@example.com','email3@example.com', /* .
 // Get multiples Gravatar images with size and default image:
 $gravatarImage = new GravatarImage();
 $gravatarImage
-    ->setSize(120)
-    ->setDefaultImage('mp');
+    ->size(120)
+    ->defaultImage('mp');
 
 foreach ($emails as $email) {
     echo $gravatarImage->email($email)->url();
@@ -212,7 +212,7 @@ foreach ($emails as $email) {
 
 // Get multiples Gravatar profiles in JSON
 $gravatarProfile = new GravatarProfile();
-$gravatarProfile->setFormat('json');
+$gravatarProfile->format('json');
 
 foreach ($emails as $email) {
     echo $gravatarProfile->email($email)->url();
@@ -232,13 +232,13 @@ $gravatarImages = Gravatar::images($emails);
 // or pass it to the `Gravatar\Image` constructor
 $gravatarImage = new Gravatar\Image($email);
 
-// or use the `setEmail()` method of a `Gravatar\Image` instance
-$gravatarImage = new Gravatar\Image();
-$gravatarImage->setEmail($email);
-
-// or the `email()` helper method of a `Gravatar\Image` instance
+// or use the `email()` helper method of a `Gravatar\Image` instance
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->email($email);
+
+// or assign to the `email` property directly
+$gravatarImage = new Gravatar\Image();
+$gravatarImage->email = $email;
 ```
 
 These previous examples are also valid for the profile.
@@ -251,13 +251,13 @@ $gravatarProfiles = Gravatar::profiles($emails);
 // or pass it to the `Gravatar\Profile` constructor
 $gravatarProfile = new Gravatar\Profile($email);
 
-// or use the `setEmail()` method of a `Gravatar\Profile` instance
-$gravatarProfile = new Gravatar\Profile();
-$gravatarProfile->setEmail($email);
-
-// or the `email()` helper method of a `Gravatar\Profile` instance
+// or use the `email()` helper method of a `Gravatar\Profile` instance
 $gravatarProfile = new Gravatar\Profile();
 $gravatarProfile->email($email);
+
+// or assign to the `email` property directly
+$gravatarProfile = new Gravatar\Profile();
+$gravatarProfile->email = $email;
 ```
 
 Copying instances

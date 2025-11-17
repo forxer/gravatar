@@ -14,7 +14,7 @@ trait ImageHasDefault
     /**
      * The default image to use ; either a string of the gravatar recognized default image "type" to use, or a URL
      */
-    public private(set) ?string $defaultImage = null {
+    public ?string $defaultImage = null {
         set {
             if ($value !== null) {
                 // Convert DefaultImage enum to string if needed

@@ -56,17 +56,27 @@ use Gravatar\Enum\DefaultImage;
 
 $image = new Image('email@example.com');
 
-// Using enums (recommended for type safety)
-$image->setMaxRating(Rating::PG);
-$image->setExtension(Extension::JPG);
-$image->setDefaultImage(DefaultImage::ROBOHASH);
+// Using enums with helper methods (recommended for type safety)
+$image->maxRating(Rating::PG);
+$image->extension(Extension::JPG);
+$image->defaultImage(DefaultImage::ROBOHASH);
 
-// Using strings (still fully supported)
-$image->setMaxRating('pg');
-$image->setExtension('jpg');
-$image->setDefaultImage('robohash');
+// Using enums with direct property assignment (also works!)
+$image->maxRating = Rating::PG;
+$image->extension = Extension::JPG;
+$image->defaultImage = DefaultImage::ROBOHASH;
 
-// You can mix both approaches
+// Using strings with helper methods (still fully supported)
+$image->maxRating('pg');
+$image->extension('jpg');
+$image->defaultImage('robohash');
+
+// Using strings with direct property assignment (also works!)
+$image->maxRating = 'pg';
+$image->extension = 'jpg';
+$image->defaultImage = 'robohash';
+
+// You can mix all approaches
 $image->maxRating(Rating::G)
     ->extension('png')
     ->defaultImage(DefaultImage::RETRO);
@@ -86,45 +96,45 @@ Since version 6.0, you can use convenient fluent methods as shortcuts for common
 **Available for ratings:**
 
 ```php
-$image->ratingG();    // equivalent to ->setMaxRating(Rating::G)
-$image->ratingPg();   // equivalent to ->setMaxRating(Rating::PG)
-$image->ratingR();    // equivalent to ->setMaxRating(Rating::R)
-$image->ratingX();    // equivalent to ->setMaxRating(Rating::X)
+$image->ratingG();    // equivalent to $image->maxRating(Rating::G) or $image->maxRating = Rating::G
+$image->ratingPg();   // equivalent to $image->maxRating(Rating::PG)
+$image->ratingR();    // equivalent to $image->maxRating(Rating::R)
+$image->ratingX();    // equivalent to $image->maxRating(Rating::X)
 ```
 
 **Available for extensions:**
 
 ```php
-$image->extensionJpg();   // equivalent to ->setExtension(Extension::JPG)
-$image->extensionJpeg();  // equivalent to ->setExtension(Extension::JPEG)
-$image->extensionGif();   // equivalent to ->setExtension(Extension::GIF)
-$image->extensionPng();   // equivalent to ->setExtension(Extension::PNG)
-$image->extensionWebp();  // equivalent to ->setExtension(Extension::WEBP)
+$image->extensionJpg();   // equivalent to $image->extension(Extension::JPG) or $image->extension = Extension::JPG
+$image->extensionJpeg();  // equivalent to $image->extension(Extension::JPEG)
+$image->extensionGif();   // equivalent to $image->extension(Extension::GIF)
+$image->extensionPng();   // equivalent to $image->extension(Extension::PNG)
+$image->extensionWebp();  // equivalent to $image->extension(Extension::WEBP)
 ```
 
 **Available for default images:**
 
 ```php
-$image->defaultImageInitials();    // equivalent to ->setDefaultImage(DefaultImage::INITIALS)
-$image->defaultImageColor();       // equivalent to ->setDefaultImage(DefaultImage::COLOR)
-$image->defaultImageNotFound();    // equivalent to ->setDefaultImage(DefaultImage::NOT_FOUND)
-$image->defaultImageMp();          // equivalent to ->setDefaultImage(DefaultImage::MYSTERY_PERSON)
-$image->defaultImageIdenticon();   // equivalent to ->setDefaultImage(DefaultImage::IDENTICON)
-$image->defaultImageMonsterid();   // equivalent to ->setDefaultImage(DefaultImage::MONSTERID)
-$image->defaultImageWavatar();     // equivalent to ->setDefaultImage(DefaultImage::WAVATAR)
-$image->defaultImageRetro();       // equivalent to ->setDefaultImage(DefaultImage::RETRO)
-$image->defaultImageRobohash();    // equivalent to ->setDefaultImage(DefaultImage::ROBOHASH)
-$image->defaultImageBlank();       // equivalent to ->setDefaultImage(DefaultImage::BLANK)
+$image->defaultImageInitials();    // equivalent to $image->defaultImage(DefaultImage::INITIALS)
+$image->defaultImageColor();       // equivalent to $image->defaultImage(DefaultImage::COLOR)
+$image->defaultImageNotFound();    // equivalent to $image->defaultImage(DefaultImage::NOT_FOUND)
+$image->defaultImageMp();          // equivalent to $image->defaultImage(DefaultImage::MYSTERY_PERSON)
+$image->defaultImageIdenticon();   // equivalent to $image->defaultImage(DefaultImage::IDENTICON)
+$image->defaultImageMonsterid();   // equivalent to $image->defaultImage(DefaultImage::MONSTERID)
+$image->defaultImageWavatar();     // equivalent to $image->defaultImage(DefaultImage::WAVATAR)
+$image->defaultImageRetro();       // equivalent to $image->defaultImage(DefaultImage::RETRO)
+$image->defaultImageRobohash();    // equivalent to $image->defaultImage(DefaultImage::ROBOHASH)
+$image->defaultImageBlank();       // equivalent to $image->defaultImage(DefaultImage::BLANK)
 ```
 
 **Available for profile formats:**
 
 ```php
-$profile->formatJson();  // equivalent to ->setFormat(ProfileFormat::JSON)
-$profile->formatXml();   // equivalent to ->setFormat(ProfileFormat::XML)
-$profile->formatPhp();   // equivalent to ->setFormat(ProfileFormat::PHP)
-$profile->formatVcf();   // equivalent to ->setFormat(ProfileFormat::VCF)
-$profile->formatQr();    // equivalent to ->setFormat(ProfileFormat::QR)
+$profile->formatJson();  // equivalent to $profile->format(ProfileFormat::JSON) or $profile->format = ProfileFormat::JSON
+$profile->formatXml();   // equivalent to $profile->format(ProfileFormat::XML)
+$profile->formatPhp();   // equivalent to $profile->format(ProfileFormat::PHP)
+$profile->formatVcf();   // equivalent to $profile->format(ProfileFormat::VCF)
+$profile->formatQr();    // equivalent to $profile->format(ProfileFormat::QR)
 ```
 
 **Complete example with fluent methods:**
@@ -143,12 +153,19 @@ $image = (new Image('email@example.com'))
 $profile = (new Profile('email@example.com'))
     ->formatJson();
 
-// Compare with the equivalent traditional syntax:
+// Compare with the equivalent traditional syntax using helper methods:
 $image = (new Image('email@example.com'))
     ->size(120)
-    ->setMaxRating(Rating::PG)
-    ->setExtension(Extension::WEBP)
-    ->setDefaultImage(DefaultImage::ROBOHASH);
+    ->maxRating(Rating::PG)
+    ->extension(Extension::WEBP)
+    ->defaultImage(DefaultImage::ROBOHASH);
+
+// Or with direct property assignment:
+$image = new Image('email@example.com');
+$image->size = 120;
+$image->maxRating = Rating::PG;
+$image->extension = Extension::WEBP;
+$image->defaultImage = DefaultImage::ROBOHASH;
 ```
 
 These fluent methods are purely syntactic sugar - they call the same underlying methods but with cleaner, more discoverable names. All three syntaxes (strings, enums, and fluent methods) are fully supported and can be mixed freely.

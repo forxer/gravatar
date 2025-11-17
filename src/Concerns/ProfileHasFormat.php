@@ -12,7 +12,7 @@ trait ProfileHasFormat
     /**
      * The format to append to the profile URL.
      */
-    public private(set) ?string $format = null {
+    public ?string $format = null {
         set {
             if ($value !== null) {
                 // Convert ProfileFormat enum to string if needed

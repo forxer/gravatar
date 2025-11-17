@@ -40,7 +40,7 @@ $format = $profile->format;
 
 **2. Setter Methods Removed**
 
-All setter methods have been removed. Use helper methods instead:
+All setter methods have been removed. Use helper methods or direct property assignment instead:
 
 ```php
 // Before (v5.x)
@@ -67,26 +67,40 @@ $image->name('John Doe');
 
 $profile->format('json');
 
+// Or use direct property assignment (also works!)
+$image->email = 'email@example.com';
+$image->size = 120;
+$image->extension = 'jpg';
+$image->maxRating = 'pg';
+
 // Or use fluent shorthand methods
 $image->extensionJpg()
       ->ratingPg()
       ->defaultImageRobohash();
 ```
 
-**3. Properties Are Now Read-Only**
+**3. Properties Are Now Fully Public with Automatic Validation**
 
-All properties use PHP 8.4's asymmetric visibility (`public private(set)`). They are publicly readable but can only be modified through helper methods:
+All properties are now fully public and can be read and written directly. Validation happens automatically through PHP 8.4 property hooks:
 
 ```php
-// Reading properties works
+// Reading properties
 echo $image->email;      // Works!
 echo $image->size;       // Works!
 
-// Writing to them directly throws an error
-$image->email = 'new@example.com';  // Error!
+// Writing to properties directly - validation happens automatically!
+$image->email = 'new@example.com';  // Works! (no validation needed for email)
+$image->size = 120;                  // Works! Validated automatically (must be 1-2048)
+$image->maxRating = 'pg';            // Works! Validated automatically (must be valid rating)
+$image->maxRating = Rating::PG;      // Works! Enum is converted to string automatically
 
-// Use helper methods to modify values
-$image->email('new@example.com');  // Works!
+// Invalid values throw exceptions automatically
+$image->size = 5000;                 // Throws InvalidImageSizeException
+$image->maxRating = 'invalid';       // Throws InvalidMaxRatingImageException
+
+// Helper methods still work and do the same thing
+$image->size(120);                   // Equivalent to: $image->size = 120
+$image->maxRating('pg');             // Equivalent to: $image->maxRating = 'pg'
 ```
 
 **4. Short Alias Methods Removed**
@@ -114,22 +128,24 @@ $image->extensionJpg()
       ->defaultImageMp();
 ```
 
-**5. Helper Methods Are Now the Primary API**
+**5. Three Ways to Work with Properties**
 
-The helper methods (`email()`, `size()`, `extension()`, etc.) are now the recommended way to both get and set values:
+You now have three equivalent ways to work with properties:
 
 ```php
-// Get value (or use direct property access)
-$size = $image->size();      // Helper method
-$size = $image->size;        // Direct property access (also works)
+// 1. Direct property access (reading and writing)
+$size = $image->size;        // Read
+$image->size = 200;          // Write (with automatic validation)
 
-// Set value (must use helper method)
-$image->size(200);           // Helper method (required)
+// 2. Helper methods (reading and writing)
+$size = $image->size();      // Read
+$image->size(200);           // Write (with automatic validation)
+
+// 3. Fluent shorthand methods (writing only)
+$image->extensionJpg()->ratingPg();  // Clean, expressive syntax
 ```
 
-**6. Validation Now Happens in Property Hooks**
-
-All conversion and validation logic now happens automatically in PHP 8.4 property hooks when you use helper methods. This provides the same validation behavior but with more modern PHP syntax internally.
+All three approaches trigger the same validation through PHP 8.4 property hooks. Choose the style that best fits your code!
 
 ### New Features in v6.x
 

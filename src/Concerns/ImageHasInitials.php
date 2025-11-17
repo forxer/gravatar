@@ -9,12 +9,12 @@ trait ImageHasInitials
     /**
      * The user initials to use with "initials" default option
      */
-    public private(set) ?string $initials = null;
+    public ?string $initials = null;
 
     /**
      * The username to use with "initials" default option.
      */
-    public private(set) ?string $name = null;
+    public ?string $name = null;
 
     /**
      * Get or set the user initials to use with "initials" default option.

@@ -11,7 +11,7 @@ trait ImageHasSize
     /**
      * The size to use for avatars.
      */
-    public private(set) ?int $size = null {
+    public ?int $size = null {
         set {
             if ($value !== null && ($value <= 0 || $value > 2048)) {
                 throw new InvalidImageSizeException('Avatar size must be within 0 pixels and 2048 pixels');

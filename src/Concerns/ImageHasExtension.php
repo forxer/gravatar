@@ -12,7 +12,7 @@ trait ImageHasExtension
     /**
      * The extension to append to the avatars URL.
      */
-    public private(set) ?string $extension = null {
+    public ?string $extension = null {
         set {
             if ($value !== null) {
                 // Convert Extension enum to string if needed

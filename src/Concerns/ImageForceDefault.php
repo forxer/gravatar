@@ -9,7 +9,7 @@ trait ImageForceDefault
     /**
      * Should we force the default image to always load?
      */
-    public private(set) bool $forceDefault = false;
+    public bool $forceDefault = false;
 
     /**
      * Get or set if we have to force the default image to be always load.

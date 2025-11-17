@@ -12,7 +12,7 @@ trait ImageHasMaxRating
     /**
      * The maximum rating to allow for the avatars.
      */
-    public private(set) ?string $maxRating = null {
+    public ?string $maxRating = null {
         set {
             if ($value !== null) {
                 // Convert Rating enum to string if needed

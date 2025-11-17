@@ -8,18 +8,18 @@ CHANGELOG
 
 - **Minimum PHP version increased to 8.4**
 - **Removed getter methods**: `getEmail()`, `getSize()`, `getExtension()`, `getMaxRating()`, `getDefaultImage()`, `getFormat()`, `getInitials()`, `getName()`, and `getForceDefault()` - use direct property access instead (e.g., `$image->size` instead of `$image->getSize()`)
-- **Removed setter methods**: `setEmail()`, `setSize()`, `setExtension()`, `setMaxRating()`, `setDefaultImage()`, `setFormat()`, `setInitials()`, `setName()`, and `setForceDefault()` - use helper methods instead (e.g., `$image->size(120)` instead of `$image->setSize(120)`)
+- **Removed setter methods**: `setEmail()`, `setSize()`, `setExtension()`, `setMaxRating()`, `setDefaultImage()`, `setFormat()`, `setInitials()`, `setName()`, and `setForceDefault()` - use helper methods or direct property assignment instead (e.g., `$image->size(120)` or `$image->size = 120`)
 - **Removed short alias methods**: `s()`, `e()`, `r()`, `d()`, `f()` - use full helper method names or new fluent shorthand methods instead
-- **Properties are now read-only**: All properties use `public private(set)` visibility and can only be modified through helper methods
+- **Properties are now fully public with validation**: Properties can be read and written directly, with automatic validation through property hooks when assigned
 
 ### Improvements
 
-- **PHP 8.4 Property Hooks**: All properties now use property hooks with both conversion and validation logic
-- **Asymmetric Visibility**: Properties use `public private(set)` for better encapsulation
-- **Centralized Logic in Property Hooks**: Enum conversion and validation are now entirely handled in property hooks, simplifying setter methods
+- **PHP 8.4 Property Hooks**: All properties now use property hooks with automatic conversion and validation
+- **Direct Property Assignment**: Properties can be assigned directly (`$image->size = 120`) and validation happens automatically through hooks
+- **Simplified API**: No more need for setter methods - use either helper methods or direct assignment, both trigger the same validation
 - **Typed Enums**: Added enum classes for type-safe values (`Rating`, `Extension`, `DefaultImage`, `ProfileFormat`)
-  - Methods accept both enum instances and strings for backward compatibility
-  - Example: `$image->setMaxRating(Rating::PG)` or `$image->setMaxRating('pg')`
+  - Properties and methods accept both enum instances and strings for maximum flexibility
+  - Example: `$image->maxRating(Rating::PG)` or `$image->maxRating('pg')` or `$image->maxRating = Rating::PG`
 - **Fluent Shorthand Methods**: Added convenient fluent methods for cleaner syntax
   - Rating: `ratingG()`, `ratingPg()`, `ratingR()`, `ratingX()`
   - Extension: `extensionJpg()`, `extensionJpeg()`, `extensionGif()`, `extensionPng()`, `extensionWebp()`

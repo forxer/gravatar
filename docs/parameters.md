@@ -16,13 +16,13 @@ An avatar size should be an integer representing the size in pixels.
 $gravatarImage = Gravatar::image($email, 120);
 $gravatarImages = Gravatar::images($emails, 120);
 
-// or use the `setSize()` method of a `Gravatar\Image` instance
-$gravatarImage = new Gravatar\Image($email);
-$gravatarImage->setSize(120);
-
-// or the `size()` helper method of a `Gravatar\Image` instance
+// or use the `size()` helper method of a `Gravatar\Image` instance
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->size(120);
+
+// or assign directly to the `size` property
+$gravatarImage = new Gravatar\Image($email);
+$gravatarImage->size = 120;
 ```
 
 If you want to retrieve the currently set avatar size, you can use one of following methods:
@@ -79,13 +79,13 @@ $gravatarImages = Gravatar::images($emails, null, 'mp');
 $gravatarImage = Gravatar::image($email, defaultImage: 'mp');
 $gravatarImages = Gravatar::images($emails, defaultImage: 'mp');
 
-// or use the `setDefaultImage()` method of a `Gravatar\Image` instance
-$gravatarImage = new Gravatar\Image($email);
-$gravatarImage->setDefaultImage('mp');
-
-// or the `defaultImage()` helper method of a `Gravatar\Image` instance
+// or use the `defaultImage()` helper method of a `Gravatar\Image` instance
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->defaultImage('mp');
+
+// or assign directly to the `defaultImage` property
+$gravatarImage = new Gravatar\Image($email);
+$gravatarImage->defaultImage = 'mp';
 ```
 
 If you want to retrieve the currently set avatar default image, you can use one of following methods:
@@ -156,13 +156,13 @@ $gravatarImages = Gravatar::images($emails, null, null, 'g');
 $gravatarImage = Gravatar::image($email, rating: 'g');
 $gravatarImages = Gravatar::images($emails, rating: 'g');
 
-// or use the `setMaxRating()` method of a `Gravatar\Image` instance
-$gravatarImage = new Gravatar\Image($email);
-$gravatarImage->setMaxRating('g');
-
-// or the `maxRating()` helper method of a `Gravatar\Image` instance
+// or use the `maxRating()` helper method of a `Gravatar\Image` instance
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->maxRating('g');
+
+// or assign directly to the `maxRating` property
+$gravatarImage = new Gravatar\Image($email);
+$gravatarImage->maxRating = 'g';
 ```
 
 If you want to retrieve the currently set avatar max rating, you can use one of following methods:
@@ -199,13 +199,13 @@ Gravatar::images($emails, null, null, null, 'jpg');
 $gravatarImage = Gravatar::image($email, extension: 'jpg');
 $gravatarImages = Gravatar::images($emails, extension: 'jpg');
 
-// or use the `setExtension()` method of a `Gravatar\Image` instance
-$gravatarImage = new Gravatar\Image($email);
-$gravatarImage->setExtension('jpg');
-
-// or the `extension()` helper method of a `Gravatar\Image` instance
+// or use the `extension()` helper method of a `Gravatar\Image` instance
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->extension('jpg');
+
+// or assign directly to the `extension` property
+$gravatarImage = new Gravatar\Image($email);
+$gravatarImage->extension = 'jpg';
 ```
 
 If you want to retrieve the currently set avatar file-type extension, you can use one of following methods:
@@ -234,13 +234,13 @@ Gravatar::images($emails, null, null, null, null, true);
 $gravatarImage = Gravatar::image($email, forceDefault: true);
 $gravatarImages = Gravatar::images($emails, forceDefault: true);
 
-// or use the `setForceDefault()` method of a `Gravatar\Image` instance
-$gravatarImage = new Gravatar\Image($email);
-$gravatarImage->setForceDefault(true);
-
-// or the `forceDefault()` helper method of a `Gravatar\Image` instance
+// or use the `forceDefault()` helper method of a `Gravatar\Image` instance
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->forceDefault(true);
+
+// or assign directly to the `forceDefault` property
+$gravatarImage = new Gravatar\Image($email);
+$gravatarImage->forceDefault = true;
 
 // or use the `enableForceDefault()` method of a `Gravatar\Image` instance
 $gravatarImage = new Gravatar\Image($email);
@@ -270,13 +270,13 @@ Gravatar profile data may be requested in different data formats for simpler pro
 // pass the Gravatar profile format as second argument of `Gravatar::profile()` and `Gravatar::profiles()`
 Gravatar::profile($email, 'json');
 
-// or use the `setFormat()` method of `Gravatar\Profile` instance
-$gravatarProfile = new Gravatar\Profile($email);
-$gravatarProfile->setFormat('json');
-
-// or the `format()` helper method of a `Gravatar\Profile` instance
+// or use the `format()` helper method of a `Gravatar\Profile` instance
 $gravatarProfile = new Gravatar\Profile($email);
 $gravatarProfile->format('json');
+
+// or assign directly to the `format` property
+$gravatarProfile = new Gravatar\Profile($email);
+$gravatarProfile->format = 'json';
 ```
 
 The following formats are supported:
