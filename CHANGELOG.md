@@ -9,6 +9,7 @@ CHANGELOG
 - **Minimum PHP version increased to 8.4**
 - **Removed getter methods**: `getEmail()`, `getSize()`, `getExtension()`, `getMaxRating()`, `getDefaultImage()`, `getFormat()`, `getInitials()`, `getName()`, and `getForceDefault()` - use direct property access instead (e.g., `$image->size` instead of `$image->getSize()`)
 - **Removed setter methods**: `setEmail()`, `setSize()`, `setExtension()`, `setMaxRating()`, `setDefaultImage()`, `setFormat()`, `setInitials()`, `setName()`, and `setForceDefault()` - use helper methods or direct property assignment instead (e.g., `$image->size(120)` or `$image->size = 120`)
+- **Renamed property and method**: `name` property and `withName()` method have been renamed to `initialsName` and `withInitialsName()` for better clarity
 - **Removed short alias methods**: `s()`, `e()`, `r()`, `d()`, `f()` - use full helper method names or new fluent shorthand methods instead
 - **Properties are now fully public with validation**: Properties can be read and written directly, with automatic validation through property hooks when assigned
 

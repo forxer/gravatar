@@ -20,7 +20,7 @@ $extension = $image->getExtension();
 $maxRating = $image->getMaxRating();
 $defaultImage = $image->getDefaultImage();
 $initials = $image->getInitials();
-$name = $image->getName();
+$initialsName = $image->getName();
 $forceDefault = $image->getForceDefault();
 
 $format = $profile->getFormat();
@@ -32,7 +32,7 @@ $extension = $image->extension;
 $maxRating = $image->maxRating;
 $defaultImage = $image->defaultImage;
 $initials = $image->initials;
-$name = $image->name;
+$initialsName = $image->initialsName;
 $forceDefault = $image->forceDefault;
 
 $format = $profile->format;
@@ -51,7 +51,7 @@ $image->setMaxRating('pg');
 $image->setDefaultImage('robohash');
 $image->setForceDefault(true);
 $image->setInitials('JD');
-$image->setName('John Doe');
+$image->setName('John Doe');  // Now: initialsName()
 
 $profile->setFormat('json');
 
@@ -63,7 +63,7 @@ $image->maxRating('pg');
 $image->defaultImage('robohash');
 $image->forceDefault(true);
 $image->initials('JD');
-$image->name('John Doe');
+$image->initialsName('John Doe');
 
 $profile->format('json');
 
@@ -103,7 +103,21 @@ $image->size(120);                   // Equivalent to: $image->size = 120
 $image->maxRating('pg');             // Equivalent to: $image->maxRating = 'pg'
 ```
 
-**4. Short Alias Methods Removed**
+**4. Property and Method Renamed for Clarity**
+
+The `name` property and `withName()` method have been renamed to `initialsName` and `withInitialsName()` for better clarity:
+
+```php
+// Before (v5.x)
+$image->withName('John Doe');
+$name = $image->name;
+
+// After (v6.x)
+$image->withInitialsName('John Doe');
+$name = $image->initialsName;
+```
+
+**5. Short Alias Methods Removed**
 
 The short alias methods (`s()`, `e()`, `r()`, `d()`, `f()`) have been removed for better code clarity:
 
@@ -128,21 +142,21 @@ $image->extensionJpg()
       ->defaultImageMp();
 ```
 
-**5. Three Ways to Work with Properties**
+**6. Three Ways to Work with Properties**
 
 You now have three equivalent ways to work with properties:
 
 ```php
-// 1. Direct property access (reading and writing)
-$size = $image->size;        // Read
-$image->size = 200;          // Write (with automatic validation)
-
-// 2. Helper methods (reading and writing)
+// 1. Helper methods (reading and writing)
 $size = $image->size();      // Read
 $image->size(200);           // Write (with automatic validation)
 
-// 3. Fluent shorthand methods (writing only)
+// 2. Fluent shorthand methods (writing only)
 $image->extensionJpg()->ratingPg();  // Clean, expressive syntax
+
+// 3. Direct property access (reading and writing)
+$size = $image->size;        // Read
+$image->size = 200;          // Write (with automatic validation)
 ```
 
 All three approaches trigger the same validation through PHP 8.4 property hooks. Choose the style that best fits your code!
@@ -213,7 +227,7 @@ All three syntaxes (strings, enums, and fluent methods) work together and can be
    - Find: `->getDefaultImage()` → Replace: `->defaultImage`
    - Find: `->getFormat()` → Replace: `->format`
    - Find: `->getInitials()` → Replace: `->initials`
-   - Find: `->getName()` → Replace: `->name`
+   - Find: `->getName()` → Replace: `->initialsName`
    - Find: `->getForceDefault()` → Replace: `->forceDefault`
 
 3. **Replace all setter method calls with helper methods:**
@@ -224,7 +238,7 @@ All three syntaxes (strings, enums, and fluent methods) work together and can be
    - Find: `->setDefaultImage(` → Replace: `->defaultImage(`
    - Find: `->setFormat(` → Replace: `->format(`
    - Find: `->setInitials(` → Replace: `->initials(`
-   - Find: `->setName(` → Replace: `->name(`
+   - Find: `->setName(` → Replace: `->initialsName(`
    - Find: `->setForceDefault(` → Replace: `->forceDefault(`
 
 4. **Replace all short alias methods:**
