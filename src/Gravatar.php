@@ -28,7 +28,7 @@ class Gravatar
      */
     public static function image(?string $email = null, ?int $size = null, DefaultImage|string|null $defaultImage = null, Rating|string|null $rating = null, Extension|string|null $extension = null, bool $forceDefault = false): Image
     {
-        return (new Image($email))
+        return new Image($email)
             ->size($size)
             ->defaultImage($defaultImage, $forceDefault)
             ->maxRating($rating)
@@ -51,7 +51,7 @@ class Gravatar
         $images = [];
 
         foreach ($emails as $email) {
-            $images[$email] = (new Image($email))
+            $images[$email] = new Image($email)
                 ->size($size)
                 ->defaultImage($defaultImage, $forceDefault)
                 ->maxRating($rating)
@@ -69,7 +69,7 @@ class Gravatar
      */
     public static function profile(?string $email = null, ProfileFormat|string|null $format = null): Profile
     {
-        return (new Profile($email))
+        return new Profile($email)
             ->format($format);
     }
 
@@ -85,7 +85,7 @@ class Gravatar
         $profiles = [];
 
         foreach ($emails as $email) {
-            $profiles[$email] = (new Profile($email))
+            $profiles[$email] = new Profile($email)
                 ->format($format);
         }
 
