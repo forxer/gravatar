@@ -15,7 +15,7 @@ trait ImageHasDefault
      * The default image to use ; either a string of the gravatar recognized default image "type" to use, or a URL
      */
     public ?string $defaultImage = null {
-        set {
+        set(DefaultImage|string|null $value) {
             if ($value !== null) {
                 // Convert DefaultImage enum to string if needed
                 $stringValue = $value instanceof DefaultImage ? $value->value : $value;
@@ -45,7 +45,7 @@ trait ImageHasDefault
      */
     public function defaultImage(DefaultImage|string|null $defaultImage = null, bool $forceDefault = false): static|string|null
     {
-        if ($defaultImage === null) {
+        if (\func_num_args() === 0) {
             return $this->defaultImage;
         }
 

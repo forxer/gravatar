@@ -28,7 +28,7 @@ trait ImageHasSize
      */
     public function size(?int $size = null): static|int|null
     {
-        if ($size === null) {
+        if (\func_num_args() === 0) {
             return $this->size;
         }
 

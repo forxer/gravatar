@@ -19,7 +19,7 @@ trait ImageForceDefault
      */
     public function forceDefault(?bool $forceDefault = null): bool|static
     {
-        if ($forceDefault === null) {
+        if (\func_num_args() === 0) {
             return $this->forceDefault;
         }
 

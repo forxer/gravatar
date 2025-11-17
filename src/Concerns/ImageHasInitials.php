@@ -24,7 +24,7 @@ trait ImageHasInitials
      */
     public function initials(?string $initials = null): static|string|null
     {
-        if ($initials === null) {
+        if (\func_num_args() === 0) {
             return $this->initials;
         }
 
@@ -41,7 +41,7 @@ trait ImageHasInitials
      */
     public function initialsName(?string $initialsName = null): static|string|null
     {
-        if ($initialsName === null) {
+        if (\func_num_args() === 0) {
             return $this->initialsName;
         }
 

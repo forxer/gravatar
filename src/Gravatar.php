@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace Gravatar;
 
 use Gravatar\Concerns\HasEmail;
+use Gravatar\Enum\DefaultImage;
+use Gravatar\Enum\Extension;
+use Gravatar\Enum\ProfileFormat;
+use Gravatar\Enum\Rating;
 
 class Gravatar
 {
@@ -17,18 +21,18 @@ class Gravatar
      *
      * @param  string|null  $email  The email to get the gravatar for.
      * @param  int|null  $size  The avatar size to use, must be less than 2048 and greater than 0.
-     * @param  string|null  $defaultImage  The default image to use. Use a valid image URL, or a recognized gravatar "default".
-     * @param  string|null  $rating  The maximum rating to use for avatars
-     * @param  string|null  $extension  The avatar extension to use
+     * @param  DefaultImage|string|null  $defaultImage  The default image to use. Use a valid image URL, or a recognized gravatar "default".
+     * @param  Rating|string|null  $rating  The maximum rating to use for avatars
+     * @param  Extension|string|null  $extension  The avatar extension to use
      * @param  bool  $forceDefault  Force the default image to be always load.
      */
-    public static function image(?string $email = null, ?int $size = null, ?string $defaultImage = null, ?string $rating = null, ?string $extension = null, bool $forceDefault = false): Image
+    public static function image(?string $email = null, ?int $size = null, DefaultImage|string|null $defaultImage = null, Rating|string|null $rating = null, Extension|string|null $extension = null, bool $forceDefault = false): Image
     {
         return (new Image($email))
-            ->setSize($size)
-            ->setDefaultImage($defaultImage, $forceDefault)
-            ->setMaxRating($rating)
-            ->setExtension($extension);
+            ->size($size)
+            ->defaultImage($defaultImage, $forceDefault)
+            ->maxRating($rating)
+            ->extension($extension);
     }
 
     /**
@@ -36,22 +40,22 @@ class Gravatar
      *
      * @param  array<string>  $emails  The emails list to get the Gravatar images for.
      * @param  int|null  $size  The avatar size to use, must be less than 2048 and greater than 0.
-     * @param  string|null  $defaultImage  The default image to use. Use a valid image URL, or a recognized gravatar "default".
-     * @param  string|null  $rating  The maximum rating to use for avatars
-     * @param  string|null  $extension  The avatar extension to use
+     * @param  DefaultImage|string|null  $defaultImage  The default image to use. Use a valid image URL, or a recognized gravatar "default".
+     * @param  Rating|string|null  $rating  The maximum rating to use for avatars
+     * @param  Extension|string|null  $extension  The avatar extension to use
      * @param  bool  $forceDefault  Force the default image to be always load.
      * @return array<string, Image>
      */
-    public static function images(array $emails, ?int $size = null, ?string $defaultImage = null, ?string $rating = null, ?string $extension = null, bool $forceDefault = false): array
+    public static function images(array $emails, ?int $size = null, DefaultImage|string|null $defaultImage = null, Rating|string|null $rating = null, Extension|string|null $extension = null, bool $forceDefault = false): array
     {
         $images = [];
 
         foreach ($emails as $email) {
             $images[$email] = (new Image($email))
-                ->setSize($size)
-                ->setDefaultImage($defaultImage, $forceDefault)
-                ->setMaxRating($rating)
-                ->setExtension($extension);
+                ->size($size)
+                ->defaultImage($defaultImage, $forceDefault)
+                ->maxRating($rating)
+                ->extension($extension);
         }
 
         return $images;
@@ -61,28 +65,28 @@ class Gravatar
      * Return the Gravatar profile URL based on the provided email address.
      *
      * @param  string|null  $email  The email to get the Gravatar profile for.
-     * @param  string|null  $format  The profile format to use.
+     * @param  ProfileFormat|string|null  $format  The profile format to use.
      */
-    public static function profile(?string $email = null, ?string $format = null): Profile
+    public static function profile(?string $email = null, ProfileFormat|string|null $format = null): Profile
     {
         return (new Profile($email))
-            ->setFormat($format);
+            ->format($format);
     }
 
     /**
      * Return multiples Gravatar profiles based on the provided array of emails addresses.
      *
      * @param  array<string>  $emails  The emails list to get the Gravatar profiles for.
-     * @param  string|null  $format  The profile format to use.
+     * @param  ProfileFormat|string|null  $format  The profile format to use.
      * @return array<string, Profile>
      */
-    public static function profiles(array $emails, ?string $format = null): array
+    public static function profiles(array $emails, ProfileFormat|string|null $format = null): array
     {
         $profiles = [];
 
         foreach ($emails as $email) {
             $profiles[$email] = (new Profile($email))
-                ->setFormat($format);
+                ->format($format);
         }
 
         return $profiles;

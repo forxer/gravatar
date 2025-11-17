@@ -13,7 +13,7 @@ trait ProfileHasFormat
      * The format to append to the profile URL.
      */
     public ?string $format = null {
-        set {
+        set(ProfileFormat|string|null $value) {
             if ($value !== null) {
                 // Convert ProfileFormat enum to string if needed
                 $stringValue = $value instanceof ProfileFormat ? $value->value : $value;
@@ -41,7 +41,7 @@ trait ProfileHasFormat
      */
     public function format(ProfileFormat|string|null $format = null): static|string|null
     {
-        if ($format === null) {
+        if (\func_num_args() === 0) {
             return $this->format;
         }
 

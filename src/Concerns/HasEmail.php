@@ -19,7 +19,7 @@ trait HasEmail
      */
     public function email(?string $email = null): static|string|null
     {
-        if ($email === null) {
+        if (\func_num_args() === 0) {
             return $this->email;
         }
 

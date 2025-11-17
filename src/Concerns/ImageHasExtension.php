@@ -13,7 +13,7 @@ trait ImageHasExtension
      * The extension to append to the avatars URL.
      */
     public ?string $extension = null {
-        set {
+        set(Extension|string|null $value) {
             if ($value !== null) {
                 // Convert Extension enum to string if needed
                 $stringValue = $value instanceof Extension ? $value->value : $value;
@@ -42,7 +42,7 @@ trait ImageHasExtension
      */
     public function extension(Extension|string|null $extension = null): static|string|null
     {
-        if ($extension === null) {
+        if (\func_num_args() === 0) {
             return $this->extension;
         }
 

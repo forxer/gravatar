@@ -13,7 +13,7 @@ trait ImageHasMaxRating
      * The maximum rating to allow for the avatars.
      */
     public ?string $maxRating = null {
-        set {
+        set(Rating|string|null $value) {
             if ($value !== null) {
                 // Convert Rating enum to string if needed
                 $stringValue = $value instanceof Rating ? $value->value : $value;
@@ -42,7 +42,7 @@ trait ImageHasMaxRating
      */
     public function maxRating(Rating|string|null $maxRating = null): static|string|null
     {
-        if ($maxRating === null) {
+        if (\func_num_args() === 0) {
             return $this->maxRating;
         }
 
