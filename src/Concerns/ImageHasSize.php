@@ -36,17 +36,6 @@ trait ImageHasSize
     }
 
     /**
-     * Alias for the "size" method.
-     *
-     * @param  int|null  $size  The avatar size to use, must be less than 2048 and greater than 0.
-     * @return $this|int|null
-     */
-    public function s(?int $size = null): static|int|null
-    {
-        return $this->size($size);
-    }
-
-    /**
      * Set the avatar size to use.
      *
      * @param  int|null  $size  The avatar size to use, must be less than 2048 and greater than 0.

@@ -554,10 +554,6 @@ $gravatarImage->setSize(120);
 // or the `size()` helper method of a `Gravatar\Image` instance
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->size(120);
-
-// or its alias `s()` (as in the generated query string)
-$gravatarImage = new Gravatar\Image($email);
-$gravatarImage->s(120);
 ```
 
 If you want to retrieve the currently set avatar size, you can use one of following methods:
@@ -570,10 +566,6 @@ $size = $gravatarImage->size;
 // or call the `size()` helper method without argument
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->size();
-
-// or its alias `s()`
-$gravatarImage = new Gravatar\Image();
-$gravatarImage->s();
 ```
 
 [Back to top ^](#gravatar)
@@ -626,10 +618,6 @@ $gravatarImage->setDefaultImage('mp');
 // or the `defaultImage()` helper method of a `Gravatar\Image` instance
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->defaultImage('mp');
-
-// or its alias `d()` (as in the generated query string)
-$gravatarImage = new Gravatar\Image($email);
-$gravatarImage->d('mp');
 ```
 
 If you want to retrieve the currently set avatar default image, you can use one of following methods:
@@ -642,10 +630,6 @@ $defaultImage = $gravatarImage->defaultImage;
 // or call the `defaultImage()` helper method without argument
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->defaultImage();
-
-// or its alias `d()`
-$gravatarImage = new Gravatar\Image();
-$gravatarImage->d();
 ```
 
 #### Customize the initials default image
@@ -712,10 +696,6 @@ $gravatarImage->setMaxRating('g');
 // or the `maxRating()` helper method of a `Gravatar\Image` instance
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->maxRating('g');
-
-// or its alias `r()` (as in the generated query string)
-$gravatarImage = new Gravatar\Image($email);
-$gravatarImage->r('g');
 ```
 
 If you want to retrieve the currently set avatar max rating, you can use one of following methods:
@@ -728,10 +708,6 @@ $rating = $gravatarImage->maxRating;
 // or call the `maxRating()` helper method without argument
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->maxRating();
-
-// or its alias `r()`
-$gravatarImage = new Gravatar\Image();
-$gravatarImage->r();
 ```
 
 [Back to top ^](#gravatar)
@@ -764,10 +740,6 @@ $gravatarImage->setExtension('jpg');
 // or the `extension()` helper method of a `Gravatar\Image` instance
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->extension('jpg');
-
-// or its alias `e()` (as in the generated query string)
-$gravatarImage = new Gravatar\Image($email);
-$gravatarImage->e('jpg');
 ```
 
 If you want to retrieve the currently set avatar file-type extension, you can use one of following methods:
@@ -780,10 +752,6 @@ $extension = $gravatarImage->extension;
 // or call the `extension()` helper method without argument
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->extension();
-
-// or its alias `e()`
-$gravatarImage = new Gravatar\Image();
-$gravatarImage->e();
 ```
 
 [Back to top ^](#gravatar)
@@ -808,10 +776,6 @@ $gravatarImage->setForceDefault(true);
 // or the `forceDefault()` helper method of a `Gravatar\Image` instance
 $gravatarImage = new Gravatar\Image($email);
 $gravatarImage->forceDefault(true);
-
-// or its alias `f()` (as in the generated query string)
-$gravatarImage = new Gravatar\Image($email);
-$gravatarImage->f(true);
 
 // or use the `enableForceDefault()` method of a `Gravatar\Image` instance
 $gravatarImage = new Gravatar\Image($email);
@@ -849,10 +813,6 @@ $gravatarProfile->setFormat('json');
 // or the `format()` helper method of a `Gravatar\Profile` instance
 $gravatarProfile = new Gravatar\Profile($email);
 $gravatarProfile->format('json');
-
-// or its alias `f()` (as in the generated query string)
-$gravatarProfile = new Gravatar\Profile($email);
-$gravatarProfile->f('json');
 ```
 
 The following formats are supported:

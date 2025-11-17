@@ -45,17 +45,6 @@ trait ImageHasExtension
     }
 
     /**
-     * Alias for the "extension" method.
-     *
-     * @param  Extension|string|null  $extension  The avatar extension to use.
-     * @return $this|string|null
-     */
-    public function e(Extension|string|null $extension = null): static|string|null
-    {
-        return $this->extension($extension);
-    }
-
-    /**
      * Set the avatar extension to use.
      *
      * @param  Extension|string|null  $extension  The avatar extension to use.

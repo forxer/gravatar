@@ -8,6 +8,7 @@ CHANGELOG
 
 - **Minimum PHP version increased to 8.4**
 - Removed `getEmail()`, `getSize()`, `getExtension()`, `getMaxRating()`, `getDefaultImage()`, `getFormat()`, `getInitials()`, `getName()`, and `getForceDefault()` methods - use public property access instead
+- Removed short alias methods `s()`, `e()`, `r()`, `d()`, `f()` - use full method names or new fluent shorthand methods instead
 - Properties are now publicly readable but can only be set through setter methods or internally
 
 ### Improvements

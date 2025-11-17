@@ -48,18 +48,6 @@ trait ImageHasDefault
     }
 
     /**
-     * Alias for the "defaultImage" method.
-     *
-     * @param  DefaultImage|string|null  $defaultImage  The default image to use. Use a valid image URL, or a recognized gravatar "default".
-     * @param  bool  $forceDefault  Force the default image to be always load.
-     * @return $this|string|null
-     */
-    public function d(DefaultImage|string|null $defaultImage = null, bool $forceDefault = false): static|string|null
-    {
-        return $this->defaultImage($defaultImage, $forceDefault);
-    }
-
-    /**
      * Set the default image to use for avatars.
      *
      * @param  DefaultImage|string|null  $defaultImage  The default image to use. Use a valid image URL, or a recognized gravatar "default".

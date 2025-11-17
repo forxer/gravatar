@@ -54,7 +54,32 @@ $image->email = 'new@example.com';  // Error!
 $image->setEmail('new@example.com');  // Works!
 ```
 
-**3. Helper Methods Remain Unchanged**
+**3. Short Alias Methods Removed**
+
+The short alias methods (`s()`, `e()`, `r()`, `d()`, `f()`) have been removed for better code clarity:
+
+```php
+// Before (v5.x)
+$image->s(120);       // size
+$image->e('jpg');     // extension
+$image->r('pg');      // rating
+$image->d('mp');      // default image
+$image->f(true);      // force default
+
+// After (v6.x) - use full names
+$image->size(120);
+$image->extension('jpg');
+$image->maxRating('pg');
+$image->defaultImage('mp');
+$image->forceDefault(true);
+
+// Or use new fluent shorthand methods (recommended)
+$image->extensionJpg()
+      ->ratingPg()
+      ->defaultImageMp();
+```
+
+**4. Helper Methods Remain Unchanged**
 
 The helper methods (`email()`, `size()`, `extension()`, etc.) continue to work as before and can still be used for both getting and setting values:
 
@@ -66,7 +91,7 @@ $size = $image->size();
 $image->size(200);
 ```
 
-**4. Validation Now Happens in Property Hooks**
+**5. Validation Now Happens in Property Hooks**
 
 Validation is now performed directly when setting properties through setter methods, using PHP 8.4's property hooks. This provides the same validation behavior but with more modern PHP syntax internally.
 
@@ -133,8 +158,19 @@ All three syntaxes (strings, enums, and fluent methods) work together and can be
    - Find: `->getSize()`
    - Replace: `->size`
    - (and so on for all getter methods)
-3. Ensure you're only using setter methods (not direct assignment) to modify properties
-4. Test your application thoroughly
+3. Replace all short alias methods with full names or fluent shorthand methods:
+   - Find: `->s(`
+   - Replace: `->size(`
+   - Find: `->e(`
+   - Replace: `->extension(` or `->extensionJpg()`, etc.
+   - Find: `->r(`
+   - Replace: `->maxRating(` or `->ratingPg()`, etc.
+   - Find: `->d(`
+   - Replace: `->defaultImage(` or `->defaultImageMp()`, etc.
+   - Find: `->f(`
+   - Replace: `->forceDefault(` or `->formatJson()`, etc.
+4. Ensure you're only using setter methods (not direct assignment) to modify properties
+5. Test your application thoroughly
 
 From 4.x to 5.x
 ---------------

@@ -41,17 +41,6 @@ trait ProfileHasFormat
     }
 
     /**
-     * Alias for the "format" method.
-     *
-     * @param  ProfileFormat|string|null  $format  The profile format to use.
-     * @return $this|string|null
-     */
-    public function f(ProfileFormat|string|null $format = null): static|string|null
-    {
-        return $this->format($format);
-    }
-
-    /**
      * Set the profile format to use.
      *
      * @param  ProfileFormat|string|null  $format  The profile format to use

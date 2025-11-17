@@ -45,17 +45,6 @@ trait ImageHasMaxRating
     }
 
     /**
-     * Alias for the "rating" method.
-     *
-     * @param  Rating|string|null  $maxRating  The maximum rating to use for avatars.
-     * @return $this|string|null
-     */
-    public function r(Rating|string|null $maxRating = null): static|string|null
-    {
-        return $this->maxRating($maxRating);
-    }
-
-    /**
      * Set the maximum allowed rating for avatars.
      *
      * @param  Rating|string|null  $maxRating  The maximum rating to use for avatars.
