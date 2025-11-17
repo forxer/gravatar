@@ -26,6 +26,7 @@ trait ImageHasMaxRating
                         implode('", "', Rating::values())
                     ));
                 }
+
                 $this->maxRating = $stringValue;
             } else {
                 $this->maxRating = null;

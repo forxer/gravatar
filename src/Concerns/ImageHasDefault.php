@@ -28,6 +28,7 @@ trait ImageHasDefault
                         implode(', ', DefaultImage::values())
                     ));
                 }
+
                 $this->defaultImage = $stringValue;
             } else {
                 $this->defaultImage = null;

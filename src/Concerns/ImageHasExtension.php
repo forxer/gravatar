@@ -26,6 +26,7 @@ trait ImageHasExtension
                         implode('", "', Extension::values())
                     ));
                 }
+
                 $this->extension = $stringValue;
             } else {
                 $this->extension = null;

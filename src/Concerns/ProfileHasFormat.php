@@ -25,6 +25,7 @@ trait ProfileHasFormat
                         implode('", "', ProfileFormat::values())
                     ));
                 }
+
                 $this->format = $stringValue;
             } else {
                 $this->format = null;
