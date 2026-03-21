@@ -1,6 +1,44 @@
 CHANGELOG
 =========
 
+7.0.0 (2026-03-21)
+------------------
+
+### Security
+
+- **Fixed unsafe deserialization**: `Profile::getData()` now uses `json_decode()` instead of `unserialize()` on remote data, preventing potential deserialization vulnerability (CWE-502)
+- **Added error handling**: `Profile::getData()` now properly handles `file_get_contents()` failures by returning `null`
+
+### Breaking Changes
+
+- **`Profile::getData()` now uses JSON format** instead of PHP serialized format — the returned array structure may differ slightly
+- **`email` property is now read-only** (`private(set)`): use `->email($value)` method instead of `->email = $value`
+- **`initials`, `initialsName` and `forceDefault` properties are now read-only** (`private(set)`): use their respective methods instead of direct assignment
+- **`forceDefault()` method no longer accepts `null`**: parameter changed from `?bool` to `bool`
+- **Image URLs now use `https://`** instead of protocol-relative `//` — `Gravatar::URL` changed from `'//www.gravatar.com/'` to `'https://www.gravatar.com/'`
+
+### Improvements
+
+- **PHP 8.4 typed class constant**: `Gravatar::URL` is now typed as `const string`
+- **PHP 8.4 asymmetric visibility**: `email`, `initials`, `initialsName` and `forceDefault` properties use `public private(set)` to prevent external mutation while keeping read access
+- **Email normalization via property hook**: emails are now automatically trimmed and lowercased when set, ensuring consistent hashing
+- **Simplified enum validation**: property hooks now use `Enum::tryFrom()` instead of manual `in_array()` + `values()` checks
+- **Extracted shared code**: constructor and `copy()` method moved from `Image`/`Profile` to parent `Gravatar` class
+- **`GravatarInterface`**: new interface extending `Stringable` with `url()` and `copy()` methods, implemented by both `Image` and `Profile`
+- **`GravatarExceptionInterface`**: new marker interface implemented by all 6 exception classes, enabling generic `catch` blocks
+- **Replaced `in_array([null, '', '0'])` pattern** with explicit `=== null` or `=== null || === ''` checks
+- **PHPStan at level max**: added static analysis configuration with zero errors
+- **Test suite**: added 157 tests with Pest covering all classes, traits, enums, and exceptions
+- **Composer scripts**: added `lint`, `fix`, `analyse`, `refactor`, `test`, and `check` scripts
+
+### Documentation
+
+- Updated all URLs to use `https://` instead of `http://` or protocol-relative
+- Fixed non-existent method names in examples (`setMaxRating` → `maxRating`, etc.)
+- Removed documentation examples for direct assignment of `private(set)` properties
+- Updated CLAUDE.md to reflect current architecture and tooling
+
+
 6.0.0 (2025-11-17)
 ------------------
 
