@@ -6,7 +6,7 @@ CHANGELOG
 
 ### Breaking Changes
 
-- **Migrated to Gravatar REST API**: all URLs now use `https://api.gravatar.com/` instead of `https://www.gravatar.com/`
+- **Migrated to new Gravatar URLs**: image URLs now use `https://gravatar.com/` (canonical), profile URLs use `https://api.gravatar.com/v3/profiles/`
 - **Hashing changed from MD5 to SHA-256**: both image and profile URLs now use SHA-256 hashes
 - **Profile URLs use the v3 REST API**: `https://api.gravatar.com/v3/profiles/{sha256_hash}`
 - **Removed `ProfileFormat` enum**: the v3 API only returns JSON, format selection is no longer available
@@ -17,7 +17,7 @@ CHANGELOG
 - **`email` property is now read-only** (`private(set)`): use `->email($value)` method instead of `->email = $value`
 - **`initials`, `initialsName` and `forceDefault` properties are now read-only** (`private(set)`): use their respective methods instead of direct assignment
 - **`forceDefault()` method no longer accepts `null`**: parameter changed from `?bool` to `bool`
-- **`Gravatar::URL` changed** from `'https://www.gravatar.com/'` to `'https://api.gravatar.com/'`
+- **`Gravatar::URL` changed** from `'https://www.gravatar.com/'` to `'https://gravatar.com/'`
 
 ### Security
 

@@ -13,7 +13,7 @@ class Gravatar
 {
     use HasEmail;
 
-    public const string URL = 'https://api.gravatar.com/';
+    public const string URL = 'https://gravatar.com/';
 
     /**
      * Construct Gravatar instance

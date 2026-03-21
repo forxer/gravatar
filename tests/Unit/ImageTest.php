@@ -14,7 +14,7 @@ it('builds a basic avatar URL', function () {
     $image = new Image('test@example.com');
     $url = $image->url();
 
-    expect($url)->toStartWith('https://api.gravatar.com/avatar/')
+    expect($url)->toStartWith('https://gravatar.com/avatar/')
         ->and($url)->toContain(hash('sha256', 'test@example.com'));
 });
 

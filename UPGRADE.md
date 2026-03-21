@@ -20,7 +20,7 @@ echo Gravatar::profile('email@example.com');
 
 // After (v7.x)
 echo Gravatar::image('email@example.com');
-// output: https://api.gravatar.com/avatar/{sha256_hash}
+// output: https://gravatar.com/avatar/{sha256_hash}
 
 echo Gravatar::profile('email@example.com');
 // output: https://api.gravatar.com/v3/profiles/{sha256_hash}
@@ -78,7 +78,7 @@ Gravatar::profiles($emails);
 Gravatar::URL; // 'https://www.gravatar.com/'
 
 // After (v7.x)
-Gravatar::URL; // 'https://api.gravatar.com/'
+Gravatar::URL; // 'https://gravatar.com/'
 ```
 
 **6. Some properties are now read-only (`private(set)`)**
@@ -176,7 +176,7 @@ try {
 4. **Remove `InvalidProfileFormatException`** from any catch blocks
 5. **Update any stored MD5 hashes** — the library now uses SHA-256
 6. **Search for direct property assignments** on `email`, `initials`, `initialsName`, `forceDefault` and replace with method calls
-7. **Update URL assertions** in your tests if you check for `www.gravatar.com` — it is now `api.gravatar.com`
+7. **Update URL assertions** in your tests — image URLs now use `gravatar.com`, profile URLs use `api.gravatar.com`
 8. **Replace `forceDefault(null)`** with `forceDefault(false)` if used
 9. **Test your application thoroughly**
 
