@@ -4,11 +4,6 @@ CHANGELOG
 7.0.0 (2026-03-21)
 ------------------
 
-### Security
-
-- **Fixed unsafe deserialization**: `Profile::getData()` now uses `json_decode()` instead of `unserialize()` on remote data, preventing potential deserialization vulnerability (CWE-502)
-- **Added error handling**: `Profile::getData()` now properly handles `file_get_contents()` failures by returning `null`
-
 ### Breaking Changes
 
 - **`Profile::getData()` now uses JSON format** instead of PHP serialized format — the returned array structure may differ slightly
@@ -16,6 +11,11 @@ CHANGELOG
 - **`initials`, `initialsName` and `forceDefault` properties are now read-only** (`private(set)`): use their respective methods instead of direct assignment
 - **`forceDefault()` method no longer accepts `null`**: parameter changed from `?bool` to `bool`
 - **Image URLs now use `https://`** instead of protocol-relative `//` — `Gravatar::URL` changed from `'//www.gravatar.com/'` to `'https://www.gravatar.com/'`
+
+### Security
+
+- **Fixed unsafe deserialization**: `Profile::getData()` now uses `json_decode()` instead of `unserialize()` on remote data, preventing potential deserialization vulnerability (CWE-502)
+- **Added error handling**: `Profile::getData()` now properly handles `file_get_contents()` failures by returning `null`
 
 ### Improvements
 
@@ -36,7 +36,6 @@ CHANGELOG
 - Updated all URLs to use `https://` instead of `http://` or protocol-relative
 - Fixed non-existent method names in examples (`setMaxRating` → `maxRating`, etc.)
 - Removed documentation examples for direct assignment of `private(set)` properties
-- Updated CLAUDE.md to reflect current architecture and tooling
 
 
 6.0.0 (2025-11-17)

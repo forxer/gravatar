@@ -1,6 +1,120 @@
 UPGRADE
 =======
 
+From 6.x to 7.x
+---------------
+
+### Breaking Changes
+
+**1. Image URLs now use `https://`**
+
+The `Gravatar::URL` constant changed from protocol-relative `//www.gravatar.com/` to `https://www.gravatar.com/`. All generated image URLs now start with `https://`.
+
+```php
+// Before (v6.x)
+echo Gravatar::image('email@example.com');
+// output: //www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
+
+// After (v7.x)
+echo Gravatar::image('email@example.com');
+// output: https://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
+```
+
+**2. Some properties are now read-only (`private(set)`)**
+
+The `email`, `initials`, `initialsName` and `forceDefault` properties can no longer be assigned directly. Use the corresponding methods instead:
+
+```php
+// Before (v6.x)
+$image->email = 'email@example.com';
+$image->initials = 'JD';
+$image->initialsName = 'John Doe';
+$image->forceDefault = true;
+
+// After (v7.x) — use methods
+$image->email('email@example.com');
+$image->initials('JD');
+$image->initialsName('John Doe');
+$image->enableForceDefault();
+
+// Reading still works
+echo $image->email;         // ✅
+echo $image->forceDefault;  // ✅
+```
+
+Note: properties with validation hooks (`size`, `extension`, `maxRating`, `defaultImage`, `format`) remain publicly writable.
+
+**3. `forceDefault()` method no longer accepts `null`**
+
+```php
+// Before (v6.x)
+$image->forceDefault(null); // worked
+
+// After (v7.x)
+$image->forceDefault(false); // use false instead
+```
+
+**4. `Profile::getData()` now uses JSON format**
+
+The method uses `json_decode()` instead of `unserialize()`. The returned array structure follows the Gravatar JSON API format.
+
+```php
+// Before (v6.x) — used PHP serialized format
+$profile->format; // 'php' after getData()
+
+// After (v7.x) — uses JSON format
+$profile->format; // 'json' after getData()
+```
+
+**5. Emails are automatically normalized**
+
+Emails are now trimmed and lowercased when set via the property hook. This ensures consistent hashing but may affect code that relies on the original casing:
+
+```php
+$image->email(' User@Example.COM ');
+echo $image->email; // 'user@example.com'
+```
+
+### New Features in v7.x
+
+**1. `GravatarInterface`**
+
+Both `Image` and `Profile` now implement `GravatarInterface` (which extends `Stringable`), enabling type-hinting:
+
+```php
+function renderUrl(GravatarInterface $gravatar): string
+{
+    return $gravatar->url();
+}
+```
+
+**2. `GravatarExceptionInterface`**
+
+All package exceptions implement `GravatarExceptionInterface`, allowing generic catch:
+
+```php
+try {
+    $image->size(5000);
+} catch (GravatarExceptionInterface $e) {
+    // catches any Gravatar exception
+}
+```
+
+**3. PHPStan and Test Suite**
+
+- PHPStan configured at level max with zero errors
+- 157 tests with Pest
+- Composer scripts: `composer check` runs lint + analyse + test
+
+### Migration Steps
+
+1. **Search for direct property assignments** on `email`, `initials`, `initialsName`, `forceDefault` and replace with method calls
+2. **Update URL assertions** in your tests if you check for `//www.gravatar.com` — it is now `https://www.gravatar.com`
+3. **Replace `forceDefault(null)`** with `forceDefault(false)` if used
+4. **Update `getData()` consumers** if they relied on the PHP serialized format structure
+5. **Test your application thoroughly**
+
+
 From 5.x to 6.x
 ---------------
 
@@ -174,16 +288,16 @@ use Gravatar\Enum\DefaultImage;
 use Gravatar\Enum\ProfileFormat;
 
 // Using enums (recommended)
-$image->setMaxRating(Rating::PG);
-$image->setExtension(Extension::WEBP);
-$image->setDefaultImage(DefaultImage::ROBOHASH);
-$profile->setFormat(ProfileFormat::JSON);
+$image->maxRating(Rating::PG);
+$image->extension(Extension::WEBP);
+$image->defaultImage(DefaultImage::ROBOHASH);
+$profile->format(ProfileFormat::JSON);
 
 // Strings still work for backward compatibility
-$image->setMaxRating('pg');
-$image->setExtension('webp');
-$image->setDefaultImage('robohash');
-$profile->setFormat('json');
+$image->maxRating('pg');
+$image->extension('webp');
+$image->defaultImage('robohash');
+$profile->format('json');
 ```
 
 **2. Fluent Shorthand Methods**
@@ -191,15 +305,15 @@ $profile->setFormat('json');
 New fluent methods provide cleaner, more expressive syntax:
 
 ```php
-// Before (v5.x and still valid in v6.x)
-$image->setMaxRating('pg')
-      ->setExtension('webp')
-      ->setDefaultImage('robohash');
+// v6.x with helper methods
+$image->maxRating('pg')
+      ->extension('webp')
+      ->defaultImage('robohash');
 
-// After (v6.x with enums)
-$image->setMaxRating(Rating::PG)
-      ->setExtension(Extension::WEBP)
-      ->setDefaultImage(DefaultImage::ROBOHASH);
+// v6.x with enums
+$image->maxRating(Rating::PG)
+      ->extension(Extension::WEBP)
+      ->defaultImage(DefaultImage::ROBOHASH);
 
 // NEW in v6.x (fluent shorthand)
 $image->ratingPg()
