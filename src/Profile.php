@@ -65,15 +65,4 @@ class Profile extends Gravatar implements GravatarInterface
 
         return $data;
     }
-
-    /**
-     * Get the email hash to use (SHA-256 for Gravatar API v3).
-     *
-     * @param  string  $email  The email to get the hash for.
-     * @return string The hashed form of the email.
-     */
-    protected static function hash(string $email): string
-    {
-        return hash('sha256', $email);
-    }
 }

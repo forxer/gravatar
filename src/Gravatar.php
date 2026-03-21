@@ -13,7 +13,7 @@ class Gravatar
 {
     use HasEmail;
 
-    public const string URL = 'https://www.gravatar.com/';
+    public const string URL = 'https://api.gravatar.com/';
 
     /**
      * Construct Gravatar instance
@@ -120,13 +120,13 @@ class Gravatar
     }
 
     /**
-     * Get the email hash to use.
+     * Get the email hash to use (SHA-256).
      *
      * @param  string  $email  The email to get the hash for.
      * @return string The hashed form of the email.
      */
     protected static function hash(string $email): string
     {
-        return md5($email);
+        return hash('sha256', $email);
     }
 }

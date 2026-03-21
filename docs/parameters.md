@@ -43,7 +43,7 @@ What happens when an email address has no matching Gravatar image or when the gr
 
 By default, this:
 
-![Default Gravatar image](https://www.gravatar.com/avatar/00000000000000000000000000000000)
+![Default Gravatar image](https://api.gravatar.com/avatar/00000000000000000000000000000000)
 
 If you'd prefer to use your own default image, then you can easily do so by supplying the URL to an image.
 In addition to allowing you to use your own image, Gravatar has a number of built in options which you can also use as defaults.
@@ -61,13 +61,13 @@ To use these options, just pass one of the following keywords:
 * robohash: a generated robot with different colors, faces, etc
 * blank: a transparent PNG image
 
-![Initials default Gravatar image](https://www.gravatar.com/avatar/00000000000000000000000000000000?d=initials&initials=JD&f=y)
-![Mystery-person default Gravatar image](https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y)
-![Identicon default Gravatar image](https://www.gravatar.com/avatar/00000000000000000000000000000000?d=identicon&f=y)
-![Wavatar default Gravatar image](https://www.gravatar.com/avatar/00000000000000000000000000000000?d=wavatar&f=y)
-![Retro default Gravatar image](https://www.gravatar.com/avatar/00000000000000000000000000000000?d=retro&f=y)
-![Robohash default Gravatar image](https://www.gravatar.com/avatar/00000000000000000000000000000000?d=robohash&f=y)
-![Blank default Gravatar image](https://www.gravatar.com/avatar/00000000000000000000000000000000?d=blank&f=y)
+![Initials default Gravatar image](https://api.gravatar.com/avatar/00000000000000000000000000000000?d=initials&initials=JD&f=y)
+![Mystery-person default Gravatar image](https://api.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y)
+![Identicon default Gravatar image](https://api.gravatar.com/avatar/00000000000000000000000000000000?d=identicon&f=y)
+![Wavatar default Gravatar image](https://api.gravatar.com/avatar/00000000000000000000000000000000?d=wavatar&f=y)
+![Retro default Gravatar image](https://api.gravatar.com/avatar/00000000000000000000000000000000?d=retro&f=y)
+![Robohash default Gravatar image](https://api.gravatar.com/avatar/00000000000000000000000000000000?d=robohash&f=y)
+![Blank default Gravatar image](https://api.gravatar.com/avatar/00000000000000000000000000000000?d=blank&f=y)
 
 **1. Using helper method:**
 

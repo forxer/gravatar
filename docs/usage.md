@@ -78,11 +78,11 @@ $image = gravatar('email@example.com');
 
 // Get a Gravatar image URL:
 $imageUrl = gravatar('email@example.com')->url();
-// return: https://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
+// return: https://api.gravatar.com/avatar/{sha256_hash}
 
 // Show a Gravatar image URL:
 echo gravatar('email@example.com');
-// output: https://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
+// output: https://api.gravatar.com/avatar/{sha256_hash}
 
 // With optional parameters:
 $avatar = gravatar('email@example.com')
@@ -134,11 +134,11 @@ $image = Gravatar::image('email@example.com');
 
 // Get a single Gravatar image URL:
 $imageUrl = Gravatar::image('email@example.com')->url();
-// return: https://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
+// return: https://api.gravatar.com/avatar/{sha256_hash}
 
 // Show a single Gravatar image URL:
 echo Gravatar::image('email@example.com');
-// output: https://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
+// output: https://api.gravatar.com/avatar/{sha256_hash}
 
 // Get a Gravatar profile instance:
 $profile = Gravatar::profile('email@example.com');

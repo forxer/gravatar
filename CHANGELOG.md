@@ -6,8 +6,9 @@ CHANGELOG
 
 ### Breaking Changes
 
-- **Migrated profiles to Gravatar REST API v3**: profile URLs now use `https://api.gravatar.com/v3/profiles/{sha256_hash}` instead of `https://www.gravatar.com/{md5_hash}`
-- **Profile hashing changed from MD5 to SHA-256**: required by the new Gravatar API v3 (image URLs still use MD5)
+- **Migrated to Gravatar REST API**: all URLs now use `https://api.gravatar.com/` instead of `https://www.gravatar.com/`
+- **Hashing changed from MD5 to SHA-256**: both image and profile URLs now use SHA-256 hashes
+- **Profile URLs use the v3 REST API**: `https://api.gravatar.com/v3/profiles/{sha256_hash}`
 - **Removed `ProfileFormat` enum**: the v3 API only returns JSON, format selection is no longer available
 - **Removed `ProfileHasFormat` trait**: the `format` property and all format methods (`format()`, `formatJson()`, `formatXml()`, `formatPhp()`, `formatVcf()`, `formatQr()`) have been removed from `Profile`
 - **Removed `InvalidProfileFormatException`**: no longer needed without format validation
@@ -16,7 +17,7 @@ CHANGELOG
 - **`email` property is now read-only** (`private(set)`): use `->email($value)` method instead of `->email = $value`
 - **`initials`, `initialsName` and `forceDefault` properties are now read-only** (`private(set)`): use their respective methods instead of direct assignment
 - **`forceDefault()` method no longer accepts `null`**: parameter changed from `?bool` to `bool`
-- **Image URLs now use `https://`** instead of protocol-relative `//` — `Gravatar::URL` changed from `'//www.gravatar.com/'` to `'https://www.gravatar.com/'`
+- **`Gravatar::URL` changed** from `'https://www.gravatar.com/'` to `'https://api.gravatar.com/'`
 
 ### Security
 

@@ -6,21 +6,25 @@ From 6.x to 7.x
 
 ### Breaking Changes
 
-**1. Profiles migrated to Gravatar REST API v3**
+**1. Migrated to Gravatar REST API with SHA-256 hashing**
 
-The old Gravatar profile API (`gravatar.com/{md5}.json`) has been deprecated by Gravatar. Profile URLs now use the new REST API v3:
+All URLs now use `api.gravatar.com` instead of `www.gravatar.com`, and **SHA-256** instead of MD5 (as recommended by Gravatar's documentation).
 
 ```php
 // Before (v6.x)
+echo Gravatar::image('email@example.com');
+// output: https://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
+
 echo Gravatar::profile('email@example.com');
 // output: https://www.gravatar.com/5658ffccee7f0ebfda2b226238b1eb6e
 
 // After (v7.x)
-echo Gravatar::profile('email@example.com');
-// output: https://api.gravatar.com/v3/profiles/a06161...(sha256)
-```
+echo Gravatar::image('email@example.com');
+// output: https://api.gravatar.com/avatar/{sha256_hash}
 
-Profile hashing now uses **SHA-256** instead of MD5 (required by the v3 API). Image URLs are not affected and still use MD5.
+echo Gravatar::profile('email@example.com');
+// output: https://api.gravatar.com/v3/profiles/{sha256_hash}
+```
 
 **2. `ProfileFormat` enum, `ProfileHasFormat` trait and `InvalidProfileFormatException` removed**
 
@@ -67,18 +71,14 @@ Gravatar::profile('email@example.com');
 Gravatar::profiles($emails);
 ```
 
-**5. Image URLs now use `https://`**
-
-The `Gravatar::URL` constant changed from protocol-relative `//www.gravatar.com/` to `https://www.gravatar.com/`. All generated image URLs now start with `https://`.
+**5. `Gravatar::URL` constant changed**
 
 ```php
 // Before (v6.x)
-echo Gravatar::image('email@example.com');
-// output: //www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
+Gravatar::URL; // 'https://www.gravatar.com/'
 
 // After (v7.x)
-echo Gravatar::image('email@example.com');
-// output: https://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
+Gravatar::URL; // 'https://api.gravatar.com/'
 ```
 
 **6. Some properties are now read-only (`private(set)`)**
@@ -105,7 +105,11 @@ echo $image->forceDefault;  // ✅
 
 Note: properties with validation hooks (`size`, `extension`, `maxRating`, `defaultImage`) remain publicly writable.
 
-**7. `forceDefault()` method no longer accepts `null`**
+**7. Hashing changed from MD5 to SHA-256**
+
+All generated URLs now use SHA-256 hashes instead of MD5. If you stored or compared MD5 hashes from this library, you need to update them.
+
+**8. `forceDefault()` method no longer accepts `null`**
 
 ```php
 // Before (v6.x)
@@ -115,7 +119,7 @@ $image->forceDefault(null); // worked
 $image->forceDefault(false); // use false instead
 ```
 
-**8. Emails are automatically normalized**
+**9. Emails are automatically normalized**
 
 Emails are now trimmed and lowercased when set via the property hook. This ensures consistent hashing but may affect code that relies on the original casing:
 
@@ -170,10 +174,11 @@ try {
 2. **Remove `$format` parameter** from `Gravatar::profile()` and `Gravatar::profiles()` calls
 3. **Update `getData()` consumers**: the response is now a flat array with keys like `hash`, `display_name`, `avatar_url` instead of the old `entry`-wrapped format
 4. **Remove `InvalidProfileFormatException`** from any catch blocks
-5. **Search for direct property assignments** on `email`, `initials`, `initialsName`, `forceDefault` and replace with method calls
-6. **Update URL assertions** in your tests if you check for `//www.gravatar.com` — it is now `https://www.gravatar.com`
-7. **Replace `forceDefault(null)`** with `forceDefault(false)` if used
-8. **Test your application thoroughly**
+5. **Update any stored MD5 hashes** — the library now uses SHA-256
+6. **Search for direct property assignments** on `email`, `initials`, `initialsName`, `forceDefault` and replace with method calls
+7. **Update URL assertions** in your tests if you check for `www.gravatar.com` — it is now `api.gravatar.com`
+8. **Replace `forceDefault(null)`** with `forceDefault(false)` if used
+9. **Test your application thoroughly**
 
 
 From 5.x to 6.x

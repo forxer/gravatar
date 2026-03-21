@@ -14,8 +14,8 @@ it('builds a basic avatar URL', function () {
     $image = new Image('test@example.com');
     $url = $image->url();
 
-    expect($url)->toStartWith('https://www.gravatar.com/avatar/')
-        ->and($url)->toContain(md5('test@example.com'));
+    expect($url)->toStartWith('https://api.gravatar.com/avatar/')
+        ->and($url)->toContain(hash('sha256', 'test@example.com'));
 });
 
 it('is stringable', function () {
@@ -102,7 +102,7 @@ it('creates a copy with same settings', function () {
     expect($copy)->not->toBe($image)
         ->and($copy->size)->toBe(200)
         ->and($copy->extension)->toBe('webp')
-        ->and($copy->url())->toContain(md5('other@example.com'));
+        ->and($copy->url())->toContain(hash('sha256', 'other@example.com'));
 });
 
 it('creates a copy without changing email', function () {

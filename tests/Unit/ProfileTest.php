@@ -74,13 +74,9 @@ it('getData returns profile data from Gravatar API', function () {
         ->and($data)->toHaveKey('display_name');
 });
 
-it('uses SHA-256 hash instead of MD5', function () {
+it('uses SHA-256 hash', function () {
     $profile = new Profile('test@example.com');
     $url = $profile->url();
 
-    $sha256 = hash('sha256', 'test@example.com');
-    $md5 = md5('test@example.com');
-
-    expect($url)->toContain($sha256)
-        ->and($url)->not->toContain($md5);
+    expect($url)->toContain(hash('sha256', 'test@example.com'));
 });
