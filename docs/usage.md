@@ -78,11 +78,11 @@ $image = gravatar('email@example.com');
 
 // Get a Gravatar image URL:
 $imageUrl = gravatar('email@example.com')->url();
-// return: //www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
+// return: https://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
 
 // Show a Gravatar image URL:
 echo gravatar('email@example.com');
-// output: //www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
+// output: https://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
 
 // With optional parameters:
 $avatar = gravatar('email@example.com')
@@ -110,7 +110,7 @@ $profile = gravatar_profile('email@example.com');
 
 // Get a Gravatar profile URL:
 echo gravatar_profile('email@example.com');
-// output: https//www.gravatar.com/5658ffccee7f0ebfda2b226238b1eb6e
+// output: https://www.gravatar.com/5658ffccee7f0ebfda2b226238b1eb6e
 
 // With format parameter:
 $profileUrl = gravatar_profile('email@example.com')
@@ -139,11 +139,11 @@ $image = Gravatar::image('email@example.com');
 
 // Get a single Gravatar image URL:
 $imageUrl = Gravatar::image('email@example.com')->url();
-// return: //www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
+// return: https://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
 
 // Show a single Gravatar image URL:
 echo Gravatar::image('email@example.com');
-// output: //www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
+// output: https://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
 
 // Get a Gravatar profile instance:
 $profile = Gravatar::profile('email@example.com');
@@ -151,7 +151,7 @@ $profile = Gravatar::profile('email@example.com');
 
 // Get a  Gravatar profile URL:
 echo Gravatar::profile('email@example.com');
-// output: https//www.gravatar.com/5658ffccee7f0ebfda2b226238b1eb6e
+// output: https://www.gravatar.com/5658ffccee7f0ebfda2b226238b1eb6e
 ```
 
 ### Multiples Gravatar images/profiles
@@ -232,13 +232,9 @@ $gravatarImages = Gravatar::images($emails);
 // or pass it to the `Gravatar\Image` constructor
 $gravatarImage = new Gravatar\Image($email);
 
-// or use the `email()` helper method of a `Gravatar\Image` instance
+// or use the `email()` method of a `Gravatar\Image` instance
 $gravatarImage = new Gravatar\Image();
 $gravatarImage->email($email);
-
-// or assign to the `email` property directly
-$gravatarImage = new Gravatar\Image();
-$gravatarImage->email = $email;
 ```
 
 These previous examples are also valid for the profile.
@@ -251,13 +247,9 @@ $gravatarProfiles = Gravatar::profiles($emails);
 // or pass it to the `Gravatar\Profile` constructor
 $gravatarProfile = new Gravatar\Profile($email);
 
-// or use the `email()` helper method of a `Gravatar\Profile` instance
+// or use the `email()` method of a `Gravatar\Profile` instance
 $gravatarProfile = new Gravatar\Profile();
 $gravatarProfile->email($email);
-
-// or assign to the `email` property directly
-$gravatarProfile = new Gravatar\Profile();
-$gravatarProfile->email = $email;
 ```
 
 Copying instances

@@ -1,6 +1,6 @@
-[![Latest Stable Version](http://poser.pugx.org/forxer/gravatar/v)](https://packagist.org/packages/forxer/gravatar)
-[![Total Downloads](http://poser.pugx.org/forxer/gravatar/downloads)](https://packagist.org/packages/forxer/gravatar)
-[![License](http://poser.pugx.org/forxer/gravatar/license)](https://packagist.org/packages/forxer/gravatar)
+[![Latest Stable Version](https://poser.pugx.org/forxer/gravatar/v)](https://packagist.org/packages/forxer/gravatar)
+[![Total Downloads](https://poser.pugx.org/forxer/gravatar/downloads)](https://packagist.org/packages/forxer/gravatar)
+[![License](https://poser.pugx.org/forxer/gravatar/license)](https://packagist.org/packages/forxer/gravatar)
 
 Gravatar
 ========
@@ -50,7 +50,7 @@ use Gravatar\Gravatar;
 
 // Get a Gravatar image URL
 echo Gravatar::image('email@example.com');
-// output: //www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
+// output: https://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
 
 // With parameters
 $avatar = Gravatar::image('email@example.com')
@@ -73,9 +73,9 @@ use Gravatar\Enum\Rating;
 use Gravatar\Enum\Extension;
 use Gravatar\Enum\DefaultImage;
 
-$image->setMaxRating(Rating::PG)
-    ->setExtension(Extension::WEBP)
-    ->setDefaultImage(DefaultImage::ROBOHASH);
+$image->maxRating(Rating::PG)
+    ->extension(Extension::WEBP)
+    ->defaultImage(DefaultImage::ROBOHASH);
 ```
 
 **Fluent shorthand methods** for cleaner syntax:
