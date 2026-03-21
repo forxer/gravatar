@@ -28,6 +28,19 @@ it('accepts null email', function () {
     expect($image->email)->toBeNull();
 });
 
+it('normalizes email to lowercase and trimmed', function () {
+    $image = new Image();
+    $image->email(' Test@Example.COM ');
+
+    expect($image->email)->toBe('test@example.com');
+});
+
+it('normalizes email set via constructor', function () {
+    $image = new Image(' Test@Example.COM ');
+
+    expect($image->email)->toBe('test@example.com');
+});
+
 it('prevents direct property assignment', function () {
     $image = new Image('test@example.com');
     $image->email = 'other@example.com';

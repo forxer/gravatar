@@ -93,13 +93,13 @@ class Gravatar
     }
 
     /**
-     * Get the email hash to use (after cleaning the string).
+     * Get the email hash to use.
      *
      * @param  string  $email  The email to get the hash for.
      * @return string The hashed form of the email.
      */
     protected static function hash(string $email): string
     {
-        return md5(strtolower(trim($email)));
+        return md5($email);
     }
 }
