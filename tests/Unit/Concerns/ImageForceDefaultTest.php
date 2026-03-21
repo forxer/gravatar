@@ -46,3 +46,8 @@ it('gets force default value when called without arguments', function () {
     $image->enableForceDefault();
     expect($image->forceDefault())->toBeTrue();
 });
+
+it('prevents direct property assignment', function () {
+    $image = new Image('test@example.com');
+    $image->forceDefault = true;
+})->throws(Error::class);

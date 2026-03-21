@@ -9,7 +9,7 @@ trait HasEmail
     /**
      * The address email to be used.
      */
-    public ?string $email = null;
+    public private(set) ?string $email = null;
 
     /**
      * Get or set the address email to be used.

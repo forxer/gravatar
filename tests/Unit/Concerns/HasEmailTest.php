@@ -27,3 +27,8 @@ it('accepts null email', function () {
 
     expect($image->email)->toBeNull();
 });
+
+it('prevents direct property assignment', function () {
+    $image = new Image('test@example.com');
+    $image->email = 'other@example.com';
+})->throws(Error::class);

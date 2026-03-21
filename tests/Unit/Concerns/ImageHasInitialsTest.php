@@ -43,3 +43,13 @@ it('sets default image to initials and name via withInitialsName', function () {
         ->and($image->defaultImage)->toBe('initials')
         ->and($image->initialsName)->toBe('John Doe');
 });
+
+it('prevents direct property assignment on initials', function () {
+    $image = new Image('test@example.com');
+    $image->initials = 'JD';
+})->throws(Error::class);
+
+it('prevents direct property assignment on initialsName', function () {
+    $image = new Image('test@example.com');
+    $image->initialsName = 'John Doe';
+})->throws(Error::class);
