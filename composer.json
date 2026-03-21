@@ -22,9 +22,10 @@
 		"php": "^8.4"
 	},
     "require-dev": {
-        "laravel/pint": "^1.25.1",
-        "rector/rector": "^2.2.8"
-    },
+		"laravel/pint": "^1.29.0",
+		"pestphp/pest": "*",
+		"rector/rector": "^2.3.9"
+	},
 	"autoload": {
 		"psr-4": {
 			"Gravatar\\": "src"
@@ -32,7 +33,10 @@
 	},
     "config": {
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+		"allow-plugins": {
+			"pestphp/pest-plugin": true
+		}
     },
     "minimum-stability": "dev",
     "prefer-stable": true

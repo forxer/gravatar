@@ -1,0 +1,34 @@
+<?php
+
+declare(strict_types=1);
+
+use Gravatar\Exception\InvalidDefaultImageException;
+use Gravatar\Exception\InvalidImageExtensionException;
+use Gravatar\Exception\InvalidImageSizeException;
+use Gravatar\Exception\InvalidMaxRatingImageException;
+use Gravatar\Exception\InvalidProfileFormatException;
+use Gravatar\Exception\MissingEmailException;
+
+it('MissingEmailException extends LogicException', function () {
+    expect(new MissingEmailException())->toBeInstanceOf(LogicException::class);
+});
+
+it('InvalidDefaultImageException extends DomainException', function () {
+    expect(new InvalidDefaultImageException())->toBeInstanceOf(DomainException::class);
+});
+
+it('InvalidImageExtensionException extends DomainException', function () {
+    expect(new InvalidImageExtensionException())->toBeInstanceOf(DomainException::class);
+});
+
+it('InvalidImageSizeException extends DomainException', function () {
+    expect(new InvalidImageSizeException())->toBeInstanceOf(DomainException::class);
+});
+
+it('InvalidMaxRatingImageException extends DomainException', function () {
+    expect(new InvalidMaxRatingImageException())->toBeInstanceOf(DomainException::class);
+});
+
+it('InvalidProfileFormatException extends DomainException', function () {
+    expect(new InvalidProfileFormatException())->toBeInstanceOf(DomainException::class);
+});
