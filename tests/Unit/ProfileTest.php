@@ -62,6 +62,35 @@ it('creates a copy without changing email', function () {
         ->and($copy->url())->toBe($profile->url());
 });
 
+it('getData uses json format and returns null on failure', function () {
+    $profile = new Profile();
+
+    set_error_handler(fn () => true);
+
+    try {
+        $result = $profile->getData('test@example.com');
+    } finally {
+        restore_error_handler();
+    }
+
+    expect($result)->toBeNull()
+        ->and($profile->format)->toBe('json');
+});
+
+it('getData returns profile data from Gravatar API', function () {
+    $email = $_ENV['GRAVATAR_TEST_EMAIL'] ?? '';
+
+    if ($email === '') {
+        $this->markTestSkipped('GRAVATAR_TEST_EMAIL not set');
+    }
+
+    $profile = new Profile();
+    $data = $profile->getData($email);
+
+    expect($data)->toBeArray()
+        ->and($data)->toHaveKey('entry');
+});
+
 it('supports fluent format shorthand methods', function () {
     $profile = new Profile('test@example.com');
 

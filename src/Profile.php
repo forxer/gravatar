@@ -75,11 +75,15 @@ class Profile extends Gravatar implements Stringable
     public function getData(string $email): ?array
     {
         $this->email($email);
-        $this->format('php');
+        $this->format('json');
 
         $profile = file_get_contents($this->url());
 
-        $data = unserialize($profile);
+        if ($profile === false) {
+            return null;
+        }
+
+        $data = json_decode($profile, true);
 
         if (! \is_array($data)) {
             return null;
