@@ -29,13 +29,13 @@ class Profile extends Gravatar implements Stringable
      */
     public function url(): string
     {
-        if (\in_array($this->email, [null, '', '0'], true)) {
+        if ($this->email === null || $this->email === '') {
             throw new MissingEmailException('You should set an email address before trying to get a Gravatar profile URL');
         }
 
         return 'https:'.static::URL
             .$this->hash($this->email)
-            .(\in_array($this->format, [null, '', '0'], true) ? '' : '.'.$this->format);
+            .($this->format === null ? '' : '.'.$this->format);
     }
 
     /**

@@ -37,14 +37,14 @@ class Image extends Gravatar implements Stringable
      */
     public function url(): string
     {
-        if (\in_array($this->email, [null, '', '0'], true)) {
+        if ($this->email === null || $this->email === '') {
             throw new MissingEmailException('You should set an email address before trying to get a Gravatar URL');
         }
 
         return static::URL
             .'avatar/'
             .$this->hash($this->email)
-            .(\in_array($this->extension, [null, '', '0'], true) ? '' : '.'.$this->extension)
+            .($this->extension === null ? '' : '.'.$this->extension)
             .$this->queryString();
     }
 
@@ -87,7 +87,7 @@ class Image extends Gravatar implements Stringable
             $params['s'] = $this->size;
         }
 
-        if (! \in_array($this->defaultImage, [null, '', '0'], true)) {
+        if ($this->defaultImage !== null) {
             $params['d'] = $this->defaultImage;
         }
 
@@ -99,7 +99,7 @@ class Image extends Gravatar implements Stringable
             }
         }
 
-        if (! \in_array($this->maxRating, [null, '', '0'], true)) {
+        if ($this->maxRating !== null) {
             $params['r'] = $this->maxRating;
         }
 
