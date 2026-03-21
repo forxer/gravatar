@@ -19,18 +19,6 @@ class Image extends Gravatar implements Stringable
     use ImageHasSize;
 
     /**
-     * Construct Image instance
-     *
-     * @param  string|null  $email  The email address to use for the Gravatar.
-     */
-    public function __construct(?string $email = null)
-    {
-        if ($email !== null) {
-            $this->email($email);
-        }
-    }
-
-    /**
      * Build the avatar URL based on the provided settings.
      *
      * @return string The URL to the gravatar.
@@ -56,24 +44,6 @@ class Image extends Gravatar implements Stringable
     public function __toString(): string
     {
         return $this->url();
-    }
-
-    /**
-     * Create a copy of the current Image instance with all its settings.
-     * Optionally change the email address in the copy.
-     *
-     * @param  string|null  $email  Optional new email address for the copy.
-     * @return static A new Image instance with the same settings.
-     */
-    public function copy(?string $email = null): static
-    {
-        $copy = clone $this;
-
-        if ($email !== null) {
-            $copy->email($email);
-        }
-
-        return $copy;
     }
 
     /**

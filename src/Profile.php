@@ -13,18 +13,6 @@ class Profile extends Gravatar implements Stringable
     use ProfileHasFormat;
 
     /**
-     * Construct Profile instance
-     *
-     * @param  string|null  $email  The email address to use for the Gravatar profile.
-     */
-    public function __construct(?string $email = null)
-    {
-        if ($email !== null) {
-            $this->email($email);
-        }
-    }
-
-    /**
      * Build the profile URL based on the provided email address.
      */
     public function url(): string
@@ -46,24 +34,6 @@ class Profile extends Gravatar implements Stringable
     public function __toString(): string
     {
         return $this->url();
-    }
-
-    /**
-     * Create a copy of the current Profile instance with all its settings.
-     * Optionally change the email address in the copy.
-     *
-     * @param  string|null  $email  Optional new email address for the copy.
-     * @return static A new Profile instance with the same settings.
-     */
-    public function copy(?string $email = null): static
-    {
-        $copy = clone $this;
-
-        if ($email !== null) {
-            $copy->email($email);
-        }
-
-        return $copy;
     }
 
     /**

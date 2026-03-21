@@ -17,6 +17,36 @@ class Gravatar
     public const string URL = 'https://www.gravatar.com/';
 
     /**
+     * Construct Gravatar instance
+     *
+     * @param  string|null  $email  The email address to use.
+     */
+    public function __construct(?string $email = null)
+    {
+        if ($email !== null) {
+            $this->email($email);
+        }
+    }
+
+    /**
+     * Create a copy of the current instance with all its settings.
+     * Optionally change the email address in the copy.
+     *
+     * @param  string|null  $email  Optional new email address for the copy.
+     * @return static A new instance with the same settings.
+     */
+    public function copy(?string $email = null): static
+    {
+        $copy = clone $this;
+
+        if ($email !== null) {
+            $copy->email($email);
+        }
+
+        return $copy;
+    }
+
+    /**
      * Return the Gravatar image based on the provided email address.
      *
      * @param  string|null  $email  The email to get the gravatar for.

@@ -17,7 +17,7 @@ trait ImageForceDefault
      * @param  bool|null  $forceDefault  Should we force or not the default image to be always load.
      * @return bool|$this
      */
-    public function forceDefault(?bool $forceDefault = null): bool|static
+    public function forceDefault(bool $forceDefault = false): bool|static
     {
         if (\func_num_args() === 0) {
             return $this->forceDefault;
