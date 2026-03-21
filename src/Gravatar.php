@@ -14,7 +14,7 @@ class Gravatar
 {
     use HasEmail;
 
-    public const URL = '//www.gravatar.com/';
+    public const string URL = 'https://www.gravatar.com/';
 
     /**
      * Return the Gravatar image based on the provided email address.

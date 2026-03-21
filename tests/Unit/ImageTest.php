@@ -9,7 +9,7 @@ it('builds a basic avatar URL', function () {
     $image = new Image('test@example.com');
     $url = $image->url();
 
-    expect($url)->toStartWith('//www.gravatar.com/avatar/')
+    expect($url)->toStartWith('https://www.gravatar.com/avatar/')
         ->and($url)->toContain(md5('test@example.com'));
 });
 

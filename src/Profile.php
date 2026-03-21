@@ -33,7 +33,7 @@ class Profile extends Gravatar implements Stringable
             throw new MissingEmailException('You should set an email address before trying to get a Gravatar profile URL');
         }
 
-        return 'https:'.static::URL
+        return static::URL
             .$this->hash($this->email)
             .($this->format === null ? '' : '.'.$this->format);
     }
