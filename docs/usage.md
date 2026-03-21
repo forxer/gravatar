@@ -108,14 +108,9 @@ echo $avatar;
 $profile = gravatar_profile('email@example.com');
 // return: Gravatar\Profile
 
-// Get a Gravatar profile URL:
+// Get a Gravatar profile URL (uses API v3):
 echo gravatar_profile('email@example.com');
-// output: https://www.gravatar.com/5658ffccee7f0ebfda2b226238b1eb6e
-
-// With format parameter:
-$profileUrl = gravatar_profile('email@example.com')
-    ->format('json')
-    ->url();
+// output: https://api.gravatar.com/v3/profiles/{sha256_hash}
 ```
 
 Use the Gravatar base class
@@ -149,9 +144,9 @@ echo Gravatar::image('email@example.com');
 $profile = Gravatar::profile('email@example.com');
 // return Gravatar\Profile
 
-// Get a  Gravatar profile URL:
+// Get a Gravatar profile URL (uses API v3):
 echo Gravatar::profile('email@example.com');
-// output: https://www.gravatar.com/5658ffccee7f0ebfda2b226238b1eb6e
+// output: https://api.gravatar.com/v3/profiles/{sha256_hash}
 ```
 
 ### Multiples Gravatar images/profiles
@@ -210,9 +205,8 @@ foreach ($emails as $email) {
     echo $gravatarImage->email($email)->url();
 }
 
-// Get multiples Gravatar profiles in JSON
+// Get multiples Gravatar profile URLs (API v3)
 $gravatarProfile = new GravatarProfile();
-$gravatarProfile->format('json');
 
 foreach ($emails as $email) {
     echo $gravatarProfile->email($email)->url();
@@ -276,7 +270,6 @@ The same works for profiles:
 
 ```php
 $baseProfile = new Gravatar\Profile();
-$baseProfile->format('json');
 
 $profile1 = $baseProfile->copy('user1@example.com');
 $profile2 = $baseProfile->copy('user2@example.com');

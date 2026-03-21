@@ -1,12 +1,18 @@
 CHANGELOG
 =========
 
-7.0.0 (2026-03-21)
+7.0.0 UNRELEASED
 ------------------
 
 ### Breaking Changes
 
-- **`Profile::getData()` now uses JSON format** instead of PHP serialized format — the returned array structure may differ slightly
+- **Migrated profiles to Gravatar REST API v3**: profile URLs now use `https://api.gravatar.com/v3/profiles/{sha256_hash}` instead of `https://www.gravatar.com/{md5_hash}`
+- **Profile hashing changed from MD5 to SHA-256**: required by the new Gravatar API v3 (image URLs still use MD5)
+- **Removed `ProfileFormat` enum**: the v3 API only returns JSON, format selection is no longer available
+- **Removed `ProfileHasFormat` trait**: the `format` property and all format methods (`format()`, `formatJson()`, `formatXml()`, `formatPhp()`, `formatVcf()`, `formatQr()`) have been removed from `Profile`
+- **Removed `InvalidProfileFormatException`**: no longer needed without format validation
+- **`Gravatar::profile()` and `Gravatar::profiles()` no longer accept a `$format` parameter**
+- **`Profile::getData()` response structure changed**: returns the flat v3 API response (with keys like `hash`, `display_name`, `avatar_url`) instead of the old `entry`-wrapped format
 - **`email` property is now read-only** (`private(set)`): use `->email($value)` method instead of `->email = $value`
 - **`initials`, `initialsName` and `forceDefault` properties are now read-only** (`private(set)`): use their respective methods instead of direct assignment
 - **`forceDefault()` method no longer accepts `null`**: parameter changed from `?bool` to `bool`
@@ -15,20 +21,21 @@ CHANGELOG
 ### Security
 
 - **Fixed unsafe deserialization**: `Profile::getData()` now uses `json_decode()` instead of `unserialize()` on remote data, preventing potential deserialization vulnerability (CWE-502)
-- **Added error handling**: `Profile::getData()` now properly handles `file_get_contents()` failures by returning `null`
+- **Added error handling**: `Profile::getData()` now properly handles HTTP request failures by returning `null`
 
 ### Improvements
 
+- **New `Profile::API_URL` constant**: `https://api.gravatar.com/v3/profiles/` for the v3 REST API endpoint
 - **PHP 8.4 typed class constant**: `Gravatar::URL` is now typed as `const string`
 - **PHP 8.4 asymmetric visibility**: `email`, `initials`, `initialsName` and `forceDefault` properties use `public private(set)` to prevent external mutation while keeping read access
 - **Email normalization via property hook**: emails are now automatically trimmed and lowercased when set, ensuring consistent hashing
 - **Simplified enum validation**: property hooks now use `Enum::tryFrom()` instead of manual `in_array()` + `values()` checks
 - **Extracted shared code**: constructor and `copy()` method moved from `Image`/`Profile` to parent `Gravatar` class
 - **`GravatarInterface`**: new interface extending `Stringable` with `url()` and `copy()` methods, implemented by both `Image` and `Profile`
-- **`GravatarExceptionInterface`**: new marker interface implemented by all 6 exception classes, enabling generic `catch` blocks
+- **`GravatarExceptionInterface`**: new marker interface implemented by all 5 exception classes, enabling generic `catch` blocks
 - **Replaced `in_array([null, '', '0'])` pattern** with explicit `=== null` or `=== null || === ''` checks
 - **PHPStan at level max**: added static analysis configuration with zero errors
-- **Test suite**: added 157 tests with Pest covering all classes, traits, enums, and exceptions
+- **Test suite**: added comprehensive tests with Pest covering all classes, traits, enums, and exceptions
 - **Composer scripts**: added `lint`, `fix`, `analyse`, `refactor`, `test`, and `check` scripts
 
 ### Documentation
@@ -36,6 +43,7 @@ CHANGELOG
 - Updated all URLs to use `https://` instead of `http://` or protocol-relative
 - Fixed non-existent method names in examples (`setMaxRating` → `maxRating`, etc.)
 - Removed documentation examples for direct assignment of `private(set)` properties
+- Updated profile documentation to reflect the new Gravatar API v3
 
 
 6.0.0 (2025-11-17)
@@ -151,7 +159,6 @@ CHANGELOG
 - Introduced `gravatar()` and `gravatar_profile()` helpers functions
 - Split code into traits to facilitate reading and maintenance
 - Used more type hinting for consistency
-- Renamed most variables to facilitate reading
 
 
 2.1.0 (2017-08-31)

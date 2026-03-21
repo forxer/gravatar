@@ -29,7 +29,7 @@ The library uses a trait-based composition pattern with PHP 8.4 property hooks f
 
 - **`Gravatar`** — Base class: static factory (`::image()`, `::images()`, `::profile()`, `::profiles()`), shared constructor, `copy()`, and `hash()` method. Uses `HasEmail` trait.
 - **`Image extends Gravatar implements GravatarInterface`** — Builds avatar URLs via `url()`. Composes traits for each URL parameter.
-- **`Profile extends Gravatar implements GravatarInterface`** — Builds profile URLs, has `getData()` for fetching profile data (JSON format).
+- **`Profile extends Gravatar implements GravatarInterface`** — Builds profile API v3 URLs (`api.gravatar.com/v3/profiles/{sha256}`), has `getData()` for fetching profile data. Overrides `hash()` to use SHA-256 instead of MD5.
 
 **Concerns (traits)** use a dual getter/setter pattern: `->method()` returns value, `->method($val)` sets and returns `$this`. Properties with validation use PHP 8.4 **property hooks** (`set` hooks with union type acceptance like `set(Extension|string|null $value)`). Hookless properties use **asymmetric visibility** (`public private(set)`).
 
@@ -37,14 +37,13 @@ The library uses a trait-based composition pattern with PHP 8.4 property hooks f
 - `ImageHasDefault` — composes `ImageForceDefault` + `ImageHasInitials`, property hook with enum validation
 - `ImageHasSize` — property hook with size range validation
 - `ImageHasExtension`, `ImageHasMaxRating` — property hooks with enum validation via `tryFrom()`
-- `ProfileHasFormat` — property hook with enum validation via `tryFrom()`
 - `ImageForceDefault`, `ImageHasInitials` — `private(set)` properties
 
 **Interfaces:**
 - `GravatarInterface extends Stringable` — contract for `url()` and `copy()`, implemented by Image and Profile
-- `GravatarExceptionInterface` — marker interface implemented by all 6 exceptions
+- `GravatarExceptionInterface` — marker interface implemented by all 5 exceptions
 
-**Enums** (`src/Enum/`) — Backed string enums: `DefaultImage`, `Extension`, `Rating`, `ProfileFormat`. Each has `values()` and `tryFromString()` helpers.
+**Enums** (`src/Enum/`) — Backed string enums: `DefaultImage`, `Extension`, `Rating`. Each has `values()` and `tryFromString()` helpers.
 
 **Exceptions** (`src/Exception/`) — One per validation rule. `MissingEmailException` extends `LogicException`, all others extend `DomainException`. All implement `GravatarExceptionInterface`.
 

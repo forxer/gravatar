@@ -48,24 +48,18 @@ it('creates a Profile instance via profile()', function () {
     $profile = Gravatar::profile('test@example.com');
 
     expect($profile)->toBeInstanceOf(Profile::class);
-    expect((string) $profile)->toContain('gravatar.com/');
-});
-
-it('creates a Profile with format', function () {
-    $profile = Gravatar::profile('test@example.com', format: 'json');
-
-    expect($profile->url())->toEndWith('.json');
+    expect((string) $profile)->toContain('api.gravatar.com/v3/profiles/');
 });
 
 it('creates multiple Profile instances via profiles()', function () {
     $emails = ['a@example.com', 'b@example.com'];
-    $profiles = Gravatar::profiles($emails, format: 'json');
+    $profiles = Gravatar::profiles($emails);
 
     expect($profiles)->toHaveCount(2)
         ->and($profiles)->toHaveKeys($emails);
 
     foreach ($profiles as $profile) {
         expect($profile)->toBeInstanceOf(Profile::class)
-            ->and($profile->url())->toEndWith('.json');
+            ->and($profile->url())->toContain('api.gravatar.com/v3/profiles/');
     }
 });

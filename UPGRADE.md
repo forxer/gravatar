@@ -6,7 +6,68 @@ From 6.x to 7.x
 
 ### Breaking Changes
 
-**1. Image URLs now use `https://`**
+**1. Profiles migrated to Gravatar REST API v3**
+
+The old Gravatar profile API (`gravatar.com/{md5}.json`) has been deprecated by Gravatar. Profile URLs now use the new REST API v3:
+
+```php
+// Before (v6.x)
+echo Gravatar::profile('email@example.com');
+// output: https://www.gravatar.com/5658ffccee7f0ebfda2b226238b1eb6e
+
+// After (v7.x)
+echo Gravatar::profile('email@example.com');
+// output: https://api.gravatar.com/v3/profiles/a06161...(sha256)
+```
+
+Profile hashing now uses **SHA-256** instead of MD5 (required by the v3 API). Image URLs are not affected and still use MD5.
+
+**2. `ProfileFormat` enum, `ProfileHasFormat` trait and `InvalidProfileFormatException` removed**
+
+The Gravatar API v3 only returns JSON. All format-related code has been removed:
+
+```php
+// Before (v6.x)
+$profile->format('json');
+$profile->formatJson();
+$profile->formatXml();
+Gravatar::profile('email@example.com', 'json');
+
+// After (v7.x) — none of these exist anymore
+Gravatar::profile('email@example.com');
+```
+
+The `format` property, `format()` method, and all shorthand methods (`formatJson()`, `formatXml()`, `formatPhp()`, `formatVcf()`, `formatQr()`) have been removed.
+
+**3. `Profile::getData()` response structure changed**
+
+The v3 API returns a flat JSON object instead of the old `entry`-wrapped format:
+
+```php
+// Before (v6.x)
+$data = $profile->getData('email@example.com');
+$entry = $data['entry'][0];
+
+// After (v7.x) — flat structure
+$data = $profile->getData('email@example.com');
+$displayName = $data['display_name'];
+$avatarUrl = $data['avatar_url'];
+$location = $data['location'];
+```
+
+**4. `Gravatar::profile()` and `Gravatar::profiles()` no longer accept a `$format` parameter**
+
+```php
+// Before (v6.x)
+Gravatar::profile('email@example.com', 'json');
+Gravatar::profiles($emails, 'json');
+
+// After (v7.x)
+Gravatar::profile('email@example.com');
+Gravatar::profiles($emails);
+```
+
+**5. Image URLs now use `https://`**
 
 The `Gravatar::URL` constant changed from protocol-relative `//www.gravatar.com/` to `https://www.gravatar.com/`. All generated image URLs now start with `https://`.
 
@@ -20,7 +81,7 @@ echo Gravatar::image('email@example.com');
 // output: https://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
 ```
 
-**2. Some properties are now read-only (`private(set)`)**
+**6. Some properties are now read-only (`private(set)`)**
 
 The `email`, `initials`, `initialsName` and `forceDefault` properties can no longer be assigned directly. Use the corresponding methods instead:
 
@@ -42,9 +103,9 @@ echo $image->email;         // ✅
 echo $image->forceDefault;  // ✅
 ```
 
-Note: properties with validation hooks (`size`, `extension`, `maxRating`, `defaultImage`, `format`) remain publicly writable.
+Note: properties with validation hooks (`size`, `extension`, `maxRating`, `defaultImage`) remain publicly writable.
 
-**3. `forceDefault()` method no longer accepts `null`**
+**7. `forceDefault()` method no longer accepts `null`**
 
 ```php
 // Before (v6.x)
@@ -54,19 +115,7 @@ $image->forceDefault(null); // worked
 $image->forceDefault(false); // use false instead
 ```
 
-**4. `Profile::getData()` now uses JSON format**
-
-The method uses `json_decode()` instead of `unserialize()`. The returned array structure follows the Gravatar JSON API format.
-
-```php
-// Before (v6.x) — used PHP serialized format
-$profile->format; // 'php' after getData()
-
-// After (v7.x) — uses JSON format
-$profile->format; // 'json' after getData()
-```
-
-**5. Emails are automatically normalized**
+**8. Emails are automatically normalized**
 
 Emails are now trimmed and lowercased when set via the property hook. This ensures consistent hashing but may affect code that relies on the original casing:
 
@@ -77,7 +126,16 @@ echo $image->email; // 'user@example.com'
 
 ### New Features in v7.x
 
-**1. `GravatarInterface`**
+**1. `Profile::API_URL` constant**
+
+The new Gravatar API v3 base URL is available as a typed class constant:
+
+```php
+echo Profile::API_URL;
+// https://api.gravatar.com/v3/profiles/
+```
+
+**2. `GravatarInterface`**
 
 Both `Image` and `Profile` now implement `GravatarInterface` (which extends `Stringable`), enabling type-hinting:
 
@@ -88,7 +146,7 @@ function renderUrl(GravatarInterface $gravatar): string
 }
 ```
 
-**2. `GravatarExceptionInterface`**
+**3. `GravatarExceptionInterface`**
 
 All package exceptions implement `GravatarExceptionInterface`, allowing generic catch:
 
@@ -100,19 +158,22 @@ try {
 }
 ```
 
-**3. PHPStan and Test Suite**
+**4. PHPStan and Test Suite**
 
 - PHPStan configured at level max with zero errors
-- 157 tests with Pest
+- Comprehensive tests with Pest
 - Composer scripts: `composer check` runs lint + analyse + test
 
 ### Migration Steps
 
-1. **Search for direct property assignments** on `email`, `initials`, `initialsName`, `forceDefault` and replace with method calls
-2. **Update URL assertions** in your tests if you check for `//www.gravatar.com` — it is now `https://www.gravatar.com`
-3. **Replace `forceDefault(null)`** with `forceDefault(false)` if used
-4. **Update `getData()` consumers** if they relied on the PHP serialized format structure
-5. **Test your application thoroughly**
+1. **Remove all `ProfileFormat` usage**: delete `use Gravatar\Enum\ProfileFormat` imports, remove `format()` / `formatJson()` / etc. calls on Profile instances
+2. **Remove `$format` parameter** from `Gravatar::profile()` and `Gravatar::profiles()` calls
+3. **Update `getData()` consumers**: the response is now a flat array with keys like `hash`, `display_name`, `avatar_url` instead of the old `entry`-wrapped format
+4. **Remove `InvalidProfileFormatException`** from any catch blocks
+5. **Search for direct property assignments** on `email`, `initials`, `initialsName`, `forceDefault` and replace with method calls
+6. **Update URL assertions** in your tests if you check for `//www.gravatar.com` — it is now `https://www.gravatar.com`
+7. **Replace `forceDefault(null)`** with `forceDefault(false)` if used
+8. **Test your application thoroughly**
 
 
 From 5.x to 6.x

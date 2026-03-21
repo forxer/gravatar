@@ -10,7 +10,6 @@ Available enums
 use Gravatar\Enum\Rating;
 use Gravatar\Enum\Extension;
 use Gravatar\Enum\DefaultImage;
-use Gravatar\Enum\ProfileFormat;
 ```
 
 **Rating enum** - Maximum image rating:
@@ -37,13 +36,6 @@ use Gravatar\Enum\ProfileFormat;
 - `DefaultImage::RETRO` - 8-bit arcade style
 - `DefaultImage::ROBOHASH` - Generated robot
 - `DefaultImage::BLANK` - Transparent PNG
-
-**ProfileFormat enum** - Profile data formats:
-- `ProfileFormat::JSON`
-- `ProfileFormat::XML`
-- `ProfileFormat::PHP`
-- `ProfileFormat::VCF`
-- `ProfileFormat::QR`
 
 Usage examples
 --------------
@@ -127,21 +119,10 @@ $image->defaultImageRobohash();    // equivalent to $image->defaultImage(Default
 $image->defaultImageBlank();       // equivalent to $image->defaultImage(DefaultImage::BLANK)
 ```
 
-**Available for profile formats:**
-
-```php
-$profile->formatJson();  // equivalent to $profile->format(ProfileFormat::JSON) or $profile->format = ProfileFormat::JSON
-$profile->formatXml();   // equivalent to $profile->format(ProfileFormat::XML)
-$profile->formatPhp();   // equivalent to $profile->format(ProfileFormat::PHP)
-$profile->formatVcf();   // equivalent to $profile->format(ProfileFormat::VCF)
-$profile->formatQr();    // equivalent to $profile->format(ProfileFormat::QR)
-```
-
 **Complete example with fluent methods:**
 
 ```php
 use Gravatar\Image;
-use Gravatar\Profile;
 
 // Clean, expressive syntax
 $image = (new Image('email@example.com'))
@@ -149,9 +130,6 @@ $image = (new Image('email@example.com'))
     ->ratingPg()
     ->extensionWebp()
     ->defaultImageRobohash();
-
-$profile = (new Profile('email@example.com'))
-    ->formatJson();
 
 // Compare with the equivalent traditional syntax using helper methods:
 $image = (new Image('email@example.com'))

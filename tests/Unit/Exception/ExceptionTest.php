@@ -7,7 +7,6 @@ use Gravatar\Exception\InvalidDefaultImageException;
 use Gravatar\Exception\InvalidImageExtensionException;
 use Gravatar\Exception\InvalidImageSizeException;
 use Gravatar\Exception\InvalidMaxRatingImageException;
-use Gravatar\Exception\InvalidProfileFormatException;
 use Gravatar\Exception\MissingEmailException;
 
 it('MissingEmailException extends LogicException', function () {
@@ -30,10 +29,6 @@ it('InvalidMaxRatingImageException extends DomainException', function () {
     expect(new InvalidMaxRatingImageException())->toBeInstanceOf(DomainException::class);
 });
 
-it('InvalidProfileFormatException extends DomainException', function () {
-    expect(new InvalidProfileFormatException())->toBeInstanceOf(DomainException::class);
-});
-
 it('all exceptions implement GravatarExceptionInterface', function (string $class) {
     expect(new $class())->toBeInstanceOf(GravatarExceptionInterface::class);
 })->with([
@@ -42,5 +37,4 @@ it('all exceptions implement GravatarExceptionInterface', function (string $clas
     InvalidImageExtensionException::class,
     InvalidImageSizeException::class,
     InvalidMaxRatingImageException::class,
-    InvalidProfileFormatException::class,
 ]);

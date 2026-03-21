@@ -250,40 +250,15 @@ $gravatarImage->disableForceDefault();
 $isForcing = $gravatarImage->forcingDefault(); // false
 ```
 
-Gravatar profile format
------------------------
+Gravatar profile data
+---------------------
 
-Gravatar profile data may be requested in different data formats for simpler programmatic access.
-
-**1. Using helper method:**
+Since version 7.0, profile data is fetched from the Gravatar REST API v3 (`https://api.gravatar.com/v3/profiles/{sha256_hash}`). The API always returns JSON.
 
 ```php
-// Set format
-$gravatarProfile = new Gravatar\Profile($email);
-$gravatarProfile->format('json');
+// Get profile data
+$profile = new Gravatar\Profile();
+$data = $profile->getData('email@example.com');
 
-// Get format
-$format = $gravatarProfile->format();
-
-// Via static methods
-$gravatarProfile = Gravatar::profile($email, 'json');
+// $data contains keys like: hash, display_name, avatar_url, location, description, etc.
 ```
-
-**2. Using direct property access:**
-
-```php
-// Set format
-$gravatarProfile = new Gravatar\Profile($email);
-$gravatarProfile->format = 'json';
-
-// Get format
-$format = $gravatarProfile->format;
-```
-
-The following formats are supported:
-
-* JSON ; use 'json' as argument
-* XML ; use 'xml' as argument
-* PHP ; use 'php' as argument
-* VCF/vCard ; use 'vcf' as argument
-* QR Code ; use 'qr' as argument

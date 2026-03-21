@@ -7,7 +7,6 @@ namespace Gravatar;
 use Gravatar\Concerns\HasEmail;
 use Gravatar\Enum\DefaultImage;
 use Gravatar\Enum\Extension;
-use Gravatar\Enum\ProfileFormat;
 use Gravatar\Enum\Rating;
 
 class Gravatar
@@ -97,29 +96,24 @@ class Gravatar
      * Return the Gravatar profile URL based on the provided email address.
      *
      * @param  string|null  $email  The email to get the Gravatar profile for.
-     * @param  ProfileFormat|string|null  $format  The profile format to use.
      */
-    public static function profile(?string $email = null, ProfileFormat|string|null $format = null): Profile
+    public static function profile(?string $email = null): Profile
     {
-        $profile = new Profile($email);
-        $profile->format = $format;
-
-        return $profile;
+        return new Profile($email);
     }
 
     /**
      * Return multiples Gravatar profiles based on the provided array of emails addresses.
      *
      * @param  array<string>  $emails  The emails list to get the Gravatar profiles for.
-     * @param  ProfileFormat|string|null  $format  The profile format to use.
      * @return array<string, Profile>
      */
-    public static function profiles(array $emails, ProfileFormat|string|null $format = null): array
+    public static function profiles(array $emails): array
     {
         $profiles = [];
 
         foreach ($emails as $email) {
-            $profiles[$email] = static::profile($email, $format);
+            $profiles[$email] = static::profile($email);
         }
 
         return $profiles;

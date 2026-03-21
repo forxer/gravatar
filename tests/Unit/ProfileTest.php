@@ -10,12 +10,12 @@ it('implements GravatarInterface', function () {
     expect(new Profile('test@example.com'))->toBeInstanceOf(GravatarInterface::class);
 });
 
-it('builds a basic profile URL', function () {
+it('builds a profile API URL with SHA-256 hash', function () {
     $profile = new Profile('test@example.com');
     $url = $profile->url();
 
-    expect($url)->toStartWith('https://www.gravatar.com/')
-        ->and($url)->toContain(md5('test@example.com'));
+    expect($url)->toStartWith('https://api.gravatar.com/v3/profiles/')
+        ->and($url)->toContain(hash('sha256', 'test@example.com'));
 });
 
 it('is stringable', function () {
@@ -34,29 +34,13 @@ it('throws MissingEmailException for empty email', function () {
     $profile->url();
 })->throws(MissingEmailException::class);
 
-it('builds URL with format', function () {
-    $profile = new Profile('test@example.com');
-    $profile->format('json');
-
-    expect($profile->url())->toEndWith('.json');
-});
-
-it('builds URL without format by default', function () {
-    $profile = new Profile('test@example.com');
-    $hash = md5('test@example.com');
-
-    expect($profile->url())->toEndWith($hash);
-});
-
 it('creates a copy with same settings', function () {
     $profile = new Profile('test@example.com');
-    $profile->formatJson();
 
     $copy = $profile->copy('other@example.com');
 
     expect($copy)->not->toBe($profile)
-        ->and($copy->format)->toBe('json')
-        ->and($copy->url())->toContain(md5('other@example.com'));
+        ->and($copy->url())->toContain(hash('sha256', 'other@example.com'));
 });
 
 it('creates a copy without changing email', function () {
@@ -67,19 +51,12 @@ it('creates a copy without changing email', function () {
         ->and($copy->url())->toBe($profile->url());
 });
 
-it('getData uses json format and returns null on failure', function () {
+it('getData returns null on failure', function () {
     $profile = new Profile();
 
-    set_error_handler(fn () => true);
+    $result = $profile->getData('nonexistent-email-that-does-not-exist@example-404.invalid');
 
-    try {
-        $result = $profile->getData('test@example.com');
-    } finally {
-        restore_error_handler();
-    }
-
-    expect($result)->toBeNull()
-        ->and($profile->format)->toBe('json');
+    expect($result)->toBeNull();
 });
 
 it('getData returns profile data from Gravatar API', function () {
@@ -93,15 +70,17 @@ it('getData returns profile data from Gravatar API', function () {
     $data = $profile->getData($email);
 
     expect($data)->toBeArray()
-        ->and($data)->toHaveKey('entry');
+        ->and($data)->toHaveKey('hash')
+        ->and($data)->toHaveKey('display_name');
 });
 
-it('supports fluent format shorthand methods', function () {
+it('uses SHA-256 hash instead of MD5', function () {
     $profile = new Profile('test@example.com');
+    $url = $profile->url();
 
-    expect($profile->formatJson()->url())->toEndWith('.json');
-    expect($profile->formatXml()->url())->toEndWith('.xml');
-    expect($profile->formatPhp()->url())->toEndWith('.php');
-    expect($profile->formatVcf()->url())->toEndWith('.vcf');
-    expect($profile->formatQr()->url())->toEndWith('.qr');
+    $sha256 = hash('sha256', 'test@example.com');
+    $md5 = md5('test@example.com');
+
+    expect($url)->toContain($sha256)
+        ->and($url)->not->toContain($md5);
 });

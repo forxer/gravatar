@@ -26,7 +26,7 @@ Quick Links
 
 **New in version 6.0:**
 - PHP 8.4 property hooks with asymmetric visibility
-- Type-safe enum classes (Rating, Extension, DefaultImage, ProfileFormat)
+- Type-safe enum classes (Rating, Extension, DefaultImage)
 - Fluent shorthand methods for cleaner syntax
 - Removal of getter methods - use direct property access instead
 - Removal of short alias methods - use full names or fluent methods
@@ -37,7 +37,7 @@ Quick Links
 - [Fluent shorthand methods](enums.md#fluent-shorthand-methods)
 - [Copying instances](usage.md#copying-instances)
 - [Default images](parameters.md#default-gravatar-image)
-- [Profile formats](parameters.md#gravatar-profile-format)
+- [Profile data](parameters.md#gravatar-profile-data)
 
 Need Help?
 ----------

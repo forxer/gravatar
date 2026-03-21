@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace Gravatar;
 
-use Gravatar\Concerns\ProfileHasFormat;
 use Gravatar\Exception\MissingEmailException;
 
 class Profile extends Gravatar implements GravatarInterface
 {
-    use ProfileHasFormat;
+    /**
+     * The Gravatar REST API v3 base URL.
+     */
+    public const string API_URL = 'https://api.gravatar.com/v3/profiles/';
 
     /**
-     * Build the profile URL based on the provided email address.
+     * Build the profile API URL based on the provided email address.
      */
     public function url(): string
     {
@@ -20,9 +22,7 @@ class Profile extends Gravatar implements GravatarInterface
             throw new MissingEmailException('You should set an email address before trying to get a Gravatar profile URL');
         }
 
-        return static::URL
-            .$this->hash($this->email)
-            .($this->format === null ? '' : '.'.$this->format);
+        return static::API_URL.$this->hash($this->email);
     }
 
     /**
@@ -44,9 +44,14 @@ class Profile extends Gravatar implements GravatarInterface
     public function getData(string $email): ?array
     {
         $this->email($email);
-        $this->format = 'json';
 
-        $profile = file_get_contents($this->url());
+        $context = stream_context_create([
+            'http' => [
+                'header' => 'User-Agent: forxer/gravatar PHP',
+            ],
+        ]);
+
+        $profile = @file_get_contents($this->url(), false, $context);
 
         if ($profile === false) {
             return null;
@@ -58,10 +63,17 @@ class Profile extends Gravatar implements GravatarInterface
             return null;
         }
 
-        if (! isset($data['entry'])) {
-            return null;
-        }
-
         return $data;
+    }
+
+    /**
+     * Get the email hash to use (SHA-256 for Gravatar API v3).
+     *
+     * @param  string  $email  The email to get the hash for.
+     * @return string The hashed form of the email.
+     */
+    protected static function hash(string $email): string
+    {
+        return hash('sha256', $email);
     }
 }
