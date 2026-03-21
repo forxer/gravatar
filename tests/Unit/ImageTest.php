@@ -3,7 +3,12 @@
 declare(strict_types=1);
 
 use Gravatar\Exception\MissingEmailException;
+use Gravatar\GravatarInterface;
 use Gravatar\Image;
+
+it('implements GravatarInterface', function () {
+    expect(new Image('test@example.com'))->toBeInstanceOf(GravatarInterface::class);
+});
 
 it('builds a basic avatar URL', function () {
     $image = new Image('test@example.com');

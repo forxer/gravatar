@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Gravatar\Exception\GravatarExceptionInterface;
 use Gravatar\Exception\InvalidDefaultImageException;
 use Gravatar\Exception\InvalidImageExtensionException;
 use Gravatar\Exception\InvalidImageSizeException;
@@ -32,3 +33,14 @@ it('InvalidMaxRatingImageException extends DomainException', function () {
 it('InvalidProfileFormatException extends DomainException', function () {
     expect(new InvalidProfileFormatException())->toBeInstanceOf(DomainException::class);
 });
+
+it('all exceptions implement GravatarExceptionInterface', function (string $class) {
+    expect(new $class())->toBeInstanceOf(GravatarExceptionInterface::class);
+})->with([
+    MissingEmailException::class,
+    InvalidDefaultImageException::class,
+    InvalidImageExtensionException::class,
+    InvalidImageSizeException::class,
+    InvalidMaxRatingImageException::class,
+    InvalidProfileFormatException::class,
+]);

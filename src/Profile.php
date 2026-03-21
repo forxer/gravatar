@@ -6,9 +6,8 @@ namespace Gravatar;
 
 use Gravatar\Concerns\ProfileHasFormat;
 use Gravatar\Exception\MissingEmailException;
-use Stringable;
 
-class Profile extends Gravatar implements Stringable
+class Profile extends Gravatar implements GravatarInterface
 {
     use ProfileHasFormat;
 

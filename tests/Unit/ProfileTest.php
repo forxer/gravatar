@@ -3,7 +3,12 @@
 declare(strict_types=1);
 
 use Gravatar\Exception\MissingEmailException;
+use Gravatar\GravatarInterface;
 use Gravatar\Profile;
+
+it('implements GravatarInterface', function () {
+    expect(new Profile('test@example.com'))->toBeInstanceOf(GravatarInterface::class);
+});
 
 it('builds a basic profile URL', function () {
     $profile = new Profile('test@example.com');
