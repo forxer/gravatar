@@ -57,7 +57,9 @@ trait ProfileHasFormat
      */
     public function formatJson(): static
     {
-        return $this->format(ProfileFormat::JSON);
+        $this->format = ProfileFormat::JSON;
+
+        return $this;
     }
 
     /**
@@ -65,7 +67,9 @@ trait ProfileHasFormat
      */
     public function formatXml(): static
     {
-        return $this->format(ProfileFormat::XML);
+        $this->format = ProfileFormat::XML;
+
+        return $this;
     }
 
     /**
@@ -73,7 +77,9 @@ trait ProfileHasFormat
      */
     public function formatPhp(): static
     {
-        return $this->format(ProfileFormat::PHP);
+        $this->format = ProfileFormat::PHP;
+
+        return $this;
     }
 
     /**
@@ -81,7 +87,9 @@ trait ProfileHasFormat
      */
     public function formatVcf(): static
     {
-        return $this->format(ProfileFormat::VCF);
+        $this->format = ProfileFormat::VCF;
+
+        return $this;
     }
 
     /**
@@ -89,6 +97,8 @@ trait ProfileHasFormat
      */
     public function formatQr(): static
     {
-        return $this->format(ProfileFormat::QR);
+        $this->format = ProfileFormat::QR;
+
+        return $this;
     }
 }

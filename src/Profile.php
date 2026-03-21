@@ -39,12 +39,12 @@ class Profile extends Gravatar implements GravatarInterface
      * Return profile data based on the provided email address.
      *
      * @param  string  $email  The email to get the gravatar profile for
-     * @return array<string, mixed>|null
+     * @return array<mixed, mixed>|null
      */
     public function getData(string $email): ?array
     {
         $this->email($email);
-        $this->format('json');
+        $this->format = 'json';
 
         $profile = file_get_contents($this->url());
 

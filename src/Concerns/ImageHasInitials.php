@@ -58,8 +58,10 @@ trait ImageHasInitials
      */
     public function withInitials(string $initials): static
     {
-        return $this->defaultImage('initials')
-            ->initials($initials);
+        $this->defaultImage = 'initials';
+        $this->initials = $initials;
+
+        return $this;
     }
 
     /**
@@ -70,7 +72,9 @@ trait ImageHasInitials
      */
     public function withInitialsName(string $initialsName): static
     {
-        return $this->defaultImage('initials')
-            ->initialsName($initialsName);
+        $this->defaultImage = 'initials';
+        $this->initialsName = $initialsName;
+
+        return $this;
     }
 }

@@ -57,7 +57,9 @@ trait ImageHasMaxRating
      */
     public function ratingG(): static
     {
-        return $this->maxRating(Rating::G);
+        $this->maxRating = Rating::G;
+
+        return $this;
     }
 
     /**
@@ -65,7 +67,9 @@ trait ImageHasMaxRating
      */
     public function ratingPg(): static
     {
-        return $this->maxRating(Rating::PG);
+        $this->maxRating = Rating::PG;
+
+        return $this;
     }
 
     /**
@@ -73,7 +77,9 @@ trait ImageHasMaxRating
      */
     public function ratingR(): static
     {
-        return $this->maxRating(Rating::R);
+        $this->maxRating = Rating::R;
+
+        return $this;
     }
 
     /**
@@ -81,6 +87,8 @@ trait ImageHasMaxRating
      */
     public function ratingX(): static
     {
-        return $this->maxRating(Rating::X);
+        $this->maxRating = Rating::X;
+
+        return $this;
     }
 }

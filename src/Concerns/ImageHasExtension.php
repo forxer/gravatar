@@ -57,7 +57,9 @@ trait ImageHasExtension
      */
     public function extensionJpg(): static
     {
-        return $this->extension(Extension::JPG);
+        $this->extension = Extension::JPG;
+
+        return $this;
     }
 
     /**
@@ -65,7 +67,9 @@ trait ImageHasExtension
      */
     public function extensionJpeg(): static
     {
-        return $this->extension(Extension::JPEG);
+        $this->extension = Extension::JPEG;
+
+        return $this;
     }
 
     /**
@@ -73,7 +77,9 @@ trait ImageHasExtension
      */
     public function extensionGif(): static
     {
-        return $this->extension(Extension::GIF);
+        $this->extension = Extension::GIF;
+
+        return $this;
     }
 
     /**
@@ -81,7 +87,9 @@ trait ImageHasExtension
      */
     public function extensionPng(): static
     {
-        return $this->extension(Extension::PNG);
+        $this->extension = Extension::PNG;
+
+        return $this;
     }
 
     /**
@@ -89,6 +97,8 @@ trait ImageHasExtension
      */
     public function extensionWebp(): static
     {
-        return $this->extension(Extension::WEBP);
+        $this->extension = Extension::WEBP;
+
+        return $this;
     }
 }

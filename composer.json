@@ -24,6 +24,7 @@
     "require-dev": {
 		"laravel/pint": "^1.29.0",
 		"pestphp/pest": "*",
+		"phpstan/phpstan": "^2.1",
 		"rector/rector": "^2.3.9"
 	},
 	"autoload": {
@@ -37,6 +38,14 @@
 		"allow-plugins": {
 			"pestphp/pest-plugin": true
 		}
+    },
+    "scripts": {
+        "lint": "pint --test",
+        "fix": "pint",
+        "analyse": "phpstan analyse",
+        "refactor": "rector",
+        "test": "pest",
+        "check": ["@lint", "@analyse", "@test"]
     },
     "minimum-stability": "dev",
     "prefer-stable": true

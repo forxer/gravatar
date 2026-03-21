@@ -63,7 +63,9 @@ trait ImageHasDefault
      */
     public function defaultImageInitials(): static
     {
-        return $this->defaultImage(DefaultImage::INITIALS);
+        $this->defaultImage = DefaultImage::INITIALS;
+
+        return $this;
     }
 
     /**
@@ -71,7 +73,9 @@ trait ImageHasDefault
      */
     public function defaultImageColor(): static
     {
-        return $this->defaultImage(DefaultImage::COLOR);
+        $this->defaultImage = DefaultImage::COLOR;
+
+        return $this;
     }
 
     /**
@@ -79,7 +83,9 @@ trait ImageHasDefault
      */
     public function defaultImageNotFound(): static
     {
-        return $this->defaultImage(DefaultImage::NOT_FOUND);
+        $this->defaultImage = DefaultImage::NOT_FOUND;
+
+        return $this;
     }
 
     /**
@@ -87,7 +93,9 @@ trait ImageHasDefault
      */
     public function defaultImageMp(): static
     {
-        return $this->defaultImage(DefaultImage::MYSTERY_PERSON);
+        $this->defaultImage = DefaultImage::MYSTERY_PERSON;
+
+        return $this;
     }
 
     /**
@@ -95,7 +103,9 @@ trait ImageHasDefault
      */
     public function defaultImageIdenticon(): static
     {
-        return $this->defaultImage(DefaultImage::IDENTICON);
+        $this->defaultImage = DefaultImage::IDENTICON;
+
+        return $this;
     }
 
     /**
@@ -103,7 +113,9 @@ trait ImageHasDefault
      */
     public function defaultImageMonsterid(): static
     {
-        return $this->defaultImage(DefaultImage::MONSTERID);
+        $this->defaultImage = DefaultImage::MONSTERID;
+
+        return $this;
     }
 
     /**
@@ -111,7 +123,9 @@ trait ImageHasDefault
      */
     public function defaultImageWavatar(): static
     {
-        return $this->defaultImage(DefaultImage::WAVATAR);
+        $this->defaultImage = DefaultImage::WAVATAR;
+
+        return $this;
     }
 
     /**
@@ -119,7 +133,9 @@ trait ImageHasDefault
      */
     public function defaultImageRetro(): static
     {
-        return $this->defaultImage(DefaultImage::RETRO);
+        $this->defaultImage = DefaultImage::RETRO;
+
+        return $this;
     }
 
     /**
@@ -127,7 +143,9 @@ trait ImageHasDefault
      */
     public function defaultImageRobohash(): static
     {
-        return $this->defaultImage(DefaultImage::ROBOHASH);
+        $this->defaultImage = DefaultImage::ROBOHASH;
+
+        return $this;
     }
 
     /**
@@ -135,6 +153,8 @@ trait ImageHasDefault
      */
     public function defaultImageBlank(): static
     {
-        return $this->defaultImage(DefaultImage::BLANK);
+        $this->defaultImage = DefaultImage::BLANK;
+
+        return $this;
     }
 }

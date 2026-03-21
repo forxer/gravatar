@@ -58,11 +58,17 @@ class Gravatar
      */
     public static function image(?string $email = null, ?int $size = null, DefaultImage|string|null $defaultImage = null, Rating|string|null $rating = null, Extension|string|null $extension = null, bool $forceDefault = false): Image
     {
-        return new Image($email)
-            ->size($size)
-            ->defaultImage($defaultImage, $forceDefault)
-            ->maxRating($rating)
-            ->extension($extension);
+        $image = new Image($email);
+        $image->size = $size;
+        $image->defaultImage = $defaultImage;
+        $image->maxRating = $rating;
+        $image->extension = $extension;
+
+        if ($forceDefault) {
+            $image->enableForceDefault();
+        }
+
+        return $image;
     }
 
     /**
@@ -81,11 +87,7 @@ class Gravatar
         $images = [];
 
         foreach ($emails as $email) {
-            $images[$email] = new Image($email)
-                ->size($size)
-                ->defaultImage($defaultImage, $forceDefault)
-                ->maxRating($rating)
-                ->extension($extension);
+            $images[$email] = static::image($email, $size, $defaultImage, $rating, $extension, $forceDefault);
         }
 
         return $images;
@@ -99,8 +101,10 @@ class Gravatar
      */
     public static function profile(?string $email = null, ProfileFormat|string|null $format = null): Profile
     {
-        return new Profile($email)
-            ->format($format);
+        $profile = new Profile($email);
+        $profile->format = $format;
+
+        return $profile;
     }
 
     /**
@@ -115,8 +119,7 @@ class Gravatar
         $profiles = [];
 
         foreach ($emails as $email) {
-            $profiles[$email] = new Profile($email)
-                ->format($format);
+            $profiles[$email] = static::profile($email, $format);
         }
 
         return $profiles;
