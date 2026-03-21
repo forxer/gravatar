@@ -14,23 +14,24 @@ trait ImageHasExtension
      */
     public ?string $extension = null {
         set(Extension|string|null $value) {
-            if ($value !== null) {
-                // Convert Extension enum to string if needed
-                $stringValue = $value instanceof Extension ? $value->value : $value;
-                $stringValue = strtolower($stringValue);
-
-                if (! \in_array($stringValue, Extension::values())) {
-                    throw new InvalidImageExtensionException(\sprintf(
-                        'The extension "%s" is not a valid one, extension image for Gravatar can be: "%s"',
-                        $stringValue,
-                        implode('", "', Extension::values())
-                    ));
-                }
-
-                $this->extension = $stringValue;
-            } else {
+            if ($value === null) {
                 $this->extension = null;
+
+                return;
             }
+
+            $stringValue = $value instanceof Extension ? $value->value : strtolower($value);
+            $enum = Extension::tryFrom($stringValue);
+
+            if ($enum === null) {
+                throw new InvalidImageExtensionException(\sprintf(
+                    'The extension "%s" is not a valid one, extension image for Gravatar can be: "%s"',
+                    $stringValue,
+                    implode('", "', Extension::values())
+                ));
+            }
+
+            $this->extension = $enum->value;
         }
     }
 

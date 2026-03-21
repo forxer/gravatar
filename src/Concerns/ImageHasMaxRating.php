@@ -14,23 +14,24 @@ trait ImageHasMaxRating
      */
     public ?string $maxRating = null {
         set(Rating|string|null $value) {
-            if ($value !== null) {
-                // Convert Rating enum to string if needed
-                $stringValue = $value instanceof Rating ? $value->value : $value;
-                $stringValue = strtolower($stringValue);
-
-                if (! \in_array($stringValue, Rating::values())) {
-                    throw new InvalidMaxRatingImageException(\sprintf(
-                        'Invalid rating "%s" specified, only allowed to be used are: "%s"',
-                        $stringValue,
-                        implode('", "', Rating::values())
-                    ));
-                }
-
-                $this->maxRating = $stringValue;
-            } else {
+            if ($value === null) {
                 $this->maxRating = null;
+
+                return;
             }
+
+            $stringValue = $value instanceof Rating ? $value->value : strtolower($value);
+            $enum = Rating::tryFrom($stringValue);
+
+            if ($enum === null) {
+                throw new InvalidMaxRatingImageException(\sprintf(
+                    'Invalid rating "%s" specified, only allowed to be used are: "%s"',
+                    $stringValue,
+                    implode('", "', Rating::values())
+                ));
+            }
+
+            $this->maxRating = $enum->value;
         }
     }
 

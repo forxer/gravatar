@@ -16,23 +16,23 @@ trait ImageHasDefault
      */
     public ?string $defaultImage = null {
         set(DefaultImage|string|null $value) {
-            if ($value !== null) {
-                // Convert DefaultImage enum to string if needed
-                $stringValue = $value instanceof DefaultImage ? $value->value : $value;
-                $stringValue = strtolower($stringValue);
-
-                if (! \in_array($stringValue, DefaultImage::values()) && ! filter_var($stringValue, FILTER_VALIDATE_URL)) {
-                    throw new InvalidDefaultImageException(\sprintf(
-                        'The default image "%s" is not a recognized gravatar "default" and is not a valid URL, default gravatar can be: %s',
-                        $stringValue,
-                        implode(', ', DefaultImage::values())
-                    ));
-                }
-
-                $this->defaultImage = $stringValue;
-            } else {
+            if ($value === null) {
                 $this->defaultImage = null;
+
+                return;
             }
+
+            $stringValue = $value instanceof DefaultImage ? $value->value : strtolower($value);
+
+            if (DefaultImage::tryFrom($stringValue) === null && ! filter_var($stringValue, FILTER_VALIDATE_URL)) {
+                throw new InvalidDefaultImageException(\sprintf(
+                    'The default image "%s" is not a recognized gravatar "default" and is not a valid URL, default gravatar can be: %s',
+                    $stringValue,
+                    implode(', ', DefaultImage::values())
+                ));
+            }
+
+            $this->defaultImage = $stringValue;
         }
     }
 

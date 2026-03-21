@@ -14,22 +14,24 @@ trait ProfileHasFormat
      */
     public ?string $format = null {
         set(ProfileFormat|string|null $value) {
-            if ($value !== null) {
-                // Convert ProfileFormat enum to string if needed
-                $stringValue = $value instanceof ProfileFormat ? $value->value : $value;
-
-                if (! \in_array($stringValue, ProfileFormat::values())) {
-                    throw new InvalidProfileFormatException(\sprintf(
-                        'The format "%s" is not a valid one, profile format for Gravatar can be: "%s"',
-                        $stringValue,
-                        implode('", "', ProfileFormat::values())
-                    ));
-                }
-
-                $this->format = $stringValue;
-            } else {
+            if ($value === null) {
                 $this->format = null;
+
+                return;
             }
+
+            $stringValue = $value instanceof ProfileFormat ? $value->value : $value;
+            $enum = ProfileFormat::tryFrom($stringValue);
+
+            if ($enum === null) {
+                throw new InvalidProfileFormatException(\sprintf(
+                    'The format "%s" is not a valid one, profile format for Gravatar can be: "%s"',
+                    $stringValue,
+                    implode('", "', ProfileFormat::values())
+                ));
+            }
+
+            $this->format = $enum->value;
         }
     }
 
