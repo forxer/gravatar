@@ -253,12 +253,45 @@ $isForcing = $gravatarImage->forcingDefault(); // false
 Gravatar profile data
 ---------------------
 
-Since version 7.0, profile data is fetched from the Gravatar REST API v3 (`https://api.gravatar.com/v3/profiles/{sha256_hash}`). The API always returns JSON.
+Since version 7.0, profile URLs point to the Gravatar REST API v3 (`https://api.gravatar.com/v3/profiles/{sha256_hash}`). The API always returns JSON.
+
+The library provides the URL; fetching the data is your responsibility, using the HTTP client of your choice.
+
+**Example with cURL:**
 
 ```php
-// Get profile data
-$profile = new Gravatar\Profile();
-$data = $profile->getData('email@example.com');
+$profile = new Gravatar\Profile('email@example.com');
 
-// $data contains keys like: hash, display_name, avatar_url, location, description, etc.
+$ch = curl_init($profile->url());
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close($ch);
+
+if ($httpCode === 200) {
+    $data = json_decode($response, true);
+    // $data contains keys like: hash, display_name, avatar_url, location, description, etc.
+}
+```
+
+**Example with Guzzle:**
+
+```php
+$profile = new Gravatar\Profile('email@example.com');
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get($profile->url());
+$data = json_decode($response->getBody()->getContents(), true);
+```
+
+**Example with Laravel HTTP client:**
+
+```php
+$profile = new Gravatar\Profile('email@example.com');
+
+$response = Http::get($profile->url());
+
+if ($response->successful()) {
+    $data = $response->json();
+}
 ```

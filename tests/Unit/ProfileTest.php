@@ -51,29 +51,6 @@ it('creates a copy without changing email', function () {
         ->and($copy->url())->toBe($profile->url());
 });
 
-it('getData returns null on failure', function () {
-    $profile = new Profile();
-
-    $result = $profile->getData('nonexistent-email-that-does-not-exist@example-404.invalid');
-
-    expect($result)->toBeNull();
-});
-
-it('getData returns profile data from Gravatar API', function () {
-    $email = $_ENV['GRAVATAR_TEST_EMAIL'] ?? '';
-
-    if ($email === '') {
-        $this->markTestSkipped('GRAVATAR_TEST_EMAIL not set');
-    }
-
-    $profile = new Profile();
-    $data = $profile->getData($email);
-
-    expect($data)->toBeArray()
-        ->and($data)->toHaveKey('hash')
-        ->and($data)->toHaveKey('display_name');
-});
-
 it('uses SHA-256 hash', function () {
     $profile = new Profile('test@example.com');
     $url = $profile->url();

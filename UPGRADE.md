@@ -43,21 +43,29 @@ Gravatar::profile('email@example.com');
 
 The `format` property, `format()` method, and all shorthand methods (`formatJson()`, `formatXml()`, `formatPhp()`, `formatVcf()`, `formatQr()`) have been removed.
 
-**3. `Profile::getData()` response structure changed**
+**3. `Profile::getData()` has been removed**
 
-The v3 API returns a flat JSON object instead of the old `entry`-wrapped format:
+The library no longer handles HTTP requests. Use `Profile::url()` to get the API endpoint and fetch the data with the HTTP client of your choice:
 
 ```php
 // Before (v6.x)
 $data = $profile->getData('email@example.com');
-$entry = $data['entry'][0];
 
-// After (v7.x) — flat structure
-$data = $profile->getData('email@example.com');
-$displayName = $data['display_name'];
-$avatarUrl = $data['avatar_url'];
-$location = $data['location'];
+// After (v7.x) — use your own HTTP client
+$profile = new Gravatar\Profile('email@example.com');
+
+// Example with cURL
+$ch = curl_init($profile->url());
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$response = curl_exec($ch);
+curl_close($ch);
+$data = json_decode($response, true);
+
+// Example with Laravel
+$data = Http::get($profile->url())->json();
 ```
+
+The v3 API returns a flat JSON object with keys like `hash`, `display_name`, `avatar_url`, `location`, `description`, etc.
 
 **4. `Gravatar::profile()` and `Gravatar::profiles()` no longer accept a `$format` parameter**
 
@@ -172,7 +180,7 @@ try {
 
 1. **Remove all `ProfileFormat` usage**: delete `use Gravatar\Enum\ProfileFormat` imports, remove `format()` / `formatJson()` / etc. calls on Profile instances
 2. **Remove `$format` parameter** from `Gravatar::profile()` and `Gravatar::profiles()` calls
-3. **Update `getData()` consumers**: the response is now a flat array with keys like `hash`, `display_name`, `avatar_url` instead of the old `entry`-wrapped format
+3. **Replace `getData()` calls** with your own HTTP client using `$profile->url()` (see examples above)
 4. **Remove `InvalidProfileFormatException`** from any catch blocks
 5. **Update any stored MD5 hashes** — the library now uses SHA-256
 6. **Search for direct property assignments** on `email`, `initials`, `initialsName`, `forceDefault` and replace with method calls

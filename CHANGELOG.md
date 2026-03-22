@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-7.0.0 UNRELEASED
+7.0.0 (2026-03-22)
 ------------------
 
 ### Breaking Changes
@@ -13,7 +13,7 @@ CHANGELOG
 - **Removed `ProfileHasFormat` trait**: the `format` property and all format methods (`format()`, `formatJson()`, `formatXml()`, `formatPhp()`, `formatVcf()`, `formatQr()`) have been removed from `Profile`
 - **Removed `InvalidProfileFormatException`**: no longer needed without format validation
 - **`Gravatar::profile()` and `Gravatar::profiles()` no longer accept a `$format` parameter**
-- **`Profile::getData()` response structure changed**: returns the flat v3 API response (with keys like `hash`, `display_name`, `avatar_url`) instead of the old `entry`-wrapped format
+- **Removed `Profile::getData()`**: the library no longer handles HTTP requests — use `Profile::url()` with your preferred HTTP client (cURL, Guzzle, Laravel Http, etc.)
 - **`email` property is now read-only** (`private(set)`): use `->email($value)` method instead of `->email = $value`
 - **`initials`, `initialsName` and `forceDefault` properties are now read-only** (`private(set)`): use their respective methods instead of direct assignment
 - **`forceDefault()` method no longer accepts `null`**: parameter changed from `?bool` to `bool`
@@ -21,8 +21,7 @@ CHANGELOG
 
 ### Security
 
-- **Fixed unsafe deserialization**: `Profile::getData()` now uses `json_decode()` instead of `unserialize()` on remote data, preventing potential deserialization vulnerability (CWE-502)
-- **Added error handling**: `Profile::getData()` now properly handles HTTP request failures by returning `null`
+- **Removed HTTP calls from the library**: `Profile::getData()` previously used `file_get_contents()` + `unserialize()` on remote data (CWE-502). The method has been removed entirely — fetching profile data is now the responsibility of the consumer
 
 ### Improvements
 
