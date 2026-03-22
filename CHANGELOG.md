@@ -6,18 +6,15 @@ CHANGELOG
 
 ### Breaking Changes
 
-- **Migrated to new Gravatar URLs**: image URLs now use `https://gravatar.com/` (canonical), profile URLs use `https://api.gravatar.com/v3/profiles/`
 - **Hashing changed from MD5 to SHA-256**: both image and profile URLs now use SHA-256 hashes
-- **Profile URLs use the v3 REST API**: `https://api.gravatar.com/v3/profiles/{sha256_hash}`
-- **Removed `ProfileFormat` enum**: the v3 API only returns JSON, format selection is no longer available
-- **Removed `ProfileHasFormat` trait**: the `format` property and all format methods (`format()`, `formatJson()`, `formatXml()`, `formatPhp()`, `formatVcf()`, `formatQr()`) have been removed from `Profile`
-- **Removed `InvalidProfileFormatException`**: no longer needed without format validation
-- **`Gravatar::profile()` and `Gravatar::profiles()` no longer accept a `$format` parameter**
+- **`Gravatar::URL` changed** from `'//www.gravatar.com/'` to `'https://gravatar.com/'` (canonical URL with HTTPS)
+- **Profile URLs migrated to the v3 REST API**: `https://api.gravatar.com/v3/profiles/{sha256_hash}` (new `Profile::API_URL` constant)
 - **Removed `Profile::getData()`**: the library no longer handles HTTP requests — use `Profile::url()` with your preferred HTTP client (cURL, Guzzle, Laravel Http, etc.)
+- **Removed `ProfileFormat` enum, `ProfileHasFormat` trait and `InvalidProfileFormatException`**: the v3 API only returns JSON, format selection is no longer available
+- **`Gravatar::profile()` and `Gravatar::profiles()` no longer accept a `$format` parameter**
 - **`email` property is now read-only** (`private(set)`): use `->email($value)` method instead of `->email = $value`
 - **`initials`, `initialsName` and `forceDefault` properties are now read-only** (`private(set)`): use their respective methods instead of direct assignment
 - **`forceDefault()` method no longer accepts `null`**: parameter changed from `?bool` to `bool`
-- **`Gravatar::URL` changed** from `'https://www.gravatar.com/'` to `'https://gravatar.com/'`
 
 ### Security
 
@@ -25,7 +22,6 @@ CHANGELOG
 
 ### Improvements
 
-- **New `Profile::API_URL` constant**: `https://api.gravatar.com/v3/profiles/` for the v3 REST API endpoint
 - **PHP 8.4 typed class constant**: `Gravatar::URL` is now typed as `const string`
 - **PHP 8.4 asymmetric visibility**: `email`, `initials`, `initialsName` and `forceDefault` properties use `public private(set)` to prevent external mutation while keeping read access
 - **Email normalization via property hook**: emails are now automatically trimmed and lowercased when set, ensuring consistent hashing
@@ -40,10 +36,10 @@ CHANGELOG
 
 ### Documentation
 
-- Updated all URLs to use `https://` instead of `http://` or protocol-relative
 - Fixed non-existent method names in examples (`setMaxRating` → `maxRating`, etc.)
 - Removed documentation examples for direct assignment of `private(set)` properties
 - Updated profile documentation to reflect the new Gravatar API v3
+- Added examples for fetching profile data with cURL, Guzzle and Laravel HTTP client
 
 
 6.0.0 (2025-11-17)

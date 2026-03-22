@@ -24,12 +24,15 @@ Table of Contents
 Quick Links
 -----------
 
+**New in version 7.0:**
+- SHA-256 hashing and new Gravatar URLs (`gravatar.com` for images, `api.gravatar.com/v3` for profiles)
+- Profiles migrated to Gravatar REST API v3
+- Removed `getData()`, `ProfileFormat`, `ProfileHasFormat` — the library focuses on URL generation
+
 **New in version 6.0:**
 - PHP 8.4 property hooks with asymmetric visibility
 - Type-safe enum classes (Rating, Extension, DefaultImage)
 - Fluent shorthand methods for cleaner syntax
-- Removal of getter methods - use direct property access instead
-- Removal of short alias methods - use full names or fluent methods
 
 **Popular topics:**
 - [Creating helper functions](usage.md#use-helpers)

@@ -6,17 +6,17 @@ From 6.x to 7.x
 
 ### Breaking Changes
 
-**1. Migrated to Gravatar REST API with SHA-256 hashing**
+**1. SHA-256 hashing and new URLs**
 
-All URLs now use `api.gravatar.com` instead of `www.gravatar.com`, and **SHA-256** instead of MD5 (as recommended by Gravatar's documentation).
+All URLs now use **SHA-256** instead of MD5 (as recommended by Gravatar's documentation). Image URLs use the canonical `gravatar.com` domain with HTTPS, and profile URLs use the new v3 REST API.
 
 ```php
 // Before (v6.x)
 echo Gravatar::image('email@example.com');
-// output: https://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
+// output: //www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e
 
 echo Gravatar::profile('email@example.com');
-// output: https://www.gravatar.com/5658ffccee7f0ebfda2b226238b1eb6e
+// output: //www.gravatar.com/5658ffccee7f0ebfda2b226238b1eb6e
 
 // After (v7.x)
 echo Gravatar::image('email@example.com');
@@ -83,7 +83,7 @@ Gravatar::profiles($emails);
 
 ```php
 // Before (v6.x)
-Gravatar::URL; // 'https://www.gravatar.com/'
+Gravatar::URL; // '//www.gravatar.com/'
 
 // After (v7.x)
 Gravatar::URL; // 'https://gravatar.com/'
@@ -113,11 +113,7 @@ echo $image->forceDefault;  // ✅
 
 Note: properties with validation hooks (`size`, `extension`, `maxRating`, `defaultImage`) remain publicly writable.
 
-**7. Hashing changed from MD5 to SHA-256**
-
-All generated URLs now use SHA-256 hashes instead of MD5. If you stored or compared MD5 hashes from this library, you need to update them.
-
-**8. `forceDefault()` method no longer accepts `null`**
+**7. `forceDefault()` method no longer accepts `null`**
 
 ```php
 // Before (v6.x)
@@ -127,7 +123,7 @@ $image->forceDefault(null); // worked
 $image->forceDefault(false); // use false instead
 ```
 
-**9. Emails are automatically normalized**
+**8. Emails are automatically normalized**
 
 Emails are now trimmed and lowercased when set via the property hook. This ensures consistent hashing but may affect code that relies on the original casing:
 
